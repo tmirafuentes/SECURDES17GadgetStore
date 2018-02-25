@@ -1,2 +1,2 @@
 edu\dlsu\securdeproject\WebApplication.class
-edu\dlsu\securdeproject\MainController.class
+edu\dlsu\securdeproject\servlets\MainController.class
