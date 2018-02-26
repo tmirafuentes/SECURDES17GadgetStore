@@ -12,6 +12,6 @@ public class Transaction {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long transactionId;
     private int qtyBought;
-    private Datetime transTimestamp;
+    private Date transTimestamp;
     private String status;
 }

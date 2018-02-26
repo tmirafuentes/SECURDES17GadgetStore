@@ -1,9 +1,8 @@
 package edu.dlsu.securdeproject.repositories;
 
+import edu.dlsu.securdeproject.classes.Customer;
 import org.springframework.data.repository.CrudRepository;
 
-import edu.dlsu.securdeproject.classes.Customer;
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-public interface CrudRepository extends CrudRepository<Customer, Long> {
-	
 }

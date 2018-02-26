@@ -16,11 +16,6 @@ public abstract class User {
     private String email;
     private String firstName;
     private String lastName;
-	
-	// For Customer
-    private String mailAddress;
-    private Date birthdate;
-    private String mobileNumber;
 
     public User() {}
 

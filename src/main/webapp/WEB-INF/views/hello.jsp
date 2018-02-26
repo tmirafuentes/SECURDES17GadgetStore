@@ -7,6 +7,6 @@
 
 </head>
 <body>
-    Hello ${name}
+    Hello ${firstName} ${lastName}
 </body>
 </html>

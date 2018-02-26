@@ -65,6 +65,6 @@ public class Product {
 	}
 
 	public void setProductRating(double productRating) {
-		this.proudctRating = productRating;
+		this.productRating = productRating;
 	}
 }
