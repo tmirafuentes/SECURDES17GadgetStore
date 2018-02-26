@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
-public class User {
+
+public abstract class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long userId;
@@ -16,6 +16,8 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
+	
+	// For Customer
     private String mailAddress;
     private Date birthdate;
     private String mobileNumber;
@@ -62,30 +64,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getMailAddress() {
-        return mailAddress;
-    }
-
-    public void setMailAddress(String mailAddress) {
-        this.mailAddress = mailAddress;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -94,10 +72,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mailAddress='" + mailAddress + '\'' +
-                ", birthdate=" + birthdate +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                '}';
+                ", lastName='" + lastName + '\'' 
+                ;
     }
 }
