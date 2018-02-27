@@ -8,17 +8,24 @@ import java.util.Date;
 
 @Entity
 public class Product {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long productId;
 	private String productName;
 	private double productPrice;
 	private int productQuantity;
 	private String productDescription;
-	private String productBrand;
-	private double productRating;
+	private Brand productBrand;
 
 	public Product() {}
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
 
 	public String getProductName() {
 		return productName;
@@ -52,19 +59,21 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
-	public String getProductBrand() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "productBrand")
+	public Brand getProductBrand() {
 		return productBrand;
 	}
 
-	public void setProductBrand(String productBrand) {
+	public void setProductBrand(Brand productBrand) {
 		this.productBrand = productBrand;
 	}
 	
-	public double getProductRating() {
+	public  getProductRating() {
 		return productRating;
 	}
 
-	public void setProductRating(double productRating) {
+	public void setProductRating(int productRating) {
 		this.productRating = productRating;
 	}
 }

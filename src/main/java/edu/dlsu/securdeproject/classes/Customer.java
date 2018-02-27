@@ -19,6 +19,7 @@ public class Customer extends User {
 	private String mailAddress;
 	private Date birthdate;
 	private String mobileNumber;
+	private Set<Transaction> transactions;
 
 	public Customer() {}
 
@@ -88,5 +89,14 @@ public class Customer extends User {
 
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 }
