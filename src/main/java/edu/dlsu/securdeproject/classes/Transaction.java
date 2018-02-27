@@ -1,9 +1,7 @@
 package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -57,6 +55,8 @@ public class Transaction {
     public double getTotalAmount() {
         return totalAmount;
     }
+
+    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
 
     public void setTotalAmount() {
         totalAmount = getQuantity() * getProduct().getProductPrice();

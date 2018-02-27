@@ -46,7 +46,11 @@
 
     <!--What's New-->
     <div class="product-grid">
-
+        <c:forEach items="${products}" var="item">
+            <c:out value="${item.productName}"/>
+            <c:out value="${item.productPrice}"/>
+            <br>
+        </c:forEach>
     </div>
     <!--Footer-->
     <footer>

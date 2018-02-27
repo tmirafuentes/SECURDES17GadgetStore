@@ -1,15 +1,11 @@
 package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-public class Customer extends User {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+public class Customer {
 	private long userId;
 	private String username;
 	private String password;
@@ -23,6 +19,8 @@ public class Customer extends User {
 
 	public Customer() {}
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long getUserId() { return userId; }
 
 	public void setUserId(long userId) { this.userId = userId; }

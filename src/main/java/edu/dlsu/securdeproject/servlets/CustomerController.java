@@ -42,8 +42,7 @@ public class CustomerController {
         boolean isValidUser = customerService.addNewCustomer(c);
 
         if (isValidUser) {
-            model.put("firstName", firstName);
-            model.put("lastName", lastName);
+            model.put("customers", customerService.getAllCustomers());
 
             return "hello";
         }

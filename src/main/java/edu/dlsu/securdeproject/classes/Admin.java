@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-
-public abstract class User {
+@Entity
+public class Admin {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long userId;
@@ -17,7 +17,7 @@ public abstract class User {
     private String firstName;
     private String lastName;
 
-    public User() {}
+    public Admin() {}
 
     public String getUsername() {
         return username;
@@ -57,17 +57,5 @@ public abstract class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' 
-                ;
     }
 }

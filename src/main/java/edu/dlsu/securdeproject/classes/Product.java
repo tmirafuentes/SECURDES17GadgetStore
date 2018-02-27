@@ -1,9 +1,8 @@
-package edu.dlsu.securde.classes;
+package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import edu.dlsu.securdeproject.classes.Brand;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -67,13 +66,5 @@ public class Product {
 
 	public void setProductBrand(Brand productBrand) {
 		this.productBrand = productBrand;
-	}
-	
-	public  getProductRating() {
-		return productRating;
-	}
-
-	public void setProductRating(int productRating) {
-		this.productRating = productRating;
 	}
 }

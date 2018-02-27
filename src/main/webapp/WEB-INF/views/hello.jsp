@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,6 +8,9 @@
 
 </head>
 <body>
-    Hello ${firstName} ${lastName}
+    <c:forEach items="${customers}" var="item">
+        <c:out value="${item.firstName}"/>
+        <c:out value="${item.lastName}"/>
+    </c:forEach>
 </body>
 </html>
