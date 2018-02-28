@@ -28,7 +28,7 @@ public class CustomerController {
     private ValidationService validationService;
 
 	/* Default Homepage */
-    @RequestMapping("/")
+    @RequestMapping(value = {"/welcome", "/index" , "/"}, method=RequestMethod.GET)
     public String index() {
         return "index";
     }
