@@ -1,7 +1,7 @@
 package edu.dlsu.securdeproject.services;
 
 import edu.dlsu.securdeproject.classes.Customer;
-import edu.dlsu.securdeproject.services.CustomerService;
+import edu.dlsu.securdeproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @Component
 public class ValidationService implements Validator {
 	@Autowired
-	private CustomerService customerService;
+	private UserService userService;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -25,7 +25,7 @@ public class ValidationService implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 		if (customer.getUsername().length() < 6 || customer.getUsername().length() > 32)
 			errors.rejectValue("username", "Size.userForm.username");
-		if (customerService.findByUsername(customer.getUsername()) != null)
+		if (userService.findByUsername(customer.getUsername()) != null)
 			errors.rejectValue("username", "Duplicate.userForm.username");
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");

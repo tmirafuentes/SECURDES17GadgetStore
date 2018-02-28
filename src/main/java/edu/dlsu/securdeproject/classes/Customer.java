@@ -9,6 +9,7 @@ public class Customer {
 	private long userId;
 	private String username;
 	private String password;
+	private String passwordConfirm;
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -40,6 +41,11 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Transient
+	public String getPasswordConfirm() { return passwordConfirm; }
+
+	public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
 
 	public String getEmail() {
 		return email;

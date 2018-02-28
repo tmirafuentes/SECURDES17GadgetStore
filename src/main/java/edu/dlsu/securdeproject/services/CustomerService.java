@@ -3,6 +3,7 @@ package edu.dlsu.securdeproject.services;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class CustomerService implements UserDetailsService, UserService {
@@ -44,22 +46,22 @@ public class CustomerService implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByUsername(username);
 
-        /*Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles())
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        */
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        //for (Role role : customer.getRoles())
+            //grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+
 
         return new org.springframework.security.core.userdetails.User(customer.getUsername(), customer.getPassword(), grantedAuthorities);
     }
 
     @Override
     public void save(Customer c) {
-        customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-        customerRepository.save(customer);
+        c.setPassword(bCryptPasswordEncoder.encode(c.getPassword()));
+        customerRepository.save(c);
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Customer findByUsername(String username) {
         return customerRepository.findByUsername(username);
     }
 }

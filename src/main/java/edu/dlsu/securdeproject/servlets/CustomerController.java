@@ -3,14 +3,15 @@ package edu.dlsu.securdeproject.servlets;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.services.CustomerService;
+import edu.dlsu.securdeproject.services.SecurityService;
+import edu.dlsu.securdeproject.services.UserService;
+import edu.dlsu.securdeproject.services.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CustomerController {
@@ -20,7 +21,7 @@ public class CustomerController {
 
     /* Services */
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
     @Autowired
     private SecurityService securityService;
     @Autowired
@@ -49,12 +50,12 @@ public class CustomerController {
     		return "create";
 
     	/* Else, save new account to the database */
-    	customerService.save(custForm);
+    	userService.save(custForm);
 
     	/* Keep user logged in after registering */
     	securityService.autologin(custForm.getUsername(), custForm.getPasswordConfirm());
 
-        return "redirect:/index";
+        return "hello";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -66,5 +67,10 @@ public class CustomerController {
     		model.addAttribute("message", "You have been logged out successfully.");
 
     	return "login";
+    }
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello(Model model) {
+        return "hello";
     }
 }

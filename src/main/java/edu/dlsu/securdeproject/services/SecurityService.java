@@ -10,21 +10,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+interface SecurityServiceInterface {
+	String findLoggedInUsername();
+
+	void autologin(String username, String password);
+}
+
 @Service
-public class SecurityServices implements SecurityService {
+public class SecurityService implements SecurityServiceInterface {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private CustomerService customerService;
+	private UserDetailsService userDetailsService;
 
-	private static final Logger logger = LoggerFactory.getLogger(SecurityServices.class);
+	private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
 	@Override
 	public String findLoggedInUsername() {
 		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
 		if (userDetails instanceof UserDetails) {
-			return ((UserDetails).getUsername());
+			return ((UserDetails)userDetails).getUsername();
 		}
 
 		return null;
@@ -32,7 +38,7 @@ public class SecurityServices implements SecurityService {
 
 	@Override
 	public void autologin(String username, String password) {
-		UserDetails userDetails = customerService.loadUserByUsername(username);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken 
 			= new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 	
