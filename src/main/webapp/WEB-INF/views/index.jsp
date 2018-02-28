@@ -12,36 +12,25 @@
 <html>
 <head>
     <title>Troy's Toys</title>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/resources/static/css/index.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
 <body>
 <!--Navbar-->
-<header>
-    <div class="navbartop">
-        <form class="search" role="search">
-            <input type="text" placeholder="Search for a product...">
-            <button type="submit"></button>
-        </form>
-        <a href="/signin">SIGN IN</a>
-        <a href="/signup" id="signuplink">SIGN UP</a>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="/desktops">DESKTOPS</a></li>
-            <li><a href="/laptops">LAPTOPS</a></li>
-            <li><a href="/tablets">TABLETS</a></li>
-            <li><a href="/mobiles">MOBILES</a></li>
-        </ul>
-    </nav>
-</header>
+<%@ include file="navbar.jsp" %>
 
 <div class="main">
     <!--Ad-->
     <div class="ad">
-
+        <a href="#" class="control_next">&gt;</a>
+        <a href="#" class="control_prev">&lt;</a>
+        <ul>
+            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2017/03/believe-in-love-again-grid-slider.png');" />
+            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2016/10/anti-piracy-grid-slider.jpg');" />
+            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2017/09/1100-x-200-365.jpg');" />
+        </ul>
     </div>
 
     <!--What's New-->
@@ -52,11 +41,46 @@
             <br>
         </c:forEach>
     </div>
-    <!--Footer-->
-    <footer>
-        <p><a href="/about-us">ABOUT US</a>  |  <a href="/contact-us">CONTACT US</a>  |  <a href="/tos">TERMS OF SERVICE</a></p>
-        <small>&copy; 2018 Minions nina Marnel at Courtney Inc.</small>
-    </footer>
-</div>
+
+    <%@ include file="footer.jsp" %>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $('#checkbox').change(function(){
+            setInterval(function () {
+                moveRight();
+            }, 3000);
+        });
+        var slideCount = $('#ad ul li').length;
+        var slideWidth = $('#ad ul li').width();
+        var slideHeight = $('#ad ul li').height();
+        var adUlWidth = slideCount * slideWidth;
+        $('#ad').css({ width: slideWidth, height: slideHeight });
+        $('#ad ul').css({ width: adUlWidth, marginLeft: - slideWidth });
+        $('#ad ul li:last-child').prependTo('#ad ul');
+        function moveLeft() {
+            $('#ad ul').animate({
+                left: + slideWidth
+            }, 200, function () {
+                $('#ad ul li:last-child').prependTo('#ad ul');
+                $('#ad ul').css('left', '');
+            });
+        };
+        function moveRight() {
+            $('#ad ul').animate({
+                left: - slideWidth
+            }, 200, function () {
+                $('#ad ul li:first-child').appendTo('#ad ul');
+                $('#ad ul').css('left', '');
+            });
+        };
+        $('a.control_prev').click(function () {
+            moveLeft();
+        });
+        $('a.control_next').click(function () {
+            moveRight();
+        });
+    });
+</script>
 </html>
