@@ -21,6 +21,10 @@ public class CustomerController {
     /* Services */
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private SecurityService securityService;
+    @Autowired
+    private ValidationService validationService;
 
 	/* Default Homepage */
     @RequestMapping("/")
@@ -28,64 +32,39 @@ public class CustomerController {
         return "index";
     }
 
+    /* Creation/Registration of Account */
     @RequestMapping(value="/create", method=RequestMethod.GET)
-    public String createAccountPage() {
+    public String createAccountPage(Model model) {
+    	model.addAttribute("custForm", new Customer());
         return "create";
     }
 
     @RequestMapping(value="/create", method=RequestMethod.POST)
-    public String addNewAccount(ModelMap model, @RequestParam String firstName, @RequestParam String lastName) {
-        Customer c = new Customer();
-        c.setFirstName(firstName);
-        c.setLastName(lastName);
+    public String createAccountSubmit(@ModelAttribute("custForm") Customer custForm, BindingResult bindingResult, Model model) {
+    	/* Validation of form */
+    	validationService.validate(custForm, bindingResult);
 
-        boolean isValidUser = customerService.addNewCustomer(c);
+    	/* If error, create account again */
+    	if (bindingResult.hasErrors())
+    		return "create";
 
-        if (isValidUser) {
-            model.put("customers", customerService.getAllCustomers());
+    	/* Else, save new account to the database */
+    	customerService.save(custForm);
 
-            return "hello";
-        }
+    	/* Keep user logged in after registering */
+    	securityService.autologin(custForm.getUsername(), custForm.getPasswordConfirm());
 
-        return "login";
+        return "redirect:/index";
     }
 
-    @RequestMapping(value="/update", method=RequestMethod.GET)
-    public String updateAccountPage() {
-        return "update";
-    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+    	if (error != null)
+    		model.addAttribute("error", "Either your username or password is invalid. Please try again.");
 
-    @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String updateAccount(ModelMap model, @RequestParam long userId, @RequestParam String firstName, @RequestParam String lastName) {
-        Customer c = new Customer();
-        c.setUserId(userId);
-        c.setFirstName(firstName);
-        c.setLastName(lastName);
+    	if (logout != null)
+    		model.addAttribute("message", "You have been logged out successfully.");
 
-        boolean isValidUser = customerService.updateCustomer(c);
-
-        if (isValidUser) {
-            model.put("firstName", firstName);
-            model.put("lastName", lastName);
-
-            return "hello";
-        }
-
-        return "update";
-    }
-
-    @RequestMapping(value="/add", method= RequestMethod.GET)
-    public @ResponseBody
-    String addNewCustomer(@RequestParam String firstName, @RequestParam String lastName) {
-    	Customer c = new Customer();
-    	c.setFirstName(firstName);
-    	c.setLastName(lastName);
-    	customerRepository.save(c);
-    	return "Saved";
-    }
-
-    @RequestMapping(value="/retrieveAll", method= RequestMethod.GET)
-    public @ResponseBody Iterable<Customer> getAllCustomers() {
-    	return customerRepository.findAll();
+    	return "login";
     }
 }
