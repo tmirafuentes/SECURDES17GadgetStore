@@ -26,15 +26,16 @@
         <img src="sample.gif" class="imgProd">
     </div>
     <div id="details">
-        <p class="pName"><!--RETRIEVE PRODUCT NAME--></p>
-        <p class="pPrice"><!--RETRIEVE PRODUCT PRICE--></p>
-        <p class="pDescription"><!--RETRIEVE PRODUCT DESCRIPTION--></p>
-        <form method="POST" action="${contextPath}/buyProduct">
+        <form:form method="POST" action="${contextPath}/confirmation">
+            <p class="pName">${indiProd.productName}</p>
+            <p class="pPrice">${indiProd.productPrice}</p>
+            <p class="pDescription">${indiProd.productDescription}</p>
             <div id="tranProd">
-                <input type="number" id="scrollQuantity" value=1>
-                <button type="submit" id="btnAddCart" class="bluebtn-allcaps-large">BUY NOW</button>
+                <input type="number" value="${indiProd.productId}" hidden="true" name="prodId">
+                <input type="number" id="scrollQuantity" value=1 name="prodQty">
+                <button type='submit' class="bluebtn-allcaps-large">BUY NOW</button>
             </div>
-        </form>
+        </form:form>
     </div>
 </div>
 <%@ include file="footer.jsp" %>

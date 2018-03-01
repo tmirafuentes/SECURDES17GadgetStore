@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -39,6 +40,7 @@
     <!--What's New-->
 
     <div id="outputSection">
+        <form:form method="get">
         <table id="outputTable">
             <tr>
                 <th>Product Name</th>
@@ -51,13 +53,14 @@
                 <td/>
                 <td>
                     <form id="formPrice">
-                        <button type="submit" class="bluebtn-allcaps">Buy</button>
-                        <button type="submit" class="bluebtn-allcaps">View</button>
+                        <input type="text" value="${item.productId}" hidden="true" name="prodId">
+                        <a href="/viewProduct?prodId=${item.productId}">View</a>
                     </form>
                 </td>
                 </tr>
             </c:forEach>
         </table>
+        </form:form>
     </div>
 
     <%@ include file="footer.jsp" %>

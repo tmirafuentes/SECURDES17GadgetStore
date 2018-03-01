@@ -3,7 +3,9 @@ package edu.dlsu.securdeproject.servlets;
 import edu.dlsu.securdeproject.classes.Brand;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
+import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
+import edu.dlsu.securdeproject.services.CustomerService;
 import edu.dlsu.securdeproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -21,6 +24,9 @@ public class ProductController {
     /* Repositories (For Database Access) */
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     /* Services */
     @Autowired
@@ -78,11 +84,11 @@ public class ProductController {
 
         productService.addNewProduct(prodForm);
 
-        return "index";
+        return "adminHome";
     }
 
-    @RequestMapping(value={"/editProduct"}, method=RequestMethod.GET)
-    public String editProductPage(Model model) {
+    @RequestMapping(value="/editProduct", method=RequestMethod.GET)
+    public String editProductPage(Model model, @RequestParam("prodId") long prodId) {
         ArrayList<String> productTypes = new ArrayList<String>();
         productTypes.add("Desktop");
         productTypes.add("Laptop");
@@ -94,10 +100,26 @@ public class ProductController {
         productBrands.add("Asus");
         productBrands.add("Lenovo");
 
-        model.addAttribute("prodForm", new Product());
+        Product p = productService.getProduct(prodId);
+        p.setProductId(prodId);
+
+        model.addAttribute("prodForm", p);
+        model.addAttribute("prodId", prodId);
         model.addAttribute("prodTypes", productTypes);
         model.addAttribute("prodBrands", productBrands);
-        return "addProduct";
+
+        return "editProduct";
+    }
+
+    @RequestMapping(value={"/editProduct"}, method=RequestMethod.POST)
+    public String editProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult,
+                                    ModelMap model) {
+
+        System.out.println("sid = " + prodForm.getProductId());
+        productService.updateProduct(prodForm);
+        model.put("products", productService.getAllProducts());
+
+        return "adminHome";
     }
 
     /* Search Product Functionality */
@@ -116,14 +138,38 @@ public class ProductController {
     }
 
     /* Deletes a Product */
-    @RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
-    public String deleteProduct(Model model, @RequestParam long productId) {
-        Product product = productService.getProduct(productId);
+    @RequestMapping(value="/deleteProduct", method=RequestMethod.GET)
+    public String deleteProduct(Model model, @RequestParam("prodId") long prodId) {
+        Product product = productService.getProduct(prodId);
 
         if (productService.deleteProduct(product))
             model.addAttribute("products", productService.getAllProducts());
 
-        return "admin";
+        return "adminHome";
+    }
+
+    /* Views a Product */
+    @RequestMapping(value="/viewProduct", method=RequestMethod.GET)
+    public String viewProduct(Model model, @RequestParam("prodId") long prodId) {
+        Product product = productService.getProduct(prodId);
+
+        model.addAttribute("indiProd", product);
+
+        return "product";
+    }
+
+    @RequestMapping(value="/confirmation", method=RequestMethod.POST)
+    public String confirmPurchase(Model model, @RequestParam("prodId") long prodId,
+                                  @RequestParam("prodQty") int prodQty, Principal principal) {
+        System.out.println("Prod = " + prodId);
+        Product product = productService.getProduct(prodId);
+        model.addAttribute("indiProd", product);
+        model.addAttribute("prodQty", prodQty);
+        System.out.println("Hello World");
+        Customer customer = customerRepository.findByUsername(principal.getName());
+        model.addAttribute("currCust", customer);
+        System.out.println("Hi");
+        return "confirmation";
     }
 
     @RequestMapping(value="/desktops", method=RequestMethod.GET)

@@ -3,6 +3,7 @@ package edu.dlsu.securdeproject.servlets;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Transaction;
+import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
 import edu.dlsu.securdeproject.repositories.TransactionRepository;
 import edu.dlsu.securdeproject.services.CustomerService;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Calendar;
 
 @Controller
@@ -23,14 +25,17 @@ public class TransactionController {
 	private ProductService productService;
 	@Autowired
 	private TransactionService transactionService;
+	@Autowired
+    private CustomerRepository customerRepository;
 
 	@RequestMapping(value="/buyProduct", method=RequestMethod.POST)
-	public String buyProduct(Model model, @ModelAttribute("product") Product product,
-							 @RequestParam("username") Customer customer, @RequestParam("qty") int quantity)
+	public String buyProduct(Model model, @ModelAttribute("prodId") long productId,
+							 @RequestParam("prodQty") int quantity, @RequestParam("custName") String username)
 	{
 		/* Retrieves product and customer from hidden forms of model */
-		Product p = product;
-		Customer c = customer;
+		Product p = productService.getProduct(productId);
+		Customer c = customerRepository.findByUsername(username);
+		System.out.println("Name = " + username);
 
 		/* Creates new Transaction */
 		Transaction t = new Transaction();
@@ -43,7 +48,10 @@ public class TransactionController {
 
 		transactionService.addNewTransaction(t);
 
+		p.setProductQuantity(p.getProductQuantity() - quantity);
+		productService.updateProduct(p);
+
 		/* Put thank you page */
-		return "success";
+		return "adminHome";
 	}
 }

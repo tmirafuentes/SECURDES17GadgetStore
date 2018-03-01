@@ -32,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/signin",
                              "/index",
                              "/addProduct",
+                             "/buyProduct",
+                             "/editProd",
+                             "/deleteProduct",
                              "/editProduct",
                              "/adminSignup",
                              "/adminHome",
@@ -40,7 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/desktops",
                              "/laptops",
                              "/tablets",
-                             "/mobiles"
+                             "/mobiles",
+                             "/viewProduct",
+                             "/confirmation"
                              ).permitAll()
                 .anyRequest().authenticated()
                 .and()

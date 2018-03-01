@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Troy's Toys</title>
-    <c:url value="/resources/static/css/index.css" var="jstlCss" />
+    <c:url value="/css/index.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
@@ -25,26 +25,29 @@
 
     <h1 id= "headConfirm">Confirm Purchasing Details</h1>
 
-    <form method="POST" action="${contextPath}/buyProduct">
+    <form:form method="POST" action="${contextPath}/buyProduct">
     <div id="holdingAllCon">
         <div id="imageConfirm">
             <img id="productPicConfirmation">
         </div>
         <div id="confirmHolder"> <!--TODO: Fix variables-->
-            <p id ="productNameConfirmation">${product.productName}</p>
+            <p id ="productNameConfirmation">${indiProd.productName}</p>
             <p class="phraseConfirm">Pesos:</p>
-            <p id ="productPriceConfirmation">${product.productPrice}</p>
+            <p id ="productPriceConfirmation">${indiProd.productPrice}</p>
             <p class="phraseConfirm">Quantity:</p>
-            <p id ="productQuantityConfirmation">${product.productQuantity}</p>
+            <p id ="productQuantityConfirmation">${prodQty}</p>
             <p class="phraseConfirm">Current mailing address:</p>
-            <p id ="customerMailing">${customer.mailAddress}</p>
+            <p id ="customerMailing">${currCust.mailAddress}</p>
             <div id="buttonsConfirm">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
+                <input type="text" value="${currCust.username}" hidden="true" name="custName">
+                <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty">
                 <button type="submit" id="btnConfirmPurchase">Confirm</button>
-                <button type="submit" id="btnCancelPurchase">Cancel</button>
             </div>
         </div>
     </div>
-    </form>
+    </form:form>
 
     <%@ include file="footer.jsp" %>
 </body>

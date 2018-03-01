@@ -50,8 +50,8 @@
                     <td><c:out value="${product.productPrice}"/></td>
                     <td>
                         <form id="formPrice"> <!--TODO: Need to add action-->
-                            <button type="submit" class="bluebtn-allcaps">Buy</button>
-                            <button type="submit" class="bluebtn-allcaps">View</button>
+                            <input type="text" value="${pageContext.request.userPrincipal.name}" hidden="true" name="customerName">
+                            <a href="/viewProduct?prodId=${item.productId}">View</a>
                         </form>
                     </td>
                 </tr>

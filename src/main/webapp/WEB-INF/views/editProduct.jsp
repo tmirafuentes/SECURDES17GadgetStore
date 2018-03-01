@@ -29,6 +29,9 @@
     <div id="login">
         <form:form method="POST" modelAttribute="prodForm" class="form-addProd">
             <div class="div-form">
+                <spring:bind path="productId">
+                    <form:input type="text" value="${prodId}" path="productId"></form:input>
+                </spring:bind>
                 <table>
                     <!-- <tr>
                         <td><label for="image" class="formlabel">Photo</label></td>

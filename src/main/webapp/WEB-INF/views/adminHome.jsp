@@ -28,7 +28,7 @@
             <button type="submit" id="btnAdminAdd">Add Item</button>
         </form>
         <div id="adminSection">
-            <form:form method="POST" action="${contextPath}/editProduct">
+            <form:form method="GET">
             <table id="productList">
                 <tr>
                     <th id="pID">Product ID</th>
@@ -47,8 +47,9 @@
                         <td><c:out value="${item.productDescription}"/></td>
                         <td><c:out value="${item.productType}"/></td>
                         <td>
-                            <input type="text" value="${item.productId}" hidden="true">
-                            <button type="submit" class="bluebtn-allcaps">Edit</button>
+                            <input type="text" value="${item.productId}" hidden="true" name="prodId">
+                            <a href="/editProduct?prodId=${item.productId}">Edit</a>
+                            <a href="/deleteProduct?prodId=${item.productId}">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
