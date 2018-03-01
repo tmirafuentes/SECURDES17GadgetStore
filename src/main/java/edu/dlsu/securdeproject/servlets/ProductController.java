@@ -2,9 +2,7 @@ package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
-import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
-import edu.dlsu.securdeproject.services.CustomerService;
 import edu.dlsu.securdeproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,25 +22,49 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value="/createProduct", method=RequestMethod.GET)
+    // Add Product Page
+    @RequestMapping(value="/addProduct", method=RequestMethod.GET)
     public String createProductPage() {
         return "createProduct";
     }
 
-    @RequestMapping(value="/createProduct", method=RequestMethod.POST)
-    public String addNewAccount(ModelMap model, @RequestParam String productName, @RequestParam double productPrice) {
-        Product p = new Product();
-        p.setProductName(productName);
-        p.setProductPrice(productPrice);
+    // Adds new product
+    @RequestMapping(value="/addProduct", method=RequestMethod.POST)
+    public String createProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult, Model model) {
+        /* Later na yung validation */
 
-        boolean isValidProduct = productService.addNewProduct(p);
+        /* If error, create product again */
+        if (bindingResult.hasErrors())
+            return "createProduct";
 
-        if (isValidProduct) {
-            model.put("products", productService.getAllProducts());
-
-            return "index";
-        }
+        productService.save(prodForm);
 
         return "createProduct";
+    }
+
+    /* Search Product Functionality */
+    /* Redirects to index but with also search results messages */
+    /* Has to be exact for now */
+    @RequestMapping(value="/search", method=RequestMethod.POST)
+    public String searchProduct(Model model, @RequestParam String productName) {
+        // Will validate productName later
+        ArrayList<Product> searchResults = productService.getAllProducts(productName);
+        String message = "There are " + searchResults.size() + " results for '" + productName + "'.";
+
+        model.put("products", searchResults);
+        model.put("searchMessage", message);
+
+        return "index";
+    }
+
+    /* Deletes a Product */
+    @RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
+    public String deleteProduct(Model model, @RequestParam long productId) {
+        Product product = productService.getProduct(productId);
+
+        if (productService.deleteProduct(product))
+            model.put("products", productService.getAllProducts());
+
+        return "admin";
     }
 }

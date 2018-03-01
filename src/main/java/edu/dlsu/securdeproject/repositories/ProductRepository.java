@@ -1,6 +1,5 @@
 package edu.dlsu.securdeproject.repositories;
 
-import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
 import org.springframework.data.repository.CrudRepository;
 

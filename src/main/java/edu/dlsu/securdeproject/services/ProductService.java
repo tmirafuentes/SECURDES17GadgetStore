@@ -1,8 +1,6 @@
 package edu.dlsu.securdeproject.services;
 
-import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
-import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,20 @@ public class ProductService {
         return true;
     }
 
+    public Product getProduct(long id) {
+        return (Product) productRepository.findById(id);
+    }
+
     public List<Product> getAllProducts() {
         return (List<Product>) productRepository.findAll();
+    }
+
+    public List<Product> getAllProducts(String productName) {
+        return (List<Product) productRepository.findAllByProductName(productName);
+    }
+
+    public boolean deleteProduct(Product p) {
+        productRepository.delete(p);
+        return true;
     }
 }

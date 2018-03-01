@@ -80,7 +80,7 @@ public class CustomerController {
         return "accountSettings";
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/account", method = RequestMethod.POST)
     public String editAccountSubmit(@ModelAttribute("custForm") Customer custForm, BindingResult bindingResult, Model model) {
      	/* Validation of form */
     	validationService.validate(custForm, bindingResult);
