@@ -30,7 +30,7 @@ public class ProductService {
         return (List<Product>) productRepository.findAll();
     }
 
-    public List<Product> getAllProductsByType(String prodType){ return (List <Product>) productRepository.findAllByProductBrand(prodType);}
+    public List<Product> getAllProductsByType(String prodType){ return (List <Product>) productRepository.findAllByProductType(prodType);}
 
     public List<Product> getAllProductsBySearch(String prodString){return (List <Product>) productRepository.findAllByProductNameContains(prodString);}
 

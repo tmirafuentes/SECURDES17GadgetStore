@@ -2,48 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74b53ed0-e2ee-43b1-87a9-df443b2d5784" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/AdminRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/AdService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/AdminService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/classes/Admin.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/classes/Admin.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/CustomerService.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/CustomerService.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/UserService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ValidationService.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ValidationService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminSignup.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminSignup.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminTransac.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminTransac.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/category.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/category.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/SecurityConfiguration.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/SecurityConfiguration.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/WebApplication.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/WebApplication.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Admin.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Admin.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Brand.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Brand.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Customer.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Customer.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Product.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Product.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Transaction.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/classes/Transaction.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/CustomerRepository.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/CustomerRepository.class" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/ProductRepository.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/ProductRepository.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/TransactionRepository.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/repositories/TransactionRepository.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/CustomerService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/CustomerService.class" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/ProductService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/ProductService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/SecurityService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/SecurityService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/SecurityServiceInterface.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/SecurityServiceInterface.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/TransactionService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/TransactionService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/UserService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/UserService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/ValidationService.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/services/ValidationService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/CustomerController.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/CustomerController.class" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/ProductController.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/ProductController.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/TransactionController.class" afterPath="$PROJECT_DIR$/target/classes/edu/dlsu/securdeproject/servlets/TransactionController.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/index.css" afterPath="$PROJECT_DIR$/target/classes/static/css/index.css" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="adminHome.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="adminHome.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="42" column="24" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+            <state relative-caret-position="289">
+              <caret line="49" column="29" lean-forward="true" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -90,14 +60,12 @@
       <file leaf-file-name="AdminController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
+            <state relative-caret-position="-324">
+              <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1258#1259#0" expanded="true" />
-                <element signature="e#1292#1293#0" expanded="true" />
-                <element signature="e#1414#1415#0" expanded="true" />
-                <element signature="e#1451#1452#0" expanded="true" />
+                <element signature="e#1636#1637#0" expanded="true" />
+                <element signature="e#1673#1674#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,72 +74,51 @@
       <file leaf-file-name="ProductController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="110" column="38" lean-forward="false" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
+            <state relative-caret-position="-927">
+              <caret line="84" column="22" lean-forward="false" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomerService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/CustomerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-              <folding>
-                <element signature="e#2891#2892#0" expanded="true" />
-                <element signature="e#2957#2958#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/UserService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/AdminService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomerController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CustomerController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="31" column="67" lean-forward="false" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
+            <state relative-caret-position="238">
+              <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/TransactionController.java">
+      <file leaf-file-name="SecurityConfiguration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="28" column="48" lean-forward="false" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+            <state relative-caret-position="323">
+              <caret line="42" column="29" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java">
+      <file leaf-file-name="editProduct.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="30" column="5" lean-forward="false" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+            <state relative-caret-position="94">
+              <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addProduct.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addProduct.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding>
+                <element signature="n#form:form#0;n#jsp:root#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -236,13 +183,9 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addProduct.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/classes/Product.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/sql/database.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/classes/Admin.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminTransac.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/category.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ValidationService.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/AdminRepository.java" />
@@ -250,10 +193,14 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminSignup.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/AdService.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/AdminService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java" />
       </list>
     </option>
   </component>
@@ -619,12 +566,12 @@
       <workItem from="1519817924761" duration="11533000" />
       <workItem from="1519897660418" duration="3519000" />
       <workItem from="1519901430699" duration="21144000" />
-      <workItem from="1519925830329" duration="4905000" />
+      <workItem from="1519925830329" duration="6862000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70686000" />
+    <option name="totallyTimeSpent" value="72643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -650,7 +597,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32868218" sideWeight="0.8023426" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19619326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23938507" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -836,14 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addProduct.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="46" column="46" lean-forward="false" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/classes/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -907,14 +846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ValidationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -927,14 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="74" lean-forward="false" selection-start-line="7" selection-start-column="74" selection-end-line="7" selection-end-column="74" />
           <folding />
         </state>
       </provider>
@@ -995,22 +918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="36" column="39" lean-forward="false" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="30" column="5" lean-forward="false" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1040,17 +947,9 @@
         <state relative-caret-position="127">
           <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
-            <element signature="e#2891#2892#0" expanded="true" />
-            <element signature="e#2957#2958#0" expanded="true" />
+            <element signature="e#2891#2892#0" expanded="false" />
+            <element signature="e#2957#2958#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="110" column="38" lean-forward="false" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1062,25 +961,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/SecurityConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
+        <state relative-caret-position="323">
+          <caret line="42" column="29" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addProduct.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1258#1259#0" expanded="true" />
-            <element signature="e#1292#1293#0" expanded="true" />
-            <element signature="e#1414#1415#0" expanded="true" />
-            <element signature="e#1451#1452#0" expanded="true" />
+            <element signature="n#form:form#0;n#jsp:root#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editProduct.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="42" column="24" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+        <state relative-caret-position="94">
+          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="57" lean-forward="false" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/services/ProductService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="32" column="126" lean-forward="false" selection-start-line="32" selection-start-column="126" selection-end-line="32" selection-end-column="126" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-927">
+          <caret line="84" column="22" lean-forward="false" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1636#1637#0" expanded="true" />
+            <element signature="e#1673#1674#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1092,10 +1039,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/dlsu/securdeproject/servlets/CustomerController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminHome.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="31" column="67" lean-forward="false" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
+        <state relative-caret-position="289">
+          <caret line="49" column="29" lean-forward="true" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
           <folding />
         </state>
       </provider>

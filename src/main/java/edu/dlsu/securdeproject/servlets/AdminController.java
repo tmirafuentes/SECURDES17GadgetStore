@@ -3,12 +3,14 @@ package edu.dlsu.securdeproject.servlets;
 import edu.dlsu.securdeproject.classes.Admin;
 import edu.dlsu.securdeproject.repositories.AdminRepository;
 import edu.dlsu.securdeproject.services.AdminService;
+import edu.dlsu.securdeproject.services.ProductService;
 import edu.dlsu.securdeproject.services.SecurityService;
 import edu.dlsu.securdeproject.services.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +28,13 @@ public class AdminController {
     private SecurityService securityService;
     @Autowired
     private ValidationService validationService;
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping(value = "/adminHome", method = RequestMethod.GET)
-    public String adminHome(Model model) {
+    public String adminHome(ModelMap model) {
+        model.put("products", productService.getAllProducts());
+
         return "adminHome";
     }
 

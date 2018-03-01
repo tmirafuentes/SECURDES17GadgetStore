@@ -27,61 +27,61 @@
 </div>
 <div class="container">
     <div id="login">
-        <form:form method="POST" modelAttribute="prodForm" class="form-editProd">
+        <form:form method="POST" modelAttribute="prodForm" class="form-addProd">
             <div class="div-form">
                 <table>
-                    <tr>
+                    <!-- <tr>
                         <td><label for="image" class="formlabel">Photo</label></td>
                         <td><input type="file" accept="image/*" name="image" id="image"></td>
-                    </tr>
+                    </tr> -->
                     <tr>
-                        <td><label for="pBrand" class="formlabel">Brand <span class="red-text">*</span></label></td>
-                        <td>
-                            <select name="pBrand" id="pBrand">
-                                <option>Asus</option>
-                                <option>Acer</option>
-                                <!--Fetch data here-->
-                            </select>
-                        </td>
+                        <spring:bind path="productBrand">
+                            <td><form:label path="productBrand" class="formlabel">Brand <span class="red-text">*</span></form:label></td>
+                            <td>
+                                <form:select path="productBrand" id="pBrand">
+                                    <c:forEach var="item" items="${prodBrands}">
+                                        <form:option value="${item}">${item}</form:option>
+                                    </c:forEach>
+                                </form:select>
+                            </td>
+                        </spring:bind>
                     </tr>
                     <tr>
                         <spring:bind path="productType">
-                            <td><form:label for="productType" class="formlabel">Type <span class="red-text">*</span></label></td>
+                            <td><form:label path="productType" class="formlabel">Type <span class="red-text">*</span></form:label></td>
                             <td>
                                 <form:select path="productType" id="pType">
-                                    <option>Desktop</option>
-                                    <option>Laptop</option>
-                                    <option>Tablet</option>
-                                    <option>Mobile</option>
-                                    <!--Fetch data here-->
+                                    <c:forEach var="item" items="${prodTypes}">
+                                        <form:option value="${item}">${item}</form:option>
+                                    </c:forEach>
                                 </form:select>
                             </td>
                         </spring:bind>
                     </tr>
                     <tr>
                         <spring:bind path="productName">
-                            <td><form:label for="productName" class="formlabel">Product Name 
+                            <td><form:label path="productName" class="formlabel">Product Name
                                 <span class="red-text">*</span></form:label></td>
                             <td><form:input type="text" path="productName" id="pName"></form:input></td>
                         </spring:bind>
                     </tr>
                     <tr>
                         <spring:bind path="productPrice">
-                            <td><form:label for="productPrice" class="formlabel">Price 
+                            <td><form:label path="productPrice" class="formlabel">Price
                                 <span class="red-text">*</span></form:label></td>
                             <td><form:input type="text" path="productPrice" id="pPrice"></form:input></td>
                         </spring:bind>
                     </tr>
                     <tr>
                         <spring:bind path="productQuantity">
-                            <td><form:label for="productQuantity" class="formlabel">Quantity 
+                            <td><form:label path="productQuantity" class="formlabel">Quantity
                                 <span class="red-text">*</span></form:label></td>
                             <td><form:input type="number" path="productQuantity" id="pQuantity"></form:input></td>
                         </spring:bind>
                     </tr>
                     <tr>
                         <spring:bind path="productDescription">
-                            <td><form:label for="productDescription" class="formlabel">Description/Specifcations 
+                            <td><form:label path="productDescription" class="formlabel">Description/Specifcations
                                 <span class="red-text">*</span></form:label></td>
                             <td><form:textarea path="productDescription" id="pDesc"></form:textarea></td>
                         </spring:bind>

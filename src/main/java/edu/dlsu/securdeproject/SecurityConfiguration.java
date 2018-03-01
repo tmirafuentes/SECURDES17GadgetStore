@@ -36,7 +36,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/adminSignup",
                              "/adminHome",
                              "/adminTransac",
-                             "/search"
+                             "/search",
+                             "/desktops",
+                             "/laptops",
+                             "/tablets",
+                             "/mobiles"
                              ).permitAll()
                 .anyRequest().authenticated()
                 .and()

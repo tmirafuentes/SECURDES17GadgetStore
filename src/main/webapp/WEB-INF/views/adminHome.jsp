@@ -28,14 +28,13 @@
             <button type="submit" id="btnAdminAdd">Add Item</button>
         </form>
         <div id="adminSection">
-            <form method="POST" action="${contextPath}/editProduct">
+            <form:form method="POST" action="${contextPath}/editProduct">
             <table id="productList">
                 <tr>
                     <th id="pID">Product ID</th>
                     <th id="pName">Name</th>
                     <th id="pPrice">Price</th>
                     <th id="pQuan">Quantity</th>
-                    <th id="pBrand">Brand</th>
                     <th id="pDesc">Description</th>
                     <th id="pEdit">Edit</th>
                 </tr>
@@ -46,16 +45,15 @@
                         <td><c:out value="${item.productPrice}"/></td>
                         <td><c:out value="${item.productQuantity}"/></td>
                         <td><c:out value="${item.productDescription}"/></td>
-                        <td><c:out value="${item.productBrand.brandName}"/></td>
                         <td><c:out value="${item.productType}"/></td>
                         <td>
-                            <input type="text" value="${item}" hidden="true">
+                            <input type="text" value="${item.productId}" hidden="true">
                             <button type="submit" class="bluebtn-allcaps">Edit</button>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
-            </form>
+            </form:form>
         </div>
     </div>
 

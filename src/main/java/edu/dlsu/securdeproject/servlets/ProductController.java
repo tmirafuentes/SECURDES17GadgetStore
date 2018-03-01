@@ -27,7 +27,7 @@ public class ProductController {
     private ProductService productService;
 
     // Add Product Page
-    @RequestMapping(value="/addProduct", method=RequestMethod.GET)
+    @RequestMapping(value={"/addProduct"}, method=RequestMethod.GET)
     public String createProductPage(Model model) {
         ArrayList<String> productTypes = new ArrayList<String>();
         productTypes.add("Desktop");
@@ -81,6 +81,25 @@ public class ProductController {
         return "index";
     }
 
+    @RequestMapping(value={"/editProduct"}, method=RequestMethod.GET)
+    public String editProductPage(Model model) {
+        ArrayList<String> productTypes = new ArrayList<String>();
+        productTypes.add("Desktop");
+        productTypes.add("Laptop");
+        productTypes.add("Tablet");
+        productTypes.add("Mobile");
+
+        ArrayList<String> productBrands = new ArrayList<String>();
+        productBrands.add("Acer");
+        productBrands.add("Asus");
+        productBrands.add("Lenovo");
+
+        model.addAttribute("prodForm", new Product());
+        model.addAttribute("prodTypes", productTypes);
+        model.addAttribute("prodBrands", productBrands);
+        return "addProduct";
+    }
+
     /* Search Product Functionality */
     /* Redirects to index but with also search results messages */
     /* Has to be exact for now */
@@ -111,25 +130,28 @@ public class ProductController {
     public String getDesktops(ModelMap model)
     {
         model.put("products", productService.getAllProductsByType("Desktop"));
-        return "desktop";
+        return "index";
     }
+
     @RequestMapping(value="/laptops", method=RequestMethod.GET)
     public String getLaptops(ModelMap model)
     {
         model.put("products", productService.getAllProductsByType("Laptop"));
-        return "laptop";
+        return "index";
     }
+
     @RequestMapping(value="/tablets", method=RequestMethod.GET)
     public String getTablets(ModelMap model)
     {
         model.put("products", productService.getAllProductsByType("Tablet"));
-        return "tablet";
+        return "index";
     }
+
     @RequestMapping(value="/mobiles", method=RequestMethod.GET)
     public String getMobiles(ModelMap model)
     {
         model.put("products", productService.getAllProductsByType("Mobile"));
-        return "mobile";
+        return "index";
     }
 
     @RequestMapping(value="/getProductsBySearch", method=RequestMethod.GET)
