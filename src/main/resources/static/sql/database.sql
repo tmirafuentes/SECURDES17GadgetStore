@@ -105,10 +105,11 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_description` varchar(255) DEFAULT NULL,
-  `product_name` varchar(255) DEFAULT NULL,
+  `product_name` varchar(255) NOT NULL,
   `product_price` double NOT NULL,
   `product_quantity` int(11) NOT NULL,
   `product_brand` bigint(20) DEFAULT NULL,
+  `product_type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `FK_gbeg6hr59sy5en2xqpot25uhg` (`product_brand`),
   CONSTRAINT `FK_gbeg6hr59sy5en2xqpot25uhg` FOREIGN KEY (`product_brand`) REFERENCES `brand` (`brand_id`)

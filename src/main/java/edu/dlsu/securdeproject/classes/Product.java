@@ -13,6 +13,7 @@ public class Product {
 	private int productQuantity;
 	private String productDescription;
 	private Brand productBrand;
+	private String productType;
 
 	public Product() {}
 
@@ -66,5 +67,13 @@ public class Product {
 
 	public void setProductBrand(Brand productBrand) {
 		this.productBrand = productBrand;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 }
