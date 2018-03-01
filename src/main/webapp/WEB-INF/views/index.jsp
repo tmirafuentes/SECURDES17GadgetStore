@@ -37,12 +37,27 @@
     </div>-->
 
     <!--What's New-->
-    <div class="product-grid">
-        <c:forEach items="${products}" var="item">
-            <c:out value="${item.productName}"/>
-            <c:out value="${item.productPrice}"/>
-            <br>
-        </c:forEach>
+
+    <div id="outputSection">
+        <table id="outputTable">
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+            </tr>
+            <c:forEach items="${products}" var="item"> <!--TODO: Need to fix variables-->
+                <tr>
+                <td><c:out value="${item.productName}"/></td>
+                <td><c:out value="${item.productPrice}"/></td>
+                <td/>
+                <td>
+                    <form id="formPrice">
+                        <button type="submit" class="bluebtn-allcaps">Buy</button>
+                        <button type="submit" class="bluebtn-allcaps">View</button>
+                    </form>
+                </td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 
     <%@ include file="footer.jsp" %>
