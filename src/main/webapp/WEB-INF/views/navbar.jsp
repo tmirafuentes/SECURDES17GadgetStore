@@ -17,14 +17,34 @@
 <!--Navbar-->
 <header>
     <div class="navbartop">
-        <p id="logo"> Troy's Toys</p>
-        <form class="search" role="search" id="searchPart">
-            <input type="text" placeholder="Search for a product..." id="searchBar">
-        </form>
-        <div id="signs">
-            <a href="/login" id="signin">SIGN IN</a>
-            <a href="/create" id="signuplink">SIGN UP</a>
-        </div>
+        <table id="navTable">
+            <tr>
+                <td><p id="logo"> Troy's Toys</p></td>
+                <td>
+                    <form class="search" role="search" id="searchPart">
+                        <input type="text" placeholder="Search for a product..." id="searchBar">
+                    </form>
+                </td>
+                <td id="dropdownHolder">
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                    <!-- <td id = "dropdownHolder"> -->
+                        <div class="dropdown">
+                            <button class="dropbtn">${pageContext.request.userPrincipal.name}</button>
+                            <div class="dropdown-content">
+                                <a href="/purchases">Purchase History</a>
+                                <a href="/accountSettings">Account Settings</a>
+                                <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+                            </div>
+                        </div>
+                    <!--</td>-->
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/signin" id="signin">SIGN IN</a>
+                        <a href="/signup" id="signuplink">SIGN UP</a>
+                    </c:otherwise>
+                </td>
+            </tr>
+        </table>
     </div>
     <nav>
         <ul>

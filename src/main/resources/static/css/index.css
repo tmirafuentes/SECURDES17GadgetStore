@@ -131,6 +131,82 @@ header {
     text-align: center;
 }
 
+/* Dropdown Button */
+.dropbtn {
+    font-family: 'Roboto Condensed';
+    background-color: RGB(29,135,236);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    /*display: inline-block;*/
+}
+
+#dropwdownHolder{
+    border:2px solid black;
+}
+
+#navTable{
+    width:100%;
+    table-layout: fixed;
+    margin-top: -20px;
+}
+
+#navTable td{
+    text-align: left;
+}
+
+#navTable td:first-child{
+    width:15%;
+    text-align: center;
+}
+#navTable td:nth-child(2){
+    text-align: center;
+    width:60%;
+}
+
+#navTable td:nth-child(3){
+    text-align: right;
+    width:10%;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: white;
+    color: RGB(29,135,236);
+}
+
 table td {
     text-align: right;
 }
@@ -210,10 +286,9 @@ textarea {
 
 .navbartop input[type=text] {
     padding: 5px;
-    margin-left:30%;
     border: none;
     height:25px;
-    width:500%;
+    width:750px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
@@ -259,24 +334,12 @@ nav a:hover{
 #logo{
     font-weight:bold;
     font-size:25px;
-    display:inline-block ;
-    top:0;
     left:10;
-    position: fixed;
+    top: 0;
     color: white;
     font-family: 'League Spartan', sans-serif;
 }
 
-#searchPart{
-    margin-left:100px;
-}
-
-
-#signs{
-    display:inline-block;
-    float:right;
-    height:150%;
-}
 
 #ad {
     position: relative;
@@ -455,4 +518,152 @@ footer a{
     height:40px;
     width:50px;
     font-size:13px;
+}
+
+/* productStyle.css */
+#holderProd{
+    width:100%;
+    height:70%;
+    display: inline-block;
+    display: flex;
+}
+#holderProd > div:nth-child(2) { flex: 1; }
+#picProd{
+    width:50%;
+    height:100%;
+}
+
+#picProd .imgProd{
+    margin-left:10%;
+    margin-top:8%;
+    width:80%;
+    height:110%;
+}
+#details{
+    width:40%;
+    height:100%;
+    float: right;
+    top:0;
+    padding:20px;
+}
+
+#details .pName{
+    font-size:36px;
+    text-align: justify;
+    font-weight: bolder;
+}
+
+#details .pPrice{
+    font-size:20px;
+    text-align: justify;
+    font-weight: bold;
+
+}
+
+#details .pDescription{
+    font-size:15px;
+    text-align: justify;
+}
+
+#tranProd{
+    margin-top:50px;
+}
+
+#btnAddCart{
+    height: 45px;
+    font-size:15px;
+    background-color: RGB(29,135,236);
+    border: none;
+    color:white;
+    margin-left: 10px;
+}
+
+#scrollQuantity{
+    height:40px;
+    width:50px;
+    font-size:13px;
+}
+
+/* Admin Home */
+#adminSection{
+    margin-left:10%;
+    margin-top: 10%;
+}
+
+#adminBody{
+    text-align: center;
+    margin:0;
+    padding:0;
+}
+
+#productList th{
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+#titleH{
+    font-weight: bolder;
+    font-size:30px;
+}
+
+#btnAdminAdd{
+    float: right;
+    margin-right: 10%;
+    height: 45px;
+    font-size:15px;
+    background-color: RGB(29,135,236);
+    border: none;
+    color:white;
+}
+/* Category CSS */
+#overallSection{
+    width:100%;
+    height:70%;
+    display: inline-block;
+    display: flex;
+}
+#overallSection > div:nth-child(2) { flex: 1; }
+#picProd{
+    width:50%;
+    height:100%;
+}
+
+#priceFilter input[type="number"] {
+    height:40px;
+    width:50px;
+    font-size:13px;
+}
+
+#filteringSection{
+    width:20%;
+    padding:20px;
+    font-size: 18px;
+}
+#outputSection{
+    width:80%;
+
+}
+#priceLabel{
+    font-weight: bold;
+}
+
+#brandLabel{
+    font-weight: bold;
+}
+
+#submitPrice{
+    height: 45px;
+    font-size:15px;
+    background-color: RGB(29,135,236);
+    border: none;
+    color:white;
+    font-weight: bold;
+}
+
+#outputSection{
+    display: grid;
+}
+
+.divProduct{
+    margin-left:3px;
 }
