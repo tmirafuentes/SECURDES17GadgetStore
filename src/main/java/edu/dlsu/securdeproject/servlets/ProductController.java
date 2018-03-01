@@ -6,11 +6,12 @@ import edu.dlsu.securdeproject.repositories.ProductRepository;
 import edu.dlsu.securdeproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 public class ProductController {
@@ -37,7 +38,7 @@ public class ProductController {
         if (bindingResult.hasErrors())
             return "createProduct";
 
-        productService.save(prodForm);
+        productService.addNewProduct(prodForm);
 
         return "createProduct";
     }
@@ -48,11 +49,11 @@ public class ProductController {
     @RequestMapping(value="/search", method=RequestMethod.POST)
     public String searchProduct(Model model, @RequestParam String productName) {
         // Will validate productName later
-        ArrayList<Product> searchResults = productService.getAllProducts(productName);
+        ArrayList<Product> searchResults = (ArrayList<Product>) productService.getAllProducts(productName);
         String message = "There are " + searchResults.size() + " results for '" + productName + "'.";
 
-        model.put("products", searchResults);
-        model.put("searchMessage", message);
+        model.addAttribute("products", searchResults);
+        model.addAttribute("searchMessage", message);
 
         return "index";
     }
@@ -63,7 +64,7 @@ public class ProductController {
         Product product = productService.getProduct(productId);
 
         if (productService.deleteProduct(product))
-            model.put("products", productService.getAllProducts());
+            model.addAttribute("products", productService.getAllProducts());
 
         return "admin";
     }

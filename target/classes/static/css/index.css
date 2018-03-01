@@ -1,5 +1,90 @@
 html {
     font-family: 'Roboto Condensed', sans-serif;
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    display: grid;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1 {
+    margin-bottom: 0px;
+    font-family: 'League Spartan', sans-serif;
+    text-transform: uppercase;
+    color: RGB(29,135,236);
+}
+
+a {
+    text-decoration: none;
+    color: RGB(29,135,236);
+}
+
+.red-text {
+    color: RGB(218,84,70);
+}
+
+.bluebtn-allcaps {
+    text-transform: uppercase;
+    background-color:RGB(29,135,236);
+    color: white;
+    border: 2px solid RGB(29,135,236);
+    border-radius: 20px;
+    padding: 5px;
+    margin: 7px;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+}
+
+.bluebtn-allcaps:hover {
+    background-color:white;
+    color: RGB(29,135,236);
+    border: 2px solid RGB(29,135,236);
+}
+
+.bluebtn-allcaps-large {
+    text-transform: uppercase;
+    background-color:RGB(29,135,236);
+    border: 2px solid RGB(29,135,236);
+    border-radius: 20px;
+    padding: 5px;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+    height: 45px;
+    font-size:15px;
+    color:white;
+    margin-left: 10px;
+}
+
+.bluebtn-allcaps-large:hover {
+    background-color:white;
+    color: RGB(29,135,236);
+    border: 2px solid RGB(29,135,236);
+}
+
+.redbtn-allcaps {
+    text-transform: uppercase;
+    background-color:RGB(218,84,70);
+    color: white;
+    border: 2px solid RGB(218,84,70);
+    border-radius: 20px;
+    padding: 5px;
+    margin: 7px;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+}
+
+.redbtn-allcaps:hover {
+    background-color:white;
+    color: RGB(218,84,70);
+    border: 2px solid RGB(218,84,70);
 }
 
 header {
@@ -9,7 +94,8 @@ header {
     right: 0;
     left: 0;
     padding: 20px;
-    overflow: hidden;
+    height:15%;
+
 }
 
 .main {
@@ -17,16 +103,15 @@ header {
 }
 
 .navbartop {
-    display: inline-block;
+    display: inline;
 }
-
 #signuplink {
     background-color:RGB(29,135,236);
     color: white;
     border: 2px solid white;
     border-radius: 20px;
     padding: 5px;
-    margin: 7px;
+    margin: 7px 7px 7px 7px;
     transition: all 600ms ease-in-out;
     -webkit-transition: all 600ms ease-in-out;
     -moz-transition: all 600ms ease-in-out;
@@ -46,22 +131,108 @@ header {
     text-align: center;
 }
 
+table td {
+    text-align: right;
+}
+
 form {
     display: inline-block;
 }
 
-nav {
+.formlabel {
+    float: right;
+    padding-right: 10px;
+}
 
+select {
+    width: 95%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=text] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=date] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=email] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=password] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=number] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+input[type=file] {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+textarea {
+    width: 90%;
+    padding: 4px;
+    border: solid 2px RGB(196,196,196);
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.navbartop input[type=text] {
+    padding: 5px;
+    margin-left:30%;
+    border: none;
+    height:25px;
+    width:500%;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+nav {
+    align-content: center;
+    text-align: center;
 }
 
 nav ul li {
     list-style-type: none;
     display: inline-block;
+    margin: 7px 7px 0px 0px;
 }
 
 nav a {
+    margin-left:10px;
     padding: 5px;
-    margin: 7px;
     text-decoration:none;
     color:white;
     display: inline;
@@ -72,19 +243,216 @@ nav a {
     -o-transition: all 600ms ease-in-out;
 }
 
+nav a:first {
+    margin-left:10px;
+}
+
+nav a:last {
+    margin-right:0;
+}
+
 nav a:hover{
     background-color:white;
     color: RGB(29,135,236);
 }
 
-.ad {
+#logo{
+    font-weight:bold;
+    font-size:25px;
+    display:inline-block ;
+    top:0;
+    left:10;
+    position: fixed;
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+}
 
+#searchPart{
+    margin-left:100px;
+}
+
+
+#signs{
+    display:inline-block;
+    float:right;
+    height:150%;
+}
+
+#ad {
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto 0 auto;
+    border-radius: 4px;
+}
+
+#ad ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 200px;
+    list-style: none;
+}
+
+#ad ul li {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 1100px;
+    height: 200px;
+    background: #ccc;
+    text-align: center;
+    line-height: 300px;
+}
+
+a.control_prev, a.control_next {
+    position: absolute;
+    top: 40%;
+    z-index: 999;
+    display: block;
+    padding: 4% 3%;
+    width: auto;
+    height: auto;
+    background: #2a2a2a;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+a.control_prev:hover, a.control_next:hover {
+    opacity: 1;
+    -webkit-transition: all 0.2s ease;
+}
+
+a.control_prev {
+    border-radius: 0 2px 2px 0;
+}
+
+a.control_next {
+    right: 0;
+    border-radius: 2px 0 0 2px;
 }
 
 .product-grid {
 
 }
 
+.heading {
+    border-bottom: solid RGB(29,135,236) 3px;
+    margin: 20px;
+}
+
+.container {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#login {
+    display: block;
+    padding: 20px;
+    text-align: center;
+}
+
+#loginwarning {
+    text-align: center;
+    margin: 20px;
+    color: RGB(218,84,70);
+}
+
 .footer {
+    position: absolute;
+    left: 0;
     bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow:hidden;
+}
+
+#wrapperFoot{
+    min-height: 100%;
+    height:-90px;
+}
+
+footer{
+    background-color:#3a3939;
+    color:white;
+    width: 100%;
+    height:90px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+footer a{
+    text-decoration: none;
+    color:white;
+}
+
+#dambuhala{
+    height:1000px;
+}
+
+#bodFot{
+    margin:0;
+    padding:0;
+}
+
+/*---------PRODUCT PAGE---------*/
+
+#holderProd{
+    width:100%;
+    height:70%;
+    display: inline-block;
+    display: flex;
+}
+#holderProd > div:nth-child(2) { flex: 1; }
+#picProd{
+    width:50%;
+    height:100%;
+}
+
+#picProd .imgProd{
+    margin-left:10%;
+    margin-top:8%;
+    width:80%;
+    height:100%;
+}
+#details{
+    width:40%;
+    height:100%;
+    float: right;
+    top:0;
+    padding:20px;
+}
+
+#details .pName{
+    font-size:36px;
+    text-align: justify;
+    font-weight: bolder;
+}
+
+#details .pPrice{
+    font-size:20px;
+    text-align: justify;
+    font-weight: bold;
+
+}
+
+#details .pDescription{
+    font-size:15px;
+    text-align: justify;
+}
+
+#tranProd{
+    margin-top:50px;
+}
+
+#scrollQuantity{
+    height:40px;
+    width:50px;
+    font-size:13px;
 }

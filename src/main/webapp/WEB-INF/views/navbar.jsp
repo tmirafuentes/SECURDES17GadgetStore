@@ -22,8 +22,8 @@
             <input type="text" placeholder="Search for a product..." id="searchBar">
         </form>
         <div id="signs">
-            <a href="/login" id="signin">SIGN IN</a>
-            <a href="/create" id="signuplink">SIGN UP</a>
+            <a href="/signin" id="signin">SIGN IN</a>
+            <a href="/signup" id="signuplink">SIGN UP</a>
         </div>
     </div>
     <nav>

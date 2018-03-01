@@ -22,8 +22,8 @@ public class ProductService {
         return true;
     }
 
-    public Product getProduct(long id) {
-        return (Product) productRepository.findById(id);
+    public Product getProduct(long productId) {
+        return (Product) productRepository.findByProductId(productId);
     }
 
     public List<Product> getAllProducts() {
@@ -31,7 +31,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts(String productName) {
-        return (List<Product) productRepository.findAllByProductName(productName);
+        return (List<Product>) productRepository.findAllByProductName(productName);
     }
 
     public boolean deleteProduct(Product p) {
