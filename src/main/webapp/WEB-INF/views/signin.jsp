@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
     <c:url value="/resources/static/css/index.css" var="jstlCss" />
@@ -21,24 +26,30 @@
         </div>
         <div class="container">
             <div id="login">
-                <form>
+                <form method="POST" action="${contextPath}/login" class="form-signin">
                     <div class="div-form">
                         <table>
                             <tr>
-                                <td><label for="email" class="formlabel">Email</label></td>
-                                <td><input type="email" name="email" id="email" /></td>
+                                <td colspan='2'>${message}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="username" class="formlabel">Username</label></td>
+                                <td><input type="text" name="username" id="username" autofocus="true" /></td>
                             </tr>
                             <tr>
                                 <td><label for="password" class="formlabel">Password</label></td>
-                                <td><input type="password" name="password" id="password"/></td>
+                                <td><input type="password" name="password" id="password" /></td>
                             </tr>
                             <tr>
-                                <td />
+                                <td colspan='2'>${error}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"></td>
                                 <td><a href="forgot.jsp">Forgot password?</a></td>
                             </tr>
                             <tr>
                                 <td />
-                                <td><input type="submit" value="Sign in" class="bluebtn-allcaps"></td>
+                                <td><button type="submit" class="bluebtn-allcaps">Log In</button></td>
                             </tr>
                             <tr>
                                 <td />

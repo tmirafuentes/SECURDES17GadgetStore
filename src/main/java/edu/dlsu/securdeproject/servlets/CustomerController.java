@@ -33,21 +33,27 @@ public class CustomerController {
         return "index";
     }
 
-    /* Creation/Registration of Account */
-    @RequestMapping(value="/create", method=RequestMethod.GET)
-    public String createAccountPage(Model model) {
-    	model.addAttribute("custForm", new Customer());
-        return "create";
+    /* Default Error Page */
+    @RequestMapping("/error")
+    public String error() {
+    	return "error";
     }
 
-    @RequestMapping(value="/create", method=RequestMethod.POST)
-    public String createAccountSubmit(@ModelAttribute("custForm") Customer custForm, BindingResult bindingResult, Model model) {
+    /* Creation/Registration of Account */
+    @RequestMapping(value="/signup", method=RequestMethod.GET)
+    public String signUpPage(Model model) {
+    	model.addAttribute("custForm", new Customer());
+        return "signup";
+    }
+
+    @RequestMapping(value="/signup", method=RequestMethod.POST)
+    public String signUpSubmit(@ModelAttribute("custForm") Customer custForm, BindingResult bindingResult, Model model) {
     	/* Validation of form */
     	validationService.validate(custForm, bindingResult);
 
     	/* If error, create account again */
     	if (bindingResult.hasErrors())
-    		return "create";
+    		return "signup";
 
     	/* Else, save new account to the database */
     	userService.save(custForm);
@@ -55,22 +61,37 @@ public class CustomerController {
     	/* Keep user logged in after registering */
     	securityService.autologin(custForm.getUsername(), custForm.getPasswordConfirm());
 
-        return "hello";
+        return "signup";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public String signInPage(Model model, String error, String logout) {
     	if (error != null)
     		model.addAttribute("error", "Either your username or password is invalid. Please try again.");
 
     	if (logout != null)
     		model.addAttribute("message", "You have been logged out successfully.");
 
-    	return "login";
+    	return "signin";
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String hello(Model model) {
-        return "hello";
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    public String editAccountPage(Model model) {
+        return "accountSettings";
+    }
+
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    public String editAccountSubmit(@ModelAttribute("custForm") Customer custForm, BindingResult bindingResult, Model model) {
+     	/* Validation of form */
+    	validationService.validate(custForm, bindingResult);
+
+    	/* If error, create account again */
+    	if (bindingResult.hasErrors())
+    		return "account";
+
+    	/* Else, save new account to the database */
+    	userService.save(custForm);
+
+        return "account";   	
     }
 }

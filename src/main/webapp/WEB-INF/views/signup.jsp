@@ -5,7 +5,12 @@
   Time: 11:45 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
     <head>
         <c:url value="/resources/static/css/index.css" var="jstlCss" />
@@ -17,52 +22,72 @@
     <body>
         <jsp:include page="navbar.jsp" />
         <div class="heading">
-            <h1>Sign Up</h1>
+            <h1>Sign Up to Troy's Toys</h1>
         </div>
         <div class="container">
             <div id="login">
-                <form>
+                <form:form method="POST" modelAttribute="custForm" class="form-signup">
                     <div class="div-form">
                         <table>
                             <tr>
-                                <td><label for="firstname" class="formlabel">First Name <span class="red-text">*</span></label></td>
-                                <td><input type="text" id="firstname" name="firstname" /></td>
+                                <spring:bind path="firstName">
+                                    <td><form:label for="firstname" class="formlabel">First Name</form:label></td>
+                                    <td>
+                                        <form:input type="text" path="firstName" id="firstname"></form:input>
+                                    </td>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td><label for="lastname" class="formlabel">Last Name <span class="red-text">*</span></label></td>
-                                <td><input type="text" id="lastname" name="lastname" /></td>
+                                <spring:bind path="lastName">
+                                    <td><form:label for="lastName" class="formlabel">Last Name</form:label></td>
+                                    <td>
+                                        <form:input type="text" path="lastName" id="lastname"></form:input>
+                                    </td>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td><label for="birthdate" class="formlabel">Birthdate <span class="red-text">*</span></label></td>
-                                <td><input type="date" id="birthdate" name="birthdate" /></td>
+                                <spring:bind path="birthdate">
+                                    <td><form:label for="birthdate" class="formlabel">Birthdate</form:label></td>
+                                    <td>
+                                        <form:input type="date" path="birthdate" id="birthdate"></form:input>
+                                    </td>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td><label for="email" class="formlabel">Email <span class="red-text">*</span></label></td>
-                                <td><input type="email" id="email" name="email" /></td>
+                                <spring:bind path="email">
+                                    <td><form:label for="email" class="formlabel">Email</form:label></td>
+                                    <td>
+                                        <form:input type="email" path="email" id="email"></form:input>
+                                    </td>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td><label for="password" class="formlabel">Password <span class="red-text">*</span></label></td>
-                                <td><input type="password" id="password" name="password" /></td>
+                                <td><label class="formlabel">Password</label></td>
+                                <td><a href="/changepassword.html">Change password...</a></td>
                             </tr>
                             <tr>
-                                <td><label for="mailingaddress" class="formlabel">Mailing Address <span class="red-text">*</span></label></td>
-                                <td><textarea id="mailingaddress" name="mailingaddress"></textarea></td>
+                                <spring:bind path="mailAddress">
+                                    <td><form:label for="mailAddress" class="formlabel">Mailing Address</form:label></td>
+                                    <td>
+                                        <form:textarea path="mailAddress" id="mailingaddress"></form:textarea>
+                                    </td>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td><label for="mobilenum" class="formlabel">Mobile Number <span class="red-text">*</span></label></td>
-                                <td><input type="text" name="mobilenum" id="mobilenum" /></td>
+                                <spring:bind path="mobileNumber">
+                                    <td><form:label for="mobileNumber" class="formlabel">Mobile Number</form:label></td>
+                                    <td>
+                                        <form:input type="text" path="mobileNumber" id="mobilenum"></form:input>
+                                    </td>
+                              </spring:bind>
                             </tr>
                             <tr>
                                 <td/>
-                                <td><input type="submit" value="Sign up" class="bluebtn-allcaps"></td>
-                            </tr>
-                            <tr>
-                                <td/>
-                                <td>Have an account? <a href="signin">Sign in here.</a></td>
+                                <td><button type="submit" class="bluebtn-allcaps">Save</td>
                             </tr>
                         </table>
                     </div>
-                </form>
+                </form:form>
             </div>
         </div>
         <jsp:include page="footer.jsp" />
