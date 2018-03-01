@@ -2,16 +2,17 @@ package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
+import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
+import edu.dlsu.securdeproject.services.CustomerService;
 import edu.dlsu.securdeproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ProductController {
@@ -23,49 +24,57 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Add Product Page
-    @RequestMapping(value="/addProduct", method=RequestMethod.GET)
+    @RequestMapping(value="/createProduct", method=RequestMethod.GET)
     public String createProductPage() {
         return "createProduct";
     }
 
-    // Adds new product
-    @RequestMapping(value="/addProduct", method=RequestMethod.POST)
-    public String createProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult, Model model) {
-        /* Later na yung validation */
+    @RequestMapping(value="/createProduct", method=RequestMethod.POST)
+    public String addNewAccount(ModelMap model, @RequestParam String productName, @RequestParam double productPrice) {
+        Product p = new Product();
+        p.setProductName(productName);
+        p.setProductPrice(productPrice);
 
-        /* If error, create product again */
-        if (bindingResult.hasErrors())
-            return "createProduct";
+        boolean isValidProduct = productService.addNewProduct(p);
 
-        productService.addNewProduct(prodForm);
+        if (isValidProduct) {
+            model.put("products", productService.getAllProducts());
+
+            return "index";
+        }
 
         return "createProduct";
     }
+    @RequestMapping(value="/desktops", method=RequestMethod.GET)
+    public String getDesktops(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("desktop"));
+        return "desktop";
+    }
+    @RequestMapping(value="/laptops", method=RequestMethod.GET)
+    public String getLaptops(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("laptop"));
+        return "laptop";
+    }
+    @RequestMapping(value="/tablets", method=RequestMethod.GET)
+    public String getTablets(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("tablet"));
+        return "tablet";
+    }
+    @RequestMapping(value="/mobiles", method=RequestMethod.GET)
+    public String getMobiles(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("mobile"));
+        return "mobile";
+    }
 
-    /* Search Product Functionality */
-    /* Redirects to index but with also search results messages */
-    /* Has to be exact for now */
-    @RequestMapping(value="/search", method=RequestMethod.POST)
-    public String searchProduct(Model model, @RequestParam String productName) {
-        // Will validate productName later
-        ArrayList<Product> searchResults = (ArrayList<Product>) productService.getAllProducts(productName);
-        String message = "There are " + searchResults.size() + " results for '" + productName + "'.";
-
-        model.addAttribute("products", searchResults);
-        model.addAttribute("searchMessage", message);
-
+    @RequestMapping(value="/getProductsBySearch", method=RequestMethod.GET)
+    public String getProdSearch(ModelMap model, @RequestParam String productString)
+    {
+        model.put("products", productService.getAllProductsBySearch(productString));
         return "index";
     }
 
-    /* Deletes a Product */
-    @RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
-    public String deleteProduct(Model model, @RequestParam long productId) {
-        Product product = productService.getProduct(productId);
-
-        if (productService.deleteProduct(product))
-            model.addAttribute("products", productService.getAllProducts());
-
-        return "admin";
-    }
 }
