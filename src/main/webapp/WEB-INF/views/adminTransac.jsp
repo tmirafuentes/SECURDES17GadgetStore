@@ -21,6 +21,7 @@
     <title>Admin | Troy's Toys</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
     <div id="adminBody">
         <p id="titleH">ADMIN Transaction Functions</p>
         <div id="adminSection">
@@ -50,5 +51,6 @@
             </form>
         </div>
     </div>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

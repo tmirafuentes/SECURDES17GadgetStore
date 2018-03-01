@@ -22,6 +22,7 @@
         <title>Add Product</title>
     </head>
     <body>
+        <%@ include file="navbar.jsp" %>
         <div class="heading">
             <h1>Add New Product</h1>
         </div>
@@ -95,6 +96,7 @@
                 </form:form>
             </div>
         </div>
+        <%@ include file="footer.jsp" %>
     </body>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
 </html>

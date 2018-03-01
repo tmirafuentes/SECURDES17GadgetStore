@@ -20,6 +20,7 @@
     <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
     <div id="overallSection">
         <div id="filteringSection">
             <div id="priceFilter">
@@ -58,5 +59,6 @@
             </table>
         </div>
     </div>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>
