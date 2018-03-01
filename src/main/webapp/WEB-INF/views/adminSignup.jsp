@@ -13,7 +13,7 @@
 <html>
 <head>
     <title>Admin | Troy's Toys</title>
-    <c:url value="/resources/static/css/index.css" var="jstlCss" />
+    <c:url value="/css/index.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
@@ -26,46 +26,54 @@
     </div>
     <div class="container">
         <div id="login">
-            <form:form method="POST" class="form-signup"> <!--TODO: create AdminController-->
+            <form:form method="POST" modelAttribute="adminForm" class="form-signup"> <!--TODO: create AdminController-->
                 <div class="div-form">
                     <table>
                         <tr>
-                            <spring:bind path="firstNameAdmin">
-                                <td><form:label for="firstnameAdmin" class="formlabel" path="firstNameAdmin">First Name</form:label></td>
+                            <spring:bind path="firstName">
+                                <td><form:label for="firstnameAdmin" class="formlabel" path="firstName">First Name</form:label></td>
                                 <td>
-                                    <form:input type="text" path="firstNameAdmin" id="firstnameAdmin"></form:input>
+                                    <form:input type="text" path="firstName" id="firstnameAdmin"></form:input>
                                 </td>
                             </spring:bind>
                         </tr>
                         <tr>
-                            <spring:bind path="lastNameAdmin">
-                                <td><form:label for="lastNameAdmin" class="formlabel" path="lastNameAdmin">Last Name</form:label></td>
+                            <spring:bind path="lastName">
+                                <td><form:label for="lastNameAdmin" class="formlabel" path="lastName">Last Name</form:label></td>
                                 <td>
-                                    <form:input type="text" path="lastNameAdmin" id="lastnameAdmin"></form:input>
+                                    <form:input type="text" path="lastName" id="lastnameAdmin"></form:input>
                                 </td>
                             </spring:bind>
                         </tr>
                         <tr>
-                            <spring:bind path="emailAdmin">
-                                <td><form:label for="emailAdmin" class="formlabel" path="emailAdmin">Email</form:label></td>
+                            <spring:bind path="email">
+                                <td><form:label for="emailAdmin" class="formlabel" path="email">Email</form:label></td>
                                 <td>
-                                    <form:input type="email" path="emailAdmin" id="emailAdmin"></form:input>
+                                    <form:input type="email" path="email" id="emailAdmin"></form:input>
                                 </td>
                             </spring:bind>
                         </tr>
                         <tr>
-                            <spring:bind path="passwordAdmin">
-                                <td><form:label path="passwordAdmin" class="formlabel">Password</form:label></td>
+                            <spring:bind path="username">
+                                <td><form:label for="emailAdmin" class="formlabel" path="username">Username</form:label></td>
                                 <td>
-                                    <form:input type="password" path="passwordAdmin" id="passwordAdmin"></form:input>
+                                    <form:input type="text" path="username" id="username" value="Admin"></form:input>
                                 </td>
                             </spring:bind>
                         </tr>
                         <tr>
-                            <spring:bind path="passwordConfirmAdmin">
-                                <td><form:label path="passwordConfirmAdmin" class="formlabel">Retype Password</form:label></td>
+                            <spring:bind path="password">
+                                <td><form:label path="password" class="formlabel">Password</form:label></td>
                                 <td>
-                                    <form:input type="password" path="passwordConfirmAdmin" id="passwordConfirmAdmin"></form:input>
+                                    <form:input type="password" path="password" id="passwordAdmin"></form:input>
+                                </td>
+                            </spring:bind>
+                        </tr>
+                        <tr>
+                            <spring:bind path="passwordConfirm">
+                                <td><form:label path="passwordConfirm" class="formlabel">Retype Password</form:label></td>
+                                <td>
+                                    <form:input type="password" path="passwordConfirm" id="passwordConfirmAdmin"></form:input>
                                 </td>
                             </spring:bind>
                         </tr>

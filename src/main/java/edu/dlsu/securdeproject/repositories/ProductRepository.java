@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
-    List<Product> findAllByProductName(String productName);
     Product findByProductId(long productId);
+    List<Product> findAllByProductBrand(String productBrand);
+    List<Product> findAllByProductNameContains(String productString);
 }

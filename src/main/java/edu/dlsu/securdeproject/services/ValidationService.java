@@ -1,5 +1,6 @@
 package edu.dlsu.securdeproject.services;
 
+import edu.dlsu.securdeproject.classes.Admin;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

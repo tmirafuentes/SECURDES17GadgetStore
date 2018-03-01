@@ -2,10 +2,7 @@ package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.repositories.CustomerRepository;
-import edu.dlsu.securdeproject.services.CustomerService;
-import edu.dlsu.securdeproject.services.SecurityService;
-import edu.dlsu.securdeproject.services.UserService;
-import edu.dlsu.securdeproject.services.ValidationService;
+import edu.dlsu.securdeproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +23,15 @@ public class CustomerController {
     private SecurityService securityService;
     @Autowired
     private ValidationService validationService;
+    @Autowired
+    private ProductService productService;
 
 	/* Default Homepage */
     @RequestMapping(value = {"/welcome", "/index" , "/"}, method=RequestMethod.GET)
-    public String index() {
+    public String index(ModelMap model) {
+        System.out.println(productService.getAllProducts().size());
+        model.put("products", productService.getAllProducts());
+
         return "index";
     }
 
@@ -53,7 +55,6 @@ public class CustomerController {
 
     	/* If error, create account again */
     	if (bindingResult.hasErrors()) {
-            System.out.println("Hello World");
     	    return "signup";
         }
 

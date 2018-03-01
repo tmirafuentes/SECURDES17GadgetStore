@@ -32,7 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/signin",
                              "/index",
                              "/addProduct",
-                             "/editProduct"
+                             "/editProduct",
+                             "/adminSignup",
+                             "/adminHome",
+                             "/adminTransac",
+                             "/search"
                              ).permitAll()
                 .anyRequest().authenticated()
                 .and()

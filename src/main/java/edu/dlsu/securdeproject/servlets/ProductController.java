@@ -87,7 +87,7 @@ public class ProductController {
     @RequestMapping(value="/search", method=RequestMethod.POST)
     public String searchProduct(Model model, @RequestParam String productName) {
         // Will validate productName later
-        ArrayList<Product> searchResults = (ArrayList<Product>) productService.getAllProducts(productName);
+        ArrayList<Product> searchResults = (ArrayList<Product>) productService.getAllProductsBySearch(productName);
         String message = "There are " + searchResults.size() + " results for '" + productName + "'.";
 
         model.addAttribute("products", searchResults);
@@ -105,5 +105,37 @@ public class ProductController {
             model.addAttribute("products", productService.getAllProducts());
 
         return "admin";
+    }
+
+    @RequestMapping(value="/desktops", method=RequestMethod.GET)
+    public String getDesktops(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("Desktop"));
+        return "desktop";
+    }
+    @RequestMapping(value="/laptops", method=RequestMethod.GET)
+    public String getLaptops(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("Laptop"));
+        return "laptop";
+    }
+    @RequestMapping(value="/tablets", method=RequestMethod.GET)
+    public String getTablets(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("Tablet"));
+        return "tablet";
+    }
+    @RequestMapping(value="/mobiles", method=RequestMethod.GET)
+    public String getMobiles(ModelMap model)
+    {
+        model.put("products", productService.getAllProductsByType("Mobile"));
+        return "mobile";
+    }
+
+    @RequestMapping(value="/getProductsBySearch", method=RequestMethod.GET)
+    public String getProdSearch(ModelMap model, @RequestParam String productString)
+    {
+        model.put("products", productService.getAllProductsBySearch(productString));
+        return "index";
     }
 }
