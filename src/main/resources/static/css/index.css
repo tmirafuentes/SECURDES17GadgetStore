@@ -667,3 +667,95 @@ footer a{
 .divProduct{
     margin-left:3px;
 }
+
+/*Confirmation and Thank you */
+#headConfirm{
+    color:black;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+}
+#holdingAllCon{
+    height:80%;
+    margin-top: 5%;
+}
+#confirmHolder{
+
+    float: right;
+    width: 60%;
+}
+#imageConfirm{
+
+    float:left;
+    width:35%;
+}
+#productPicConfirmation{
+    margin-left:55%;
+}
+#productPicConfirmation{
+    border: 1px solid black;
+    width:200px;
+    height: 200px;
+}
+
+#confirmHolder p{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#confirmHolder #phraseConfirm{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#buttonsConfirm button{
+    border-radius:10px;
+    margin-top: 1%;
+}
+#btnConfirmPurchase{
+    height: 45px;
+    width:80px;
+    font-size:15px;
+    background-color: RGB(29,135,236);
+    border: 2px solid RGB(29,135,236);
+    border: none;
+    color:white;
+}
+#btnCancelPurchase{
+    height: 45px;
+    margin-left: 1%;
+    width:80px;
+    font-size:15px;
+    background-color: RGB(191, 69, 63);
+    border: 2px solid RGB(29,135,236);
+    border: none;
+    color:white;
+}
+
+#buttonsConfirm{
+    width: 100%;
+}
+#tyNote{
+    font-weight: bolder;
+    font-size: 30px;
+    text-align: center;
+}
+/*  updated part ng catagories */
+
+#outputTable{
+    margin-top: 5%;
+    width:80% ;
+
+}
+#outputTable td{
+    border:2px solid black;
+    text-align: center;
+}
+#outputTable td:first-child{
+    width:70%;
+}
+#outputTable td:nth-child(2){
+    width:10%;
+}
+#outputTable td:nth-child(3){
+    width:20%;
+}
