@@ -15,7 +15,7 @@
 <html>
 <head>
     <title>Troy's Toys</title>
-    <c:url value="/resources/static/css/index.css" var="jstlCss" />
+    <c:url value="/css/index.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">
@@ -25,7 +25,7 @@
 <%@ include file="navbar.jsp" %>
 
 <div class="main">
-    <!--Ad-->
+    <!--Ad
     <div class="ad">
         <a href="#" class="control_next">&gt;</a>
         <a href="#" class="control_prev">&lt;</a>
@@ -34,7 +34,7 @@
             <li style="background: url('https://pcx.com.ph/wp-content/uploads/2016/10/anti-piracy-grid-slider.jpg');" />
             <li style="background: url('https://pcx.com.ph/wp-content/uploads/2017/09/1100-x-200-365.jpg');" />
         </ul>
-    </div>
+    </div>-->
 
     <!--What's New-->
     <div class="product-grid">

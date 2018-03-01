@@ -34,10 +34,10 @@ public class CustomerController {
     }
 
     /* Default Error Page */
-    @RequestMapping("/error")
-    public String error() {
-    	return "error";
-    }
+    //@RequestMapping("/error")
+    //public String error() {
+    	//return "error";
+    //}
 
     /* Creation/Registration of Account */
     @RequestMapping(value="/signup", method=RequestMethod.GET)
@@ -52,8 +52,10 @@ public class CustomerController {
     	validationService.validate(custForm, bindingResult);
 
     	/* If error, create account again */
-    	if (bindingResult.hasErrors())
-    		return "signup";
+    	if (bindingResult.hasErrors()) {
+            System.out.println("Hello World");
+    	    return "signup";
+        }
 
     	/* Else, save new account to the database */
     	userService.save(custForm);
@@ -61,7 +63,7 @@ public class CustomerController {
     	/* Keep user logged in after registering */
     	securityService.autologin(custForm.getUsername(), custForm.getPasswordConfirm());
 
-        return "signup";
+        return "index";
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.GET)

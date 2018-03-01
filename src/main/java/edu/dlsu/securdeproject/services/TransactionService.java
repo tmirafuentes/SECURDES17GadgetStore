@@ -23,19 +23,15 @@ public class TransactionService {
     }
 
     public Transaction getTransaction(long id) {
-        return (Transaction) TransactionRepository.findById(id);
+        return (Transaction) transactionRepository.findByTransactionId(id);
     }
 
     public List<Transaction> getAllTransactions() {
-        return (List<Transaction>) TransactionRepository.findAll();
+        return (List<Transaction>) transactionRepository.findAll();
     }
 
-    public List<Transaction> getAllTransactions(String transactionName) {
-        return (List<Transaction) transactionRepository.findAllByTransactionName(transactionName);
-    }
-
-    public boolean deleteTransaction(Transaction p) {
-        TransactionRepository.delete(p);
+    public boolean deleteTransaction(Transaction t) {
+        transactionRepository.delete(t);
         return true;
     }
 }

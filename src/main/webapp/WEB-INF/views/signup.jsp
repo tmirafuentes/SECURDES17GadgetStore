@@ -13,7 +13,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
     <head>
-        <c:url value="/resources/static/css/index.css" var="jstlCss" />
+        <c:url value="/css/index.css" var="jstlCss" />
         <link rel="stylesheet" type="text/css" href="${jstlCss}">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
         <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
@@ -31,7 +31,7 @@
                         <table>
                             <tr>
                                 <spring:bind path="firstName">
-                                    <td><form:label for="firstname" class="formlabel">First Name</form:label></td>
+                                    <td><form:label for="firstname" class="formlabel" path="firstName">First Name</form:label></td>
                                     <td>
                                         <form:input type="text" path="firstName" id="firstname"></form:input>
                                     </td>
@@ -39,7 +39,7 @@
                             </tr>
                             <tr>
                                 <spring:bind path="lastName">
-                                    <td><form:label for="lastName" class="formlabel">Last Name</form:label></td>
+                                    <td><form:label for="lastName" class="formlabel" path="lastName">Last Name</form:label></td>
                                     <td>
                                         <form:input type="text" path="lastName" id="lastname"></form:input>
                                     </td>
@@ -47,27 +47,15 @@
                             </tr>
                             <tr>
                                 <spring:bind path="birthdate">
-                                    <td><form:label for="birthdate" class="formlabel">Birthdate</form:label></td>
+                                    <td><form:label for="birthdate" class="formlabel" path="birthdate">Birthdate</form:label></td>
                                     <td>
-                                        <form:input type="date" path="birthdate" id="birthdate"></form:input>
+                                        <form:input type="text" path="birthdate" id="birthdate" placeholder="mm/dd/yyyy"></form:input>
                                     </td>
                                 </spring:bind>
-                            </tr>
-                            <tr>
-                                <spring:bind path="email">
-                                    <td><form:label for="email" class="formlabel">Email</form:label></td>
-                                    <td>
-                                        <form:input type="email" path="email" id="email"></form:input>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <td><label class="formlabel">Password</label></td>
-                                <td><a href="/changepassword.html">Change password...</a></td>
                             </tr>
                             <tr>
                                 <spring:bind path="mailAddress">
-                                    <td><form:label for="mailAddress" class="formlabel">Mailing Address</form:label></td>
+                                    <td><form:label for="mailAddress" class="formlabel" path="mailAddress">Mailing Address</form:label></td>
                                     <td>
                                         <form:textarea path="mailAddress" id="mailingaddress"></form:textarea>
                                     </td>
@@ -75,15 +63,47 @@
                             </tr>
                             <tr>
                                 <spring:bind path="mobileNumber">
-                                    <td><form:label for="mobileNumber" class="formlabel">Mobile Number</form:label></td>
+                                    <td><form:label for="mobileNumber" class="formlabel" path="mobileNumber">Mobile Number</form:label></td>
                                     <td>
                                         <form:input type="text" path="mobileNumber" id="mobilenum"></form:input>
                                     </td>
-                              </spring:bind>
+                                </spring:bind>
                             </tr>
                             <tr>
-                                <td/>
-                                <td><button type="submit" class="bluebtn-allcaps">Save</td>
+                                <spring:bind path="email">
+                                    <td><form:label for="email" class="formlabel" path="email">Email</form:label></td>
+                                    <td>
+                                        <form:input type="email" path="email" id="email"></form:input>
+                                    </td>
+                                </spring:bind>
+                            </tr>
+                            <tr>
+                                <spring:bind path="username">
+                                    <td><form:label for="username" class="formlabel" path="username">Username</form:label></td>
+                                    <td>
+                                        <form:input type="text" path="username" id="username"></form:input>
+                                    </td>
+                                </spring:bind>
+                            </tr>
+                            <tr>
+                                <spring:bind path="password">
+                                    <td><form:label path="password" class="formlabel">Password</form:label></td>
+                                    <td>
+                                        <form:input type="password" path="password" id="password"></form:input>
+                                    </td>
+                                </spring:bind>
+                            </tr>
+                            <tr>
+                                <spring:bind path="passwordConfirm">
+                                    <td><form:label path="passwordConfirm" class="formlabel">Retype Password</form:label></td>
+                                    <td>
+                                        <form:input type="password" path="passwordConfirm" id="passwordConfirm"></form:input>
+                                    </td>
+                                </spring:bind>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><button type="submit" class="bluebtn-allcaps">Save</button></td>
                             </tr>
                         </table>
                     </div>

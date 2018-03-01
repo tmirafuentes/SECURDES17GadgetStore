@@ -17,6 +17,16 @@
 <!--Navbar-->
 <header>
     <div class="navbartop">
+<<<<<<< HEAD
+        <p id="logo"> Troy's Toys</p>
+        <form class="search" role="search" id="searchPart">
+            <input type="text" placeholder="Search for a product..." id="searchBar">
+        </form>
+        <div id="signs">
+            <a href="/signin" id="signin">SIGN IN</a>
+            <a href="/signup" id="signuplink">SIGN UP</a>
+        </div>
+=======
         <table id="navTable">
             <tr>
                 <td><p id="logo"> Troy's Toys</p></td>
@@ -45,6 +55,7 @@
                 </td>
             </tr>
         </table>
+>>>>>>> b76f5769d3e8abb72aecf433aaa48c32ec3ca7dd
     </div>
     <nav>
         <ul>
