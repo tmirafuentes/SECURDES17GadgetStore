@@ -1,2 +1,6 @@
 
 .idea/workspace.xml
+target/classes/edu/dlsu/securdeproject/classes/Admin.class
+*.class
+*.class
+*.class

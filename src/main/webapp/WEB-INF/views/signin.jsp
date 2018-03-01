@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
     <meta charset="UTF-8">
+    <title>Sign In</title>
 </head>
     <body>
         <jsp:include page="navbar.jsp" />
@@ -26,7 +27,7 @@
         </div>
         <div class="container">
             <div id="login">
-                <form method="POST" action="${contextPath}/login" class="form-signin">
+                <form method="POST" action="${contextPath}/signin" class="form-signin">
                     <div class="div-form">
                         <table>
                             <tr>

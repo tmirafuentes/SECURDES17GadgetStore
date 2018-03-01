@@ -66,15 +66,22 @@ public class CustomerController {
         return "index";
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    @RequestMapping(value = {"/signin"}, method = RequestMethod.GET)
     public String signInPage(Model model, String error, String logout) {
-    	if (error != null)
-    		model.addAttribute("error", "Either your username or password is invalid. Please try again.");
+        if (error != null)
+            model.addAttribute("error", "Either your username or password is invalid. Please try again.");
 
-    	if (logout != null)
-    		model.addAttribute("message", "You have been logged out successfully.");
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
 
-    	return "signin";
+        return "signin";
+    }
+
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
+        securityService.autologin(username, password);
+
+        return "index";
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)

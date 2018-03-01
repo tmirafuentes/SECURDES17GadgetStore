@@ -1,5 +1,6 @@
 package edu.dlsu.securdeproject.servlets;
 
+import edu.dlsu.securdeproject.classes.Brand;
 import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.repositories.ProductRepository;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
@@ -25,22 +28,57 @@ public class ProductController {
 
     // Add Product Page
     @RequestMapping(value="/addProduct", method=RequestMethod.GET)
-    public String createProductPage() {
-        return "createProduct";
+    public String createProductPage(Model model) {
+        ArrayList<String> productTypes = new ArrayList<String>();
+        productTypes.add("Desktop");
+        productTypes.add("Laptop");
+        productTypes.add("Tablet");
+        productTypes.add("Mobile");
+
+        ArrayList<String> productBrands = new ArrayList<String>();
+        productBrands.add("Acer");
+        productBrands.add("Asus");
+        productBrands.add("Lenovo");
+
+        model.addAttribute("prodForm", new Product());
+        model.addAttribute("prodTypes", productTypes);
+        model.addAttribute("prodBrands", productBrands);
+        return "addProduct";
     }
 
     // Adds new product
     @RequestMapping(value="/addProduct", method=RequestMethod.POST)
-    public String createProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult, Model model) {
+    public String createProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult,
+                                      Model model)
+    {
         /* Later na yung validation */
 
+        /* Process file */
+        //storageService.store(file);
+        //redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
+
         /* If error, create product again */
-        if (bindingResult.hasErrors())
-            return "createProduct";
+        if (bindingResult.hasErrors()) {
+            ArrayList<String> productTypes = new ArrayList<String>();
+            productTypes.add("Desktop");
+            productTypes.add("Laptop");
+            productTypes.add("Tablet");
+            productTypes.add("Mobile");
+
+            ArrayList<String> productBrands = new ArrayList<String>();
+            productBrands.add("Acer");
+            productBrands.add("Asus");
+            productBrands.add("Lenovo");
+
+            model.addAttribute("prodForm", new Product());
+            model.addAttribute("prodTypes", productTypes);
+            model.addAttribute("prodBrands", productBrands);
+            return "addProduct";
+        }
 
         productService.addNewProduct(prodForm);
 
-        return "createProduct";
+        return "index";
     }
 
     /* Search Product Functionality */

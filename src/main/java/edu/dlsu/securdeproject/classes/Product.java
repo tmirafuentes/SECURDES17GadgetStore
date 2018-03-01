@@ -12,7 +12,7 @@ public class Product {
 	private double productPrice;
 	private int productQuantity;
 	private String productDescription;
-	private Brand productBrand;
+	private String productBrand;
 	private String productType;
 
 	public Product() {}
@@ -59,13 +59,11 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "productBrand")
-	public Brand getProductBrand() {
+	public String getProductBrand() {
 		return productBrand;
 	}
 
-	public void setProductBrand(Brand productBrand) {
+	public void setProductBrand(String productBrand) {
 		this.productBrand = productBrand;
 	}
 

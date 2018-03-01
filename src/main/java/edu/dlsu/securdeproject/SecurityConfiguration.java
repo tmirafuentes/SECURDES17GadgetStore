@@ -30,12 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/",
                              "/signup",
                              "/signin",
-                             "/index"
+                             "/index",
+                             "/addProduct",
+                             "/editProduct"
                              ).permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
+                .loginPage("/signin")
                 .permitAll()
                 .and()
             .logout()
