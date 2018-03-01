@@ -5,7 +5,12 @@
   Time: 9:45 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <html>
 <head>
     <c:url value="/resources/static/css/index.css" var="jstlCss" />
@@ -13,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
     <meta charset="UTF-8">
+    <title>Admin | Troy's Toys</title>
 </head>
 <body>
     <div id="adminBody">

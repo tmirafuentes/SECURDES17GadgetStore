@@ -9,8 +9,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
+    <title>Admin | Troy's Toys</title>
     <c:url value="/resources/static/css/index.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">

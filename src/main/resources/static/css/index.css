@@ -702,7 +702,7 @@ footer a{
     font-weight: bolder;
 }
 
-#confirmHolder #phraseConfirm{
+#confirmHolder .phraseConfirm{
     font-size: 20px;
     font-weight: bold;
 }
