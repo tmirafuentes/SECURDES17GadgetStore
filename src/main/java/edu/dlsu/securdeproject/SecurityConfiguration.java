@@ -45,7 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/tablets",
                              "/mobiles",
                              "/viewProduct",
-                             "/confirmation"
+                             "/confirmation",
+                             "/accountSettings",
+                             "/purchases"
                              ).permitAll()
                 .anyRequest().authenticated()
                 .and()

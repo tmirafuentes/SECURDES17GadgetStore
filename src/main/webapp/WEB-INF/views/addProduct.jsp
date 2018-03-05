@@ -28,6 +28,7 @@
         </div>
         <div class="container">
             <div id="login">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <form:form method="POST" modelAttribute="prodForm" class="form-addProd">
                     <div class="div-form">
                         <table>

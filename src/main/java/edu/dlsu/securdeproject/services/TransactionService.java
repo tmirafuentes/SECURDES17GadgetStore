@@ -1,5 +1,6 @@
 package edu.dlsu.securdeproject.services;
 
+import edu.dlsu.securdeproject.classes.Customer;
 import edu.dlsu.securdeproject.classes.Transaction;
 import edu.dlsu.securdeproject.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public class TransactionService {
     public boolean deleteTransaction(Transaction t) {
         transactionRepository.delete(t);
         return true;
+    }
+
+    public List<Transaction> getTransactionsByName(Customer c) {
+        return (List<Transaction>) transactionRepository.findAllByCustomer(c);
     }
 }

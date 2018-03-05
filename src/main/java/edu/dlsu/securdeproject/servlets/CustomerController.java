@@ -1,6 +1,7 @@
 package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Customer;
+import edu.dlsu.securdeproject.classes.Transaction;
 import edu.dlsu.securdeproject.repositories.CustomerRepository;
 import edu.dlsu.securdeproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -25,6 +30,8 @@ public class CustomerController {
     private ValidationService validationService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private TransactionService transactionService;
 
 	/* Default Homepage */
     @RequestMapping(value = {"/welcome", "/index" , "/"}, method=RequestMethod.GET)
@@ -103,5 +110,16 @@ public class CustomerController {
     	userService.save(custForm);
 
         return "account";   	
+    }
+
+    @RequestMapping(value = "/purchases", method= RequestMethod.GET)
+    public String viewPurchases(Model model, Principal principal) {
+        String username = principal.getName();
+        Customer c = customerRepository.findByUsername(username);
+
+        List<Transaction> allTransactions =  transactionService.getTransactionsByName(c);
+        model.addAttribute("transactions", allTransactions);
+
+        return "purchases";
     }
 }

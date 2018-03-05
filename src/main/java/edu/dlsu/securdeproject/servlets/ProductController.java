@@ -84,6 +84,8 @@ public class ProductController {
 
         productService.addNewProduct(prodForm);
 
+        model.addAttribute("products", productService.getAllProducts());
+
         return "adminHome";
     }
 
@@ -165,10 +167,9 @@ public class ProductController {
         Product product = productService.getProduct(prodId);
         model.addAttribute("indiProd", product);
         model.addAttribute("prodQty", prodQty);
-        System.out.println("Hello World");
+
         Customer customer = customerRepository.findByUsername(principal.getName());
         model.addAttribute("currCust", customer);
-        System.out.println("Hi");
         return "confirmation";
     }
 

@@ -24,9 +24,9 @@
 
     <div id="adminBody">
         <p id="titleH">ADMIN FUNCTIONS</p>
-        <form method="POST" action="${contextPath}/addProduct">
-            <button type="submit" id="btnAdminAdd">Add Item</button>
-        </form>
+        <a href="${contextPath}/addProduct">
+            <button id="btnAdminAdd">Add Item</button>
+        </a>
         <div id="adminSection">
             <form:form method="GET">
             <table id="productList">
