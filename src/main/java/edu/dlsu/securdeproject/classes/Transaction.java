@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 public class Transaction { 
     private long transactionId;
-    private Customer customer;
+    private User user;
     private Product product;
     private int quantity;
     private double totalAmount;
@@ -25,13 +25,13 @@ public class Transaction {
     }
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    public Customer getCustomer() {
-        return customer;
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @OneToOne(cascade = CascadeType.ALL)

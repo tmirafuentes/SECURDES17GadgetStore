@@ -41,10 +41,7 @@ public class ProductController {
         productTypes.add("Tablet");
         productTypes.add("Mobile");
 
-        ArrayList<String> productBrands = new ArrayList<String>();
-        productBrands.add("Acer");
-        productBrands.add("Asus");
-        productBrands.add("Lenovo");
+
 
         model.addAttribute("prodForm", new Product());
         model.addAttribute("prodTypes", productTypes);
