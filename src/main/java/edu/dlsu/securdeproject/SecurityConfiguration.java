@@ -24,31 +24,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**",
-                             "/js/**",
+                .antMatchers("/css/**", 
+                             "/js/**", 
                              "/images/**",
-                             "/",
-                             "/signup",
-                             "/signin",
+                             "/", 
+                             "/welcome", 
                              "/index",
-                             "/addProduct",
-                             "/buyProduct",
-                             "/editProd",
-                             "/deleteProduct",
-                             "/editProduct",
-                             "/adminSignup",
-                             "/adminHome",
-                             "/adminTransac",
-                             "/search",
-                             "/desktops",
-                             "/laptops",
-                             "/tablets",
+                             "/signup", 
+                             "/signin",
+                             "/desktops", 
+                             "/laptops", 
                              "/mobiles",
-                             "/viewProduct",
-                             "/confirmation",
-                             "/accountSettings",
-                             "/purchases"
-                             ).permitAll()
+                             "/tablets", 
+                             "/view-product"
+                            ).permitAll()
+                .antMatchers("/account", 
+                             "/editAccount",
+                             "/buy-product", 
+                             "/thank-you",
+                             "/purchases"           
+                            ).hasRole("USER")
+                .antMatchers("/admin", 
+                             "/admin-prods",
+                             "/admin-trans", 
+                             "/admin-users",
+                             "/admin-audit-trail",
+                             "/add-product", 
+                             "/edit-product",
+                             "/delete-product"
+                             ).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

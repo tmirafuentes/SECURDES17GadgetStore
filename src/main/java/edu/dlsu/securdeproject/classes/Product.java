@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 public class Product {
-	private long productId;
+	private Long productId;
 	private String productName;
 	private double productPrice;
 	private int productQuantity;
@@ -19,11 +19,11 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public long getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(long productId) {
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 

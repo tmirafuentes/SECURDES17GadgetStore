@@ -52,7 +52,9 @@ public class MainController {
 			return "signup";
 
 		/* Else, save new account to the database */
-		mainService.saveUser(userForm);
+		List<Role> roles = new List<Role>();
+		roles.add(mainService.findRoleByName("ROLE_USER"));
+		mainService.saveUser(userForm, roles);
 
 		/* Keep user logged in after registering */
 		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
@@ -101,7 +103,7 @@ public class MainController {
 		if (bindingResult.hasError())
 			return "account";
 
-		/* Else, save new account to the database */
+		/* Else, update account to the database */
 		mainService.saveUser(userForm);
 
 		/* Keep user logged in after registering */
@@ -137,7 +139,7 @@ public class MainController {
 	/* Create New Admin */
 	@RequestMapping(value = "/admin-signup", method=RequestMethod.GET)
 	public String adminSignupPage(Model model) {
-		model.addAttribute("adminForm", new User("ADMIN"));
+		model.addAttribute("adminForm", new User());
 
 		return "admin-signup";
 	}
@@ -153,7 +155,10 @@ public class MainController {
 		}
 
 		/* Else. save new Admin account to the database */
-		mainService.saveUser(adminForm);
+		List<Role> roles = new List<Role>();
+		roles.add(mainService.findRoleByName("ROLE_USER"));
+		roles.add(mainService.findRoleByName("ROLE_ADMIN"));
+		mainService.saveUser(adminForm, roles);
 
 		return "admin";
 	}

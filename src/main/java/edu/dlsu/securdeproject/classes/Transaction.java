@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 public class Transaction { 
-    private long transactionId;
+    private Long transactionId;
     private User user;
     private Product product;
     private int quantity;
@@ -16,11 +16,11 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public long getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(long transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 
