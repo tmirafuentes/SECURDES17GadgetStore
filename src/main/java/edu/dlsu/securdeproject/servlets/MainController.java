@@ -153,7 +153,6 @@ public class MainController {
 		if (bindingResult.hasErrors()) {
 			return "admin-signup";
 		}
-
 		/* Else. save new Admin account to the database */
 		List<Role> roles = new List<Role>();
 		roles.add(mainService.findRoleByName("ROLE_USER"));
@@ -211,6 +210,8 @@ public class MainController {
 		return productBrands;
 	}
 
+	/*** SUBSET: MAIN FUNCTIONS ***/
+
 	/* Add a Product */
 	@RequestMapping(value = "/add-product", method=RequestMethod.GET)
 	public String addProductPage(Model model) {
@@ -260,7 +261,7 @@ public class MainController {
 
 		mainService.saveProduct(prodForm);
 
-		return admin();
+		return admin(model);
 	}
 
 	/* Search Product */
@@ -310,7 +311,7 @@ public class MainController {
 		Product p = mainService.findProductByProductId(prodId);
 		mainService.deleteProduct(p);
 
-		return admin();
+		return admin(model);
 	}
 
 	/***** TRANSACTION ACTIONS *****/
