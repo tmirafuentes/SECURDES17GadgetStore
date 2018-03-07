@@ -1,6 +1,6 @@
-package edu.dlsu.securdeprojet.classes;
+package edu.dlsu.securdeproject.classes;
 
-import java.persistence.*;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -9,8 +9,8 @@ public class Role {
 	private String name;
 	private Set<User> users;
 
-	@id
-	@GeneratedValue(strategy = GeneratedType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -27,7 +27,7 @@ public class Role {
 		this.name = name;
 	}
 
-	@ManyToMany(mapped = "roles")
+	@ManyToMany(mappedBy = "roles")
 	public Set<User> getUsers() {
 		return users;
 	}

@@ -1,19 +1,16 @@
-package.edu.dlsu.securdeproject.servlets;
+package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Transaction;
-import edu.dlsu.securdeproject.repositories.UserRepository;
-import edu.dlsu.securdeproject.repositories.ProductRepository;
-import edu.dlsu.securdeproject.repositories.TransactionRepository;
 import edu.dlsu.securdeproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @Controller
@@ -23,6 +20,8 @@ public class MainController {
 	private MainService mainService;
 	@Autowired
 	private ValidationService validationService;
+	@Autowired
+	private SecurityService securityService;
 
 	/* Default Homepage */
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method=RequestMethod.GET)
@@ -48,11 +47,11 @@ public class MainController {
 		validationService.validate(userForm, bindingResult);
 	
 		/* If error, redirect to sign up again */
-		if (bindingResult.hasError())
+		if (bindingResult.hasErrors())
 			return "signup";
 
 		/* Else, save new account to the database */
-		List<Role> roles = new List<Role>();
+		ArrayList<Role> roles = new ArrayList<Role>();
 		roles.add(mainService.findRoleByName("ROLE_USER"));
 		mainService.saveUser(userForm, roles);
 
@@ -100,7 +99,7 @@ public class MainController {
 		validationService.validate(userForm, bindingResult);
 	
 		/* If error, redirect to sign up again */
-		if (bindingResult.hasError())
+		if (bindingResult.hasErrors())
 			return "account";
 
 		/* Else, update account to the database */
@@ -120,7 +119,7 @@ public class MainController {
 		User currUser = mainService.findUserByUsername(username);
 	
 		/* Find all transactions based on user */
-		List<Transaction> allTransactions = mainService.findTransactionsByName(currUser);
+		ArrayList<Transaction> allTransactions = mainService.findTransactionsByUser(currUser);
 		model.addAttribute("purchases", allTransactions);
 
 		return "purchases";
@@ -154,7 +153,7 @@ public class MainController {
 			return "admin-signup";
 		}
 		/* Else. save new Admin account to the database */
-		List<Role> roles = new List<Role>();
+		ArrayList<Role> roles = new ArrayList<Role>();
 		roles.add(mainService.findRoleByName("ROLE_USER"));
 		roles.add(mainService.findRoleByName("ROLE_ADMIN"));
 		mainService.saveUser(adminForm, roles);
@@ -189,8 +188,8 @@ public class MainController {
 	/*** SUBSET: OTHER FUNCTIONS ***/
 
 	/* Generate Product Brands */
-	public List<String> generateProductTypes() {
-		List<String> productTypes = new List<String>();
+	public ArrayList<String> generateProductTypes() {
+		ArrayList<String> productTypes = new ArrayList<String>();
         productTypes.add("Desktop");
         productTypes.add("Laptop");
         productTypes.add("Tablet");
@@ -200,8 +199,8 @@ public class MainController {
 	}
 
 	/* Generate Product Brands */
-	public List<String> generateProductBrands() {
-		List<String> productBrands = new List<String>();
+	public ArrayList<String> generateProductBrands() {
+		ArrayList<String> productBrands = new ArrayList<String>();
 		productBrands.add("Acer");
 		productBrands.add("Asus");
 		productBrands.add("Lenovo");
@@ -225,7 +224,7 @@ public class MainController {
 	@RequestMapping(value = "/add-product", method=RequestMethod.POST)
 	public String addProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult, Model model) {
 		/* Validate form submitted */
-		validationService.validateProduct(prodForm, bindingResult);
+		//validationService.validateProduct(prodForm, bindingResult);
 
 		/* If error, create product again */
 		if (bindingResult.hasErrors())
@@ -253,7 +252,7 @@ public class MainController {
 	@RequestMapping(value = "/edit-product", method=RequestMethod.POST)
 	public String editProductSubmit(@ModelAttribute("prodForm") Product prodForm, BindingResult bindingResult, Model model) {
 		/* Validate form submitted */
-		validationService.validateProduct(prodForm, bindingResult);
+		//validationService.validateProduct(prodForm, bindingResult);
 
 		/* If error, create product again */
 		if (bindingResult.hasErrors())
@@ -337,12 +336,12 @@ public class MainController {
 
 		/* Create Transaction object */
 		Transaction t = new Transaction();
-		t.setUser(c);
+		t.setUser(u);
 		t.setProduct(p);
 		t.setQuantity(quantity);
 		t.setTotalAmount(p.getProductPrice() * quantity);
 		t.setTimestamp(Calendar.getInstance());
-		t.setStatus("Shipping");
+		t.setStatus(true);
 
 		/* Save Transaction to the database */
 		mainService.saveTransaction(t);
