@@ -1,9 +1,6 @@
 package edu.dlsu.securdeproject.classes;
 
-import edu.dlsu.securdeproject.classes.Brand;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Product {

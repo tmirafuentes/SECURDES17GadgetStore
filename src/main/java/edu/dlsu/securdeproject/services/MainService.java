@@ -9,17 +9,17 @@ import edu.dlsu.securdeproject.repositories.RoleRepository;
 import edu.dlsu.securdeproject.repositories.TransactionRepository;
 import edu.dlsu.securdeproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +44,11 @@ public class MainService implements UserDetailsService {
 	/*** DATABASE SERVICES ***/
 
 	/* Save New User */
+<<<<<<< HEAD
 	public User saveUser(User u, List<Role> roles) {
+=======
+	public void saveUser(User u, ArrayList<Role> roles) {
+>>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 		u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
 		u.setRoles(new HashSet<>(roles));
 		userRepository.save(u);
@@ -59,12 +63,12 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific user by username */
 	public User findUserByUsername(String username) {
-		userRepository.findByUsername(username);
+		return userRepository.findByUsername(username);
 	}
 
 	/* Retrieve all users */
-	public List<User> findAllUsers() {
-		return (List<User>) userRepository.findAll();
+	public ArrayList<User> findAllUsers() {
+		return (ArrayList<User>) userRepository.findAll();
 	}
 
 	/* Retrieve role name */
@@ -97,22 +101,26 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific product */
 	public Product findProductByProductId(Long productId) {
+<<<<<<< HEAD
 		return (Product) productRepository.findByProductId(productId); 
+=======
+		return (Product) productRepository.findByProductId(productId);
+>>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 	}
 
 	/* Retrieve all products */
-	public List<Product> findAllProducts() {
-		return (List<Product>) productRepository.findAll();
+	public ArrayList<Product> findAllProducts() {
+		return (ArrayList<Product>) productRepository.findAll();
 	}
 
 	/* Retrieve products by specific type */
-	public List<Product> findProductsByType(String productType) {
-		return (List<Product>) productRepository.findAllByProductType(productType);
+	public ArrayList<Product> findProductsByType(String productType) {
+		return (ArrayList<Product>) productRepository.findAllByProductType(productType);
 	} 
 
 	/* Retrieve products by search */
-	public List<Product> findProductsBySearch(String productName) {
-		return (List<Product>) productRepository.findAllByProductNameContains(productType);
+	public ArrayList<Product> findProductsBySearch(String productName) {
+		return (ArrayList<Product>) productRepository.findAllByProductNameContains(productName);
 	}
 
 	/* Delete a product */
@@ -135,13 +143,13 @@ public class MainService implements UserDetailsService {
 	}
 
 	/* Retrieve specific transaction by User */
-	public List<Transaction> findTransactionsByUser(User u) {
-		return (List<Transaction>) transactionRepository.findAllByUser(t);
+	public ArrayList<Transaction> findTransactionsByUser(User u) {
+		return (ArrayList<Transaction>) transactionRepository.findAllByUser(u);
 	}
 
 	/* Retrieve all transactions */
-	public List<Transaction> findAllTransactions() {
-		return List<Transaction> transactionRepository.findAll();
+	public ArrayList<Transaction> findAllTransactions() {
+		return (ArrayList<Transaction>) transactionRepository.findAll();
 	}
 
 	/* Delete a transaction */

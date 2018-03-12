@@ -87,11 +87,11 @@ public class User {
 		this.mailAddress = mailAddress;
 	}
 
-	public Date getBirthdate() {
+	public Calendar getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(Calendar birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -103,7 +103,7 @@ public class User {
 		this.mobileNumber = mobileNumber;
 	}
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public Set<Transaction> getTransactions() {
 		return transactions;
 	}
