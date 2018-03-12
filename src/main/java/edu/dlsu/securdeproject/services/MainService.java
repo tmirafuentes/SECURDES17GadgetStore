@@ -44,10 +44,12 @@ public class MainService implements UserDetailsService {
 	/*** DATABASE SERVICES ***/
 
 	/* Save New User */
-	public void saveUser(User u, List<Role> roles) {
+	public User saveUser(User u, List<Role> roles) {
 		u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
 		u.setRoles(new HashSet<>(roles));
 		userRepository.save(u);
+
+		return u;
 	}
 
 	/* Update User */
@@ -65,6 +67,7 @@ public class MainService implements UserDetailsService {
 		return (List<User>) userRepository.findAll();
 	}
 
+	/* Retrieve role name */
 	public Role findRoleByName(String name) {
 		return roleRepository.findByName(name);
 	}
@@ -87,7 +90,6 @@ public class MainService implements UserDetailsService {
 	/***** PRODUCT SERVICES *****/
 
 	/*** DATABASE SERVICES ***/
-
 	/* Save Product */
 	public void saveProduct(Product p) {
 		productRepository.save(p);
@@ -95,7 +97,7 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific product */
 	public Product findProductByProductId(Long productId) {
-		return (Product) productRepository.findById(productId); 
+		return (Product) productRepository.findByProductId(productId); 
 	}
 
 	/* Retrieve all products */
@@ -129,7 +131,7 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific transaction by ID */
 	public Transaction findTransactionByTransactionId(Long transId) {
-		return (Transaction) transactionRepository.findById(transId);
+		return (Transaction) transactionRepository.findByTransactionId(transId);
 	}
 
 	/* Retrieve specific transaction by User */

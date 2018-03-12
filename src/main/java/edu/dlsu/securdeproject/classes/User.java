@@ -21,6 +21,11 @@ public class User {
 
 	public User() {}
 
+	public User() {
+		super();
+		this.enabled = false;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getUserId() { 

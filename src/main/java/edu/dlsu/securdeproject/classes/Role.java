@@ -1,4 +1,4 @@
-package edu.dlsu.securdeprojet.classes;
+package edu.dlsu.securdeproject.classes;
 
 import java.persistence.*;
 import java.util.Set;
