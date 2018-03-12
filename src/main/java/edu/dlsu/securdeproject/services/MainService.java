@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,7 +95,7 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific product */
 	public Product findProductByProductId(Long productId) {
-		return (Product) productRepository.findById(productId); 
+		return (Product) productRepository.findByProductId(productId);
 	}
 
 	/* Retrieve all products */
@@ -128,7 +129,7 @@ public class MainService implements UserDetailsService {
 
 	/* Retrieve specific transaction by ID */
 	public Transaction findTransactionByTransactionId(Long transId) {
-		return (Transaction) transactionRepository.findById(transId);
+		return (Transaction) transactionRepository.findByTransactionId(transId);
 	}
 
 	/* Retrieve specific transaction by User */

@@ -10,5 +10,5 @@ import java.util.List;
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
     ArrayList<Transaction> findAllByUser(User user);
 
-    Transaction findById(Long transId);
+    Transaction findByTransactionId(Long transId);
 }

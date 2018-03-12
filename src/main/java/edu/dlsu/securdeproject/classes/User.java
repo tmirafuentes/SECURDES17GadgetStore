@@ -98,7 +98,7 @@ public class User {
 		this.mobileNumber = mobileNumber;
 	}
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public Set<Transaction> getTransactions() {
 		return transactions;
 	}
