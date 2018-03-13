@@ -22,17 +22,38 @@ public class ValidationService implements Validator {
 	public void validate(Object o, Errors errors) {
 		User user = (User) o;
 
+		/* Validate Username */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32)
 			errors.rejectValue("username", "Size.userForm.username");
 		if (mainService.findUserByUsername(user.getUsername()) != null)
 			errors.rejectValue("username", "Duplicate.userForm.username");
 
+		/* Validate Password */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (user.getUsername().length() < 8 || user.getUsername().length() > 32)
 			errors.rejectValue("username", "Size.userForm.password");
-
 		if (!user.getPasswordConfirm().equals(user.getPassword()))
 			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+
+		/* Validate Email */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+		// Put Regex Somewhere
+
+		/* Validate First Name */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");
+
+		/* Validate Last Name */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
+
+		/* Validate Mail Address */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mailAddress", "NotEmpty");
+		
+		/* Validate Birthdate */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthdate", "NotEmpty");
+
+		/* Validate Mobile Number */
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+		// Put Regex Somewhere
 	}
 }
