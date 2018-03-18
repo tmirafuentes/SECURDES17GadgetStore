@@ -1,9 +1,9 @@
 package edu.dlsu.securdeproject.services;
 
 import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.services.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

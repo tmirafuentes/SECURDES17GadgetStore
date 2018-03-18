@@ -10,12 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-interface SecurityServiceInterface {
-	String findLoggedInUsername();
-
-	void autologin(String username, String password);
-}
-
 @Service
 public class SecurityService implements SecurityServiceInterface {
 	@Autowired
