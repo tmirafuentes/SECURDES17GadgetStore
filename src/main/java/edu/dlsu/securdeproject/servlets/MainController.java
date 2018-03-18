@@ -21,7 +21,11 @@ public class MainController {
 	@Autowired
 	private ValidationService validationService;
 	@Autowired
+<<<<<<< HEAD
+	private ApplicationEventPublisher eventPublisher;
+=======
 	private SecurityService securityService;
+>>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 
 	/* Default Homepage */
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method=RequestMethod.GET)
@@ -42,7 +46,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public String signUpSubmit(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+	public String signUpSubmit(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model, Request request) {
 		/* Validates Form Submitted */
 		validationService.validate(userForm, bindingResult);
 	
@@ -53,7 +57,14 @@ public class MainController {
 		/* Else, save new account to the database */
 		ArrayList<Role> roles = new ArrayList<Role>();
 		roles.add(mainService.findRoleByName("ROLE_USER"));
-		mainService.saveUser(userForm, roles);
+		User newUser = mainService.saveUser(userForm, roles);
+
+		try {
+			String appUrl = request.getContextPath();
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), appUrl));
+		} catch (Exception me) {
+			return "error";
+		}
 
 		/* Keep user logged in after registering */
 		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());

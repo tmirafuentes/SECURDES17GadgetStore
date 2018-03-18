@@ -36,10 +36,16 @@ public class MainService {
 	/*** DATABASE SERVICES ***/
 
 	/* Save New User */
+<<<<<<< HEAD
+	public User saveUser(User u, List<Role> roles) {
+=======
 	public void saveUser(User u, ArrayList<Role> roles) {
+>>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 		u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
 		u.setRoles(new HashSet<>(roles));
 		userRepository.save(u);
+
+		return u;
 	}
 
 	/* Update User */
@@ -57,6 +63,7 @@ public class MainService {
 		return (ArrayList<User>) userRepository.findAll();
 	}
 
+	/* Retrieve role name */
 	public Role findRoleByName(String name) {
 		return roleRepository.findByName(name);
 	}
@@ -68,7 +75,6 @@ public class MainService {
 	/***** PRODUCT SERVICES *****/
 
 	/*** DATABASE SERVICES ***/
-
 	/* Save Product */
 	public void saveProduct(Product p) {
 		productRepository.save(p);
@@ -76,7 +82,11 @@ public class MainService {
 
 	/* Retrieve specific product */
 	public Product findProductByProductId(Long productId) {
+<<<<<<< HEAD
+		return (Product) productRepository.findByProductId(productId); 
+=======
 		return (Product) productRepository.findByProductId(productId);
+>>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 	}
 
 	/* Retrieve all products */
