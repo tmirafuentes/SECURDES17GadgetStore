@@ -1,4 +1,4 @@
-package edu.dlsu.securdeproject.classes;
+package edu.dlsu.securdeproject.security.registration;
 
 import java.persistence.*;
 import java.util.Set;

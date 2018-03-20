@@ -16,10 +16,16 @@ public class User {
 	private String mailAddress;
 	private Calendar birthdate;
 	private String mobileNumber;
+	private boolean enabled;
 	private Set<Transaction> transactions;
 	private Set<Role> roles;
 
 	public User() {}
+
+	public User() {
+		super();
+		this.enabled = false;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

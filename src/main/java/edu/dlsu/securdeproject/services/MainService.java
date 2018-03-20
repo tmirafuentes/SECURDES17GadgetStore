@@ -54,6 +54,11 @@ public class MainService implements IUserService {
 		return userRepository.findByUsername(username);
 	}
 
+	/* Retrieve specific user by email */
+	public User findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	/* Retrieve all users */
 	public ArrayList<User> findAllUsers() {
 		return (ArrayList<User>) userRepository.findAll();
@@ -66,7 +71,11 @@ public class MainService implements IUserService {
 
 	/*** AUTHENTICATION AND AUTHORIZATION SERVICES ***/
 	
-	/* Retrieve User for details */
+	/* Forgotten Password Token Creation */
+	public void createPasswordResetToken(User user, String token) {
+		PasswordResetToken myToken = new PasswordResetToken(token, user);
+		passwordTokenRespository.save(myToken);
+	}
 
 	/***** PRODUCT SERVICES *****/
 
