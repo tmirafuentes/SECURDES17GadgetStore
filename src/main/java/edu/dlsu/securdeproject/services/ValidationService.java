@@ -8,6 +8,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class ValidationService implements Validator {
 	/* Local Variables */
@@ -17,9 +20,7 @@ public class ValidationService implements Validator {
 	/* Email Validator */
 	private Pattern pattern;
 	private Matcher matcher;
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+
-        (.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*
-        (.[A-Za-z]{2,})$"; 	
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)* (.[A-Za-z]{2,})$";
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -47,7 +48,7 @@ public class ValidationService implements Validator {
 		/* Validate Email */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 		pattern = Pattern.compile(EMAIL_PATTERN);
-		matcher = pattern.matcher(email);
+		matcher = pattern.matcher(user.getEmail());
 		if (!matcher.matches())
 			errors.rejectValue("email", "Duplicate.userForm.email");
 

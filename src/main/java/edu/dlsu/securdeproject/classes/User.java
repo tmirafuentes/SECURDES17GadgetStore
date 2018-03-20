@@ -20,8 +20,6 @@ public class User {
 	private Set<Transaction> transactions;
 	private Set<Role> roles;
 
-	public User() {}
-
 	public User() {
 		super();
 		this.enabled = false;

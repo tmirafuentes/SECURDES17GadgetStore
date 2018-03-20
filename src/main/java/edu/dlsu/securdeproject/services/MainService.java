@@ -8,6 +8,7 @@ import edu.dlsu.securdeproject.repositories.ProductRepository;
 import edu.dlsu.securdeproject.repositories.RoleRepository;
 import edu.dlsu.securdeproject.repositories.TransactionRepository;
 import edu.dlsu.securdeproject.repositories.UserRepository;
+import edu.dlsu.securdeproject.security.registration.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 @Service
-public class MainService implements IUserService {
+public class MainService {
 	/* Repositories */
 	@Autowired
 	private ProductRepository productRepository;
@@ -36,12 +37,21 @@ public class MainService implements IUserService {
 	/*** DATABASE SERVICES ***/
 
 	/* Save New User */
-	public void saveUser(User u, ArrayList<Role> roles) {
-		u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
-		u.setRoles(new HashSet<>(roles));
-		userRepository.save(u);
+	public User saveUser(UserDto u, ArrayList<Role> roles) {
+		/* Transfer to User object */
+		User user = new User();
+		user.setBirthdate(u.getBirthdate());
+		user.setEmail(u.getEmail());
+		user.setFirstName(u.getFirstName());
+		user.setLastName(u.getLastName());
+		user.setMailAddress(u.getMailAddress());
+		user.setMobileNumber(u.getMobileNumber());
+		user.setUsername(u.getUsername());
+		user.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
+		user.setRoles(new HashSet<>(roles));
+		userRepository.save(user);
 
-		return u;
+		return user;
 	}
 
 	/* Update User */
@@ -73,8 +83,8 @@ public class MainService implements IUserService {
 	
 	/* Forgotten Password Token Creation */
 	public void createPasswordResetToken(User user, String token) {
-		PasswordResetToken myToken = new PasswordResetToken(token, user);
-		passwordTokenRespository.save(myToken);
+		//PasswordResetToken myToken = new PasswordResetToken(token, user);
+		//passwordTokenRespository.save(myToken);
 	}
 
 	/***** PRODUCT SERVICES *****/

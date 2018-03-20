@@ -4,14 +4,20 @@ import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Transaction;
+import edu.dlsu.securdeproject.security.registration.UserDto;
+import edu.dlsu.securdeproject.security.SecurityService;
 import edu.dlsu.securdeproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Calendar;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -38,7 +44,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public String signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, Request request) {
+	public String signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, HttpRequest request) {
 		/* Validates Form Submitted*/
 		validationService.validate(userForm, bindingResult);
 	
@@ -94,10 +100,10 @@ public class MainController {
 	
 		/* If error, redirect to edit account again */
 		if (bindingResult.hasErrors()) {
-			Map<String, Object> model = new HashMap<String, Object>();
-			model.put("error", "There is an error updating your account. Please try again.");
-			model.put("userForm", userForm);
-			return new ModelAndView("account", model);
+			Map<String, Object> models = new HashMap<String, Object>();
+			models.put("error", "There is an error updating your account. Please try again.");
+			models.put("userForm", userForm);
+			return new ModelAndView("account", models);
 		}
 
 		/* Else, update account to the database */
@@ -108,7 +114,7 @@ public class MainController {
 
 	/* View All Transactions */
 	@RequestMapping(value = "/purchases", method=RequestMethod.GET)
-	public String viewAllTransactions(Model model) {
+	public ModelAndView viewAllTransactions(Model model) {
 		/* Get current user */
 		String username = securityService.findLoggedInUsername();
 		User currUser = mainService.findUserByUsername(username);
@@ -125,7 +131,7 @@ public class MainController {
 		return new ModelAndView("forgot-password", null, null);
 	}
 
-	@RequestMapping(value = "/forgot-password", method=RequestMethod.POST)
+	/*@RequestMapping(value = "/forgot-password", method=RequestMethod.POST)
 	@ResponseBody
 	public GenericResponse forgotPasswordSubmit(HttpServletRequest request, @RequestParam("email") String email) {
 		User user = mainService.findUserByEmail(email);
@@ -142,8 +148,8 @@ public class MainController {
 
 	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale,
 													   String token, User user) {
-		String url = contextPath + "/"
-	}
+		//String url = contextPath + "/"
+	}*/
 
 	/*** SUBSET: ADMIN ACTIONS ***/
 
@@ -162,7 +168,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/admin-signup", method=RequestMethod.POST)
-	public String adminSignupSubmit(@ModelAttribute("adminForm") User adminForm, BindingResult bindingResult, Model model) {
+	public String adminSignupSubmit(@ModelAttribute("adminForm") UserDto adminForm, BindingResult bindingResult, Model model) {
 		/* Validate Form */
 		validationService.validate(adminForm, bindingResult);
 
@@ -187,7 +193,7 @@ public class MainController {
 
 	/* View Users */
 	@RequestMapping(value = "/admin-users", method=RequestMethod.GET)
-	public String adminUsers(Model model) {
+	public ModelAndView adminUsers(Model model) {
 		return new ModelAndView("admin-users", "users", mainService.findAllUsers());
 	}
 
@@ -228,12 +234,12 @@ public class MainController {
 	/* Add a Product */
 	@RequestMapping(value = "/add-product", method=RequestMethod.GET)
 	public ModelAndView addProductPage(Model model) {
-		Map<String, Object> model = new HashMap<String, Object>();
-        model.put("prodForm", new Product());
-        model.put("prodTypes", generateProductTypes());
-        model.put("prodBrands", generateProductBrands());
+		Map<String, Object> models = new HashMap<String, Object>();
+        models.put("prodForm", new Product());
+        models.put("prodTypes", generateProductTypes());
+        models.put("prodBrands", generateProductBrands());
 
-        return new ModelAndView("add-product", model);
+        return new ModelAndView("add-product", models);
 	}
 
 	@RequestMapping(value = "/add-product", method=RequestMethod.POST)
@@ -243,7 +249,7 @@ public class MainController {
 
 		/* If error, create product again */
 		if (bindingResult.hasErrors())
-			return addProductPage(model);	// Call na lang ulit the function above
+			return "add-product";	// Call na lang ulit the function above
 
 		/* Else, save new product to the database */
 		mainService.saveProduct(prodForm);
@@ -253,16 +259,16 @@ public class MainController {
 
 	/* Edit Product details */
 	@RequestMapping(value = "/edit-product", method=RequestMethod.GET)
-	public String editProductPage(Model model, @RequestParam("prodId") Long prodId) {
+	public ModelAndView editProductPage(Model model, @RequestParam("prodId") Long prodId) {
 		Product currProd = mainService.findProductByProductId(prodId);
 		currProd.setProductId(prodId);
 
-		Map<String, Object> model = new HashMap<String, Object>();
-        model.put("prodForm", currProd);
-        model.put("prodTypes", generateProductTypes());
-        model.put("prodBrands", generateProductBrands());
+		Map<String, Object> models = new HashMap<String, Object>();
+        models.put("prodForm", currProd);
+        models.put("prodTypes", generateProductTypes());
+        models.put("prodBrands", generateProductBrands());
 
-        return new ModelAndView("edit-product", model);
+        return new ModelAndView("edit-product", models);
 	}
 
 	@RequestMapping(value = "/edit-product", method=RequestMethod.POST)
@@ -272,7 +278,7 @@ public class MainController {
 
 		/* If error, create product again */
 		if (bindingResult.hasErrors())
-			return editProductPage(model, prodForm.getProductId());	// Call na lang ulit the function above
+			return "edit-product";	// Call na lang ulit the function above
 
 		mainService.saveProduct(prodForm);
 
@@ -328,12 +334,12 @@ public class MainController {
 		Product p = mainService.findProductByProductId(prodId);
 		User u = mainService.findUserByUsername(securityService.findLoggedInUsername());
 
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("specificProd", p);
-		model.put("prodQty", prodQty);
-		model.put("currUser", u);
+		Map<String, Object> models = new HashMap<String, Object>();
+		models.put("specificProd", p);
+		models.put("prodQty", prodQty);
+		models.put("currUser", u);
 
-		return new ModelAndView("confirm", model);
+		return new ModelAndView("confirm", models);
 	}
 
 	@RequestMapping(value = "/thank-you", method=RequestMethod.POST)

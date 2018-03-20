@@ -1,4 +1,11 @@
-@PasswordMatches
+package edu.dlsu.securdeproject.security.registration;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+import java.beans.Transient;
+import java.util.Calendar;
+
 public class UserDto {
 	@NotNull
 	@NotEmpty
@@ -17,12 +24,13 @@ public class UserDto {
 	private String password;
 	private String passwordConfirm;
 
-	@ValidEmail
 	@NotNull
 	@NotEmpty
 	private String email;
 
 	private Calendar birthdate;
+
+	private String mailAddress;
 
 	private String mobileNumber;
 

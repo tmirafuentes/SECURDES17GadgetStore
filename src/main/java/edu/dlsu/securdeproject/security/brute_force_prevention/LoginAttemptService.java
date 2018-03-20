@@ -1,3 +1,11 @@
+package edu.dlsu.securdeproject.security.brute_force_prevention;
+
+import org.springframework.cglib.core.internal.LoadingCache;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class LoginAttemptService {
 	private final int MAX_ATTEMPT = 5;

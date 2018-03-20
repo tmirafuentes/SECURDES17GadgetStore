@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,8 +21,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Autowired
     private MainService mainService;
 
-    @Autowired
-    private LoginAttemptService loginAttemptService; 
+    //@Autowired
+    //private LoginAttemptService loginAttemptService;
 
     @Autowired
     private HttpServletRequest request;
@@ -31,8 +32,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
-        if (loginAttemptService.isBlocked(ip))
-            throw new RuntimeException("blocked");
+        //if (loginAttemptService.isBlocked(ip))
+            //throw new RuntimeException("blocked");
 
         /* Try retrieving a user */
         try {
@@ -45,9 +46,9 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
             if (user == null)
                 return new org.springframework.security.core.userdetails.User(" ", " ", 
-                                getAuthorities(Arrays.asList(mainService.findRoleByName("ROLE_USER"))));
+                                grantedAuthorities);
 
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword().grantedAuthorities);
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
