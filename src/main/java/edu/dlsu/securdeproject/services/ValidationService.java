@@ -10,8 +10,16 @@ import org.springframework.validation.Validator;
 
 @Component
 public class ValidationService implements Validator {
+	/* Local Variables */
 	@Autowired
 	private MainService mainService;
+
+	/* Email Validator */
+	private Pattern pattern;
+	private Matcher matcher;
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+
+        (.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*
+        (.[A-Za-z]{2,})$"; 	
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -31,14 +39,17 @@ public class ValidationService implements Validator {
 
 		/* Validate Password */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-		if (user.getUsername().length() < 8 || user.getUsername().length() > 32)
-			errors.rejectValue("username", "Size.userForm.password");
+		if (user.getPassword().length() < 8 || user.getPassword().length() > 32)
+			errors.rejectValue("password", "Size.userForm.password");
 		if (!user.getPasswordConfirm().equals(user.getPassword()))
 			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
 
 		/* Validate Email */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-		// Put Regex Somewhere
+		pattern = Pattern.compile(EMAIL_PATTERN);
+		matcher = pattern.matcher(email);
+		if (!matcher.matches())
+			errors.rejectValue("email", "Duplicate.userForm.email");
 
 		/* Validate First Name */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");

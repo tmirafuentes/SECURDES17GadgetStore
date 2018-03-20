@@ -21,33 +21,25 @@ public class MainController {
 	@Autowired
 	private ValidationService validationService;
 	@Autowired
-<<<<<<< HEAD
-	private ApplicationEventPublisher eventPublisher;
-=======
 	private SecurityService securityService;
->>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 
 	/* Default Homepage */
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method=RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("allProducts", mainService.findAllProducts());
-
-		return "index";
+	public ModelAndView index(Model model) {
+		return new ModelAndView("index", "allProducts", mainService.findAllProducts());
 	}
 
 	/***** USER ACTIONS *****/
 
 	/* Registration of Account */
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
-	public String signUpPage(Model model) {
-		model.addAttribute("userForm", new User());
-
-		return "signup";
+	public ModelAndView signUpPage(Model model) {
+		return new ModelAndView("signup", "userForm", new UserDto());
 	}
 
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public String signUpSubmit(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model, Request request) {
-		/* Validates Form Submitted */
+	public String signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, Request request) {
+		/* Validates Form Submitted*/
 		validationService.validate(userForm, bindingResult);
 	
 		/* If error, redirect to sign up again */
@@ -59,67 +51,59 @@ public class MainController {
 		roles.add(mainService.findRoleByName("ROLE_USER"));
 		User newUser = mainService.saveUser(userForm, roles);
 
-		try {
-			String appUrl = request.getContextPath();
-			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), appUrl));
-		} catch (Exception me) {
-			return "error";
-		}
-
 		/* Keep user logged in after registering */
 		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-		return "index";
+		return "redirect:/";
 	}
 
 	/* Sign In */
 	@RequestMapping(value = "/signin", method=RequestMethod.GET)
-	public String signInPage(Model model, String error, String logout) {
+	public ModelAndView signInPage(Model model, String error, String logout) {
 		if (error != null)
-			model.addAttribute("error", "Either your username or password is invalid. Please try again.");
+			return new ModelAndView("signin", "error", "Either your username or password is invalid. Please try again.");
 
 		if (logout != null)
-			model.addAttribute("message", "You have been logged out successfully.");
+			return new ModelAndView("signin", "message", "You have logged out successfully.");
 
-		return "signin";
+		return new ModelAndView("signin", null, null);
 	}
 
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)
 	public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
 		securityService.autologin(username, password);
 
-		return "index";
+		return "redirect:/";
 	}
 
 	/* Edit Account Details */
-	@RequestMapping(value = {"/account", "/editAccount"}, method=RequestMethod.GET)
-	public String editAccountPage(Model model) {
+	@RequestMapping(value = "/account", method=RequestMethod.GET)
+	public ModelAndView editAccountPage(Model model) {
 		/* Get current user profile */
 		String username = securityService.findLoggedInUsername();
 		User currentUser = mainService.findUserByUsername(username);
 
 		/* Pass the class to the view */
-		model.addAttribute("userForm", currentUser);
-
-		return "account";
+		return new ModelAndView("account", "userForm", currentUser);
 	}
 
-	@RequestMapping(value = {"/account", "/editAccount"}, method=RequestMethod.POST)
-	public String editAccountSubmit(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+	@RequestMapping(value = "/account", method=RequestMethod.POST)
+	public ModelAndView editAccountSubmit(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 		/* Validates Form Submitted */
 		validationService.validate(userForm, bindingResult);
 	
-		/* If error, redirect to sign up again */
-		if (bindingResult.hasErrors())
-			return "account";
+		/* If error, redirect to edit account again */
+		if (bindingResult.hasErrors()) {
+			Map<String, Object> model = new HashMap<String, Object>();
+			model.put("error", "There is an error updating your account. Please try again.");
+			model.put("userForm", userForm);
+			return new ModelAndView("account", model);
+		}
 
 		/* Else, update account to the database */
 		mainService.saveUser(userForm);
 
-		/* Keep user logged in after registering */
-		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-		return "account";		
+		return editAccountPage(model);		
 	}
 
 	/* View All Transactions */
@@ -131,27 +115,24 @@ public class MainController {
 	
 		/* Find all transactions based on user */
 		ArrayList<Transaction> allTransactions = mainService.findTransactionsByUser(currUser);
-		model.addAttribute("purchases", allTransactions);
-
-		return "purchases";
+		
+		return new ModelAndView("purchases", "purchases", allTransactions);
 	}
 
 	/*** SUBSET: ADMIN ACTIONS ***/
 
 	/* Admin Home Page */
-	@RequestMapping(value = {"/admin", "/admin-prods"}, method=RequestMethod.GET)
-	public String admin(Model model) {
-		model.addAttribute("allProducts", mainService.findAllProducts());
-	
-		return "admin";
+	@RequestMapping(value = "/admin", method=RequestMethod.GET)
+	public ModelAndView admin(Model model) {
+		/* Load all products at Admin Home Page */
+		return new ModelAndView("admin", "allProducts", mainService.findAllProducts());
 	}
 
 	/* Create New Admin */
 	@RequestMapping(value = "/admin-signup", method=RequestMethod.GET)
-	public String adminSignupPage(Model model) {
-		model.addAttribute("adminForm", new User());
-
-		return "admin-signup";
+	public ModelAndView adminSignupPage(Model model) {
+		/* Make a sign-up form for Admin */
+		return new ModelAndView("admin-signup", "adminForm", new User());
 	}
 
 	@RequestMapping(value = "/admin-signup", method=RequestMethod.POST)
@@ -169,30 +150,26 @@ public class MainController {
 		roles.add(mainService.findRoleByName("ROLE_ADMIN"));
 		mainService.saveUser(adminForm, roles);
 
-		return "admin";
+		return "redirect:/admin";
 	}
 
 	/* View Transactions for Overriding */
 	@RequestMapping(value = "/admin-trans", method=RequestMethod.GET)
-	public String adminTransactions(Model model) {
-		model.addAttribute("transactions", mainService.findAllTransactions());
-	
-		return "admin-trans";
+	public ModelAndView adminTransactions(Model model) {
+		return new ModelAndView("admin-trans", "transactions", mainService.findAllTransactions());
 	}
 
 	/* View Users */
 	@RequestMapping(value = "/admin-users", method=RequestMethod.GET)
 	public String adminUsers(Model model) {
-		model.addAttribute("users", mainService.findAllUsers());
-
-		return "admin-users";
+		return new ModelAndView("admin-users", "users", mainService.findAllUsers());
 	}
 
-	/* View Audit Trail */
+	/* View Audit Trail
 	@RequestMapping(value = "/admin-audit-trail", method=RequestMethod.GET)
 	public String adminAuditTrail(Model model) {
 		return null;
-	}
+	} */
 
 	/***** PRODUCT ACTIONS *****/
 
@@ -224,12 +201,13 @@ public class MainController {
 
 	/* Add a Product */
 	@RequestMapping(value = "/add-product", method=RequestMethod.GET)
-	public String addProductPage(Model model) {
-        model.addAttribute("prodForm", new Product());
-        model.addAttribute("prodTypes", generateProductTypes());
-        model.addAttribute("prodBrands", generateProductBrands());
+	public ModelAndView addProductPage(Model model) {
+		Map<String, Object> model = new HashMap<String, Object>();
+        model.put("prodForm", new Product());
+        model.put("prodTypes", generateProductTypes());
+        model.put("prodBrands", generateProductBrands());
 
-        return "add-product";
+        return new ModelAndView("add-product", model);
 	}
 
 	@RequestMapping(value = "/add-product", method=RequestMethod.POST)
@@ -244,20 +222,21 @@ public class MainController {
 		/* Else, save new product to the database */
 		mainService.saveProduct(prodForm);
 
-		return admin(model);
+		return "redirect:/admin";
 	}
 
 	/* Edit Product details */
 	@RequestMapping(value = "/edit-product", method=RequestMethod.GET)
-	public String editProductPage(Model model, @RequestParam("prodId") long prodId) {
+	public String editProductPage(Model model, @RequestParam("prodId") Long prodId) {
 		Product currProd = mainService.findProductByProductId(prodId);
 		currProd.setProductId(prodId);
 
-		model.addAttribute("prodForm", currProd);
-		model.addAttribute("prodTypes", generateProductTypes());
-		model.addAttribute("prodBrands", generateProductBrands());
+		Map<String, Object> model = new HashMap<String, Object>();
+        model.put("prodForm", currProd);
+        model.put("prodTypes", generateProductTypes());
+        model.put("prodBrands", generateProductBrands());
 
-		return "edit-product";
+        return new ModelAndView("edit-product", model);
 	}
 
 	@RequestMapping(value = "/edit-product", method=RequestMethod.POST)
@@ -271,7 +250,7 @@ public class MainController {
 
 		mainService.saveProduct(prodForm);
 
-		return admin(model);
+		return "redirect:/admin";
 	}
 
 	/* Search Product */
@@ -279,40 +258,31 @@ public class MainController {
 
 	/* Filter Products */
 	@RequestMapping(value = "/desktops", method=RequestMethod.GET)
-	public String getDesktops(Model model) {
-		model.addAttribute("allProducts", mainService.findProductsByType("Desktop"));
-
-		return "index";
+	public ModelAndView getDesktops(Model model) {
+		return new ModelAndView("index", "allProducts", mainService.findProductsByType("Desktop"));
 	}
 
 	@RequestMapping(value = "/laptops", method=RequestMethod.GET)
-	public String getLaptops(Model model) {
-		model.addAttribute("allProducts", mainService.findProductsByType("Laptop"));
-	
-		return "index";
+	public ModelAndView getLaptops(Model model) {
+		return new ModelAndView("index", "allProducts", mainService.findProductsByType("Laptop"));
 	}
 
 	@RequestMapping(value = "/tablets", method=RequestMethod.GET)
-	public String getTablets(Model model) {
-		model.addAttribute("allProducts", mainService.findProductsByType("Tablet"));
-	
-		return "index";
+	public ModelAndView getTablets(Model model) {
+		return new ModelAndView("index", "allProducts", mainService.findProductsByType("Tablet"));
 	}
 
 	@RequestMapping(value = "/mobiles", method=RequestMethod.GET)
-	public String getMobiles(Model model) {
-		model.addAttribute("allProducts", mainService.findProductsByType("Mobile"));
-	
-		return "index";
+	public ModelAndView getMobiles(Model model) {
+		return new ModelAndView("index", "allProducts", mainService.findProductsByType("Mobile"));
 	}
 
 	/* View a Product */
 	@RequestMapping(value = "/view-product", method=RequestMethod.GET)
-	public String viewProduct(Model model, @RequestParam("prodId") long prodId) {
+	public ModelAndView viewProduct(Model model, @RequestParam("prodId") long prodId) {
 		Product p = mainService.findProductByProductId(prodId);
-		model.addAttribute("specificProd", p);
 
-		return "view-product";
+		return new ModelAndView("view-product", "specificProd", p);
 	}
 
 	/* Delete a Product */
@@ -321,22 +291,23 @@ public class MainController {
 		Product p = mainService.findProductByProductId(prodId);
 		mainService.deleteProduct(p);
 
-		return admin(model);
+		return "redirect:/admin";
 	}
 
 	/***** TRANSACTION ACTIONS *****/
 
 	/* Add Transaction/Buy Product */
 	@RequestMapping(value="/buy-product", method=RequestMethod.POST)
-	public String confirmPurchase(Model model, @RequestParam("prodId") long prodId, @RequestParam("prodQty") int prodQty) {
+	public ModelAndView confirmPurchase(Model model, @RequestParam("prodId") long prodId, @RequestParam("prodQty") int prodQty) {
 		Product p = mainService.findProductByProductId(prodId);
 		User u = mainService.findUserByUsername(securityService.findLoggedInUsername());
 
-		model.addAttribute("specificProd", p);
-		model.addAttribute("prodQty", prodQty);
-		model.addAttribute("currUser", u);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("specificProd", p);
+		model.put("prodQty", prodQty);
+		model.put("currUser", u);
 
-		return "confirm";
+		return new ModelAndView("confirm", model);
 	}
 
 	@RequestMapping(value = "/thank-you", method=RequestMethod.POST)

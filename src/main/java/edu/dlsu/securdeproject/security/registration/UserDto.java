@@ -1,33 +1,30 @@
-package edu.dlsu.securdeproject.classes;
+@PasswordMatches
+public class UserDto {
+	@NotNull
+	@NotEmpty
+	private String firstName;
 
-import javax.persistence.*;
-import java.util.Calendar;
-import java.util.Set;
+	@NotNull
+	@NotEmpty
+	private String lastName;
 
-@Entity
-public class User {
-	private Long userId;
+	@NotNull
+	@NotEmpty
 	private String username;
+
+	@NotNull
+	@NotEmpty
 	private String password;
 	private String passwordConfirm;
+
+	@ValidEmail
+	@NotNull
+	@NotEmpty
 	private String email;
-	private String firstName;
-	private String lastName;
-	private String mailAddress;
+
 	private Calendar birthdate;
+
 	private String mobileNumber;
-	private Set<Transaction> transactions;
-	private Set<Role> roles;
-
-	public User() {}
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long getUserId() { 
-		return userId;
-	}
-
-	public void setUserId(Long userId) { this.userId = userId; }
 
 	public String getUsername() {
 		return username;
@@ -96,24 +93,5 @@ public class User {
 
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
-	}
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	public Set<Transaction> getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(Set<Transaction> transactions) {
-		this.transactions = transactions;
-	}
-
-	@ManyToMany
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+	}	
 }

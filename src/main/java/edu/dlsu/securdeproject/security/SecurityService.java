@@ -1,4 +1,4 @@
-package edu.dlsu.securdeproject.services;
+package edu.dlsu.securdeproject.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 @Service
-public class MainService {
+public class MainService implements IUserService {
 	/* Repositories */
 	@Autowired
 	private ProductRepository productRepository;
@@ -36,11 +36,7 @@ public class MainService {
 	/*** DATABASE SERVICES ***/
 
 	/* Save New User */
-<<<<<<< HEAD
-	public User saveUser(User u, List<Role> roles) {
-=======
 	public void saveUser(User u, ArrayList<Role> roles) {
->>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 		u.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
 		u.setRoles(new HashSet<>(roles));
 		userRepository.save(u);
@@ -82,11 +78,7 @@ public class MainService {
 
 	/* Retrieve specific product */
 	public Product findProductByProductId(Long productId) {
-<<<<<<< HEAD
-		return (Product) productRepository.findByProductId(productId); 
-=======
 		return (Product) productRepository.findByProductId(productId);
->>>>>>> 2c1a7ba45731d0616b5c259d9316b3e6190ec6f5
 	}
 
 	/* Retrieve all products */

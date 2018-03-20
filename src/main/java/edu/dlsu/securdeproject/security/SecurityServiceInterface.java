@@ -1,4 +1,4 @@
-package edu.dlsu.securdeproject.services;
+package edu.dlsu.securdeproject.security;
 
 public interface SecurityServiceInterface {
     String findLoggedInUsername();
