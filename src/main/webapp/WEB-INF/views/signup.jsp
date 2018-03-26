@@ -28,7 +28,7 @@
         </div>
         <div class="container">
             <div id="login">
-                <form:form method="POST" modelAttribute="custForm" class="form-signup">
+                <form:form method="POST" modelAttribute="userForm" class="form-signup">
                     <div class="div-form">
                         <table>
                             <tr>

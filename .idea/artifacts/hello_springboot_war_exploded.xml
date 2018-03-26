@@ -67,6 +67,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.retry:spring-retry:1.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.2.6.RELEASE" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

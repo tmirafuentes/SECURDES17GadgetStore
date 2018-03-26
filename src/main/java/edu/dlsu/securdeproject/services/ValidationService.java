@@ -1,6 +1,7 @@
 package edu.dlsu.securdeproject.services;
 
 import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.security.registration.UserDto;
 import edu.dlsu.securdeproject.services.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class ValidationService implements Validator {
 
 	@Override
 	public void validate(Object o, Errors errors) {
-		User user = (User) o;
+		UserDto user = (UserDto) o;
 
 		/* Validate Username */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");

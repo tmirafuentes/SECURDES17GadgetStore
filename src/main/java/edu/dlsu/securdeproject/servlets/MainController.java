@@ -72,7 +72,7 @@ public class MainController {
 		if (logout != null)
 			return new ModelAndView("signin", "message", "You have logged out successfully.");
 
-		return new ModelAndView("signin", null, null);
+		return new ModelAndView("signin", "message", null);
 	}
 
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)

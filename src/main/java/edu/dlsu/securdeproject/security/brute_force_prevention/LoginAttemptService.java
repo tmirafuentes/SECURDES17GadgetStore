@@ -1,10 +1,13 @@
 package edu.dlsu.securdeproject.security.brute_force_prevention;
 
-import org.springframework.cglib.core.internal.LoadingCache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+import com.google.common.cache.LoadingCache;
 
 @Service
 public class LoginAttemptService {
@@ -14,8 +17,9 @@ public class LoginAttemptService {
 	public LoginAttemptService() {
 		super();
 		attemptsCache = CacheBuilder.newBuilder()
-									.expireAfterWrite(1, TimeUnit.DAYS).build(new CacheLoader<String, Integer>{
-										public Integer load(String key) {
+									.expireAfterWrite(1, TimeUnit.DAYS).build(new CacheLoader<String, Integer>() {
+										@Override
+										public Integer load(final String key) {
 											return 0;
 										}
 									});

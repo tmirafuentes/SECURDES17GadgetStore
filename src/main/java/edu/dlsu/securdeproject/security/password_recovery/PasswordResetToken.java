@@ -1,3 +1,10 @@
+package edu.dlsu.securdeproject.security.password_recovery;
+
+import edu.dlsu.securdeproject.classes.User;
+
+import javax.persistence.*;
+import java.util.Date;
+
 @Entity
 public class PasswordResetToken {
 	private static final int EXPIRATION = 60 * 24;
@@ -39,7 +46,7 @@ public class PasswordResetToken {
 		return expiryDate;
 	}
 
-	public void setExpiryDate() {
+	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 }
