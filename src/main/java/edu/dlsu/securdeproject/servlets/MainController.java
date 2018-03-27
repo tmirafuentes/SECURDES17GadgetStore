@@ -44,7 +44,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public String signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, HttpRequest request) {
+	public ModelAndView signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, HttpRequest request) {
 		/* Validates Form Submitted*/
 		validationService.validate(userForm, bindingResult);
 	
@@ -57,10 +57,42 @@ public class MainController {
 		roles.add(mainService.findRoleByName("ROLE_USER"));
 		User newUser = mainService.saveUser(userForm, roles);
 
-		/* Keep user logged in after registering */
-		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+		/* Send E-mail verification to confirm */
+		try {
+			String appUrl = requestGetContextPath();
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), appUrl));
+		} catch(Exception e) {}
 
-		return "redirect:/";
+		///* Keep user logged in after registering */
+		//securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+		return new ModelAndView("signup-success", "user", userForm);
+	}
+
+	@RequestMapping(value = "/signup-confirm", method=RequestMethod.GET)
+	public ModelAndView confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
+		Locale locale = request.getLocale();
+
+		// Check if token is valid
+		VerificationToken verificationToken = mainService.getVerificationToken(token);
+		if (verificationToken == null) {
+			String message = messages.getMessage("message.invalidToken", null, locale);
+			return new ModelAndView("/error", "message", message);
+		}
+
+		// Check if token has expired
+		User user = verificationToken.getUser();
+		Calendar cal = Calendar.getInstance();
+		if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+			String message = messages.getMessage("message.expiredToken", null, locale);
+			return new ModelAndView("/error", "message", message);
+		}
+
+		// Enable user and auto login
+		user.setEnabled(true);
+		mainService.saveUser(user);
+		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+		return new ModelAndView("/welcome", null, null);
 	}
 
 	/* Sign In */
@@ -78,6 +110,12 @@ public class MainController {
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)
 	public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
 		securityService.autologin(username, password);
+
+		/* Redirect to Admin home page if Admin */
+		User currUser = mainService.findUserByUsername(securityService.findLoggedInUsername());
+		for(Role role : currUser.getRoles())
+			if (role.getName().equals("ROLE_ADMIN"))
+				return "redirect:/admin";
 
 		return "redirect:/";
 	}

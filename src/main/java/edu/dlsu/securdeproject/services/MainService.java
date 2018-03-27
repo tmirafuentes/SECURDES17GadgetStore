@@ -27,6 +27,8 @@ public class MainService {
 	private TransactionRepository transactionRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private VerificationTokenRepository verificationTokenRepository;
 
 	/* Encryptor */
 	@Autowired
@@ -85,6 +87,17 @@ public class MainService {
 	public void createPasswordResetToken(User user, String token) {
 		//PasswordResetToken myToken = new PasswordResetToken(token, user);
 		//passwordTokenRespository.save(myToken);
+	}
+
+	/* E-mail Verification Token Creation */
+	public void createEmailVerificationToken(User user, String token) {
+		VerificationToken newToken = new VerificationToken(User user, String token);
+		verificationTokenRepository.save(newToken);
+	}
+
+	/* Retrieve E-mail Verification Token */
+	public VerificationToken getVerificationToken(token) {
+		return tokenRepository.findByToken(token);
 	}
 
 	/***** PRODUCT SERVICES *****/

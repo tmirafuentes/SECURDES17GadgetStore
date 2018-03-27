@@ -21,8 +21,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Autowired
     private MainService mainService;
 
-    //@Autowired
-    //private LoginAttemptService loginAttemptService;
+    @Autowired
+    private LoginAttemptService loginAttemptService;
 
     @Autowired
     private HttpServletRequest request;
@@ -32,12 +32,11 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
-        //if (loginAttemptService.isBlocked(ip))
-            //throw new RuntimeException("blocked");
+        if (loginAttemptService.isBlocked(ip))
+            throw new RuntimeException("blocked");
 
         /* Try retrieving a user */
         try {
-
             User user = mainService.findUserByUsername(username);
 
             Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -48,7 +47,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
                 return new org.springframework.security.core.userdetails.User(" ", " ", 
                                 grantedAuthorities);
 
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), 
+                                                                          true, true, true, grantedAuthorities);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
