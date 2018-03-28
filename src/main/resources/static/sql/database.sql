@@ -43,29 +43,6 @@ LOCK TABLES `admin` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `brand`
---
-
-DROP TABLE IF EXISTS `brand`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `brand` (
-  `brand_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `brand_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`brand_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `brand`
---
-
-LOCK TABLES `brand` WRITE;
-/*!40000 ALTER TABLE `brand` DISABLE KEYS */;
-/*!40000 ALTER TABLE `brand` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `customer`
 --
 
@@ -108,11 +85,9 @@ CREATE TABLE `product` (
   `product_name` varchar(255) NOT NULL,
   `product_price` double NOT NULL,
   `product_quantity` int(11) NOT NULL,
-  `product_brand` bigint(20) DEFAULT NULL,
+  `product_brand` varchar(255) DEFAULT NULL,
   `product_type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`product_id`),
-  KEY `FK_gbeg6hr59sy5en2xqpot25uhg` (`product_brand`),
-  CONSTRAINT `FK_gbeg6hr59sy5en2xqpot25uhg` FOREIGN KEY (`product_brand`) REFERENCES `brand` (`brand_id`)
+  PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

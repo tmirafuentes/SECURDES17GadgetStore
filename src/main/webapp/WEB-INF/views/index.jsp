@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -37,12 +38,29 @@
     </div>-->
 
     <!--What's New-->
-    <div class="product-grid">
-        <c:forEach items="${products}" var="item">
-            <c:out value="${item.productName}"/>
-            <c:out value="${item.productPrice}"/>
-            <br>
-        </c:forEach>
+
+    <div id="outputSection">
+        <form:form method="get">
+        <table id="outputTable">
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+            </tr>
+            <c:forEach items="${products}" var="item"> <!--TODO: Need to fix variables-->
+                <tr>
+                <td><c:out value="${item.productName}"/></td>
+                <td><c:out value="${item.productPrice}"/></td>
+                <td/>
+                <td>
+                    <form id="formPrice">
+                        <input type="text" value="${item.productId}" hidden="true" name="prodId">
+                        <a href="/viewProduct?prodId=${item.productId}">View</a>
+                    </form>
+                </td>
+                </tr>
+            </c:forEach>
+        </table>
+        </form:form>
     </div>
 
     <%@ include file="footer.jsp" %>

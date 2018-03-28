@@ -1,0 +1,37 @@
+html {
+    font-family: 'Roboto Condensed', sans-serif;
+    min-height: 100%;
+    position: relative;
+}
+
+body{
+    background-color:#eff2f7;
+    margin:0 auto;
+    padding:0;
+}
+
+.openingText{
+    text-transform: uppercase;
+    text-align: center;
+    font-weight:bolder;
+    font-size:30px;
+    margin-top: 3%;
+}
+
+.secondaryText{
+    text-transform: uppercase;
+    text-align: center;
+    font-weight:bolder;
+    font-size:24px;
+    margin-top: 4%;
+}
+
+.holdingDiv{
+    text-align: center;
+
+}
+
+.breakLine{
+    width:80%;
+    border-color:RGB(29,135,236);
+}

@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Entity
 public class Transaction { 
-    private long transactionId;
-    private Customer customer;
+    private Long transactionId;
+    private User user;
     private Product product;
     private int quantity;
     private double totalAmount;
@@ -16,22 +16,22 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public long getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(long transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    public Customer getCustomer() {
-        return customer;
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @OneToOne(cascade = CascadeType.ALL)

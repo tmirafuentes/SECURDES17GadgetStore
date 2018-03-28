@@ -16,6 +16,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <div class="heading">
     <h1>Uh-oh! An error came up.</h1>
 </div>
@@ -23,5 +24,6 @@
     <p>Sorry, we cannot find the page that you were looking for.
         Try again or <a href="/index" class="bluebtn-allcaps">GO BACK TO HOME</a></p>
 </div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

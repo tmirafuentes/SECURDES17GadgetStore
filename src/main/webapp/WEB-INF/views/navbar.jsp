@@ -5,7 +5,9 @@
   Time: 5:03 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <!--
 <head>
@@ -26,22 +28,25 @@
                     </form>
                 </td>
                 <td id="dropdownHolder">
-                    <c:when test="${pageContext.request.userPrincipal.name != null}">
-                    <!-- <td id = "dropdownHolder"> -->
-                        <div class="dropdown">
-                            <button class="dropbtn">${pageContext.request.userPrincipal.name}</button>
-                            <div class="dropdown-content">
-                                <a href="/purchases">Purchase History</a>
-                                <a href="/accountSettings">Account Settings</a>
-                                <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+                    <c:choose>
+                        <c:when test="${pageContext.request.userPrincipal.name != null}">
+                            <div class="dropdown">
+                                <button class="dropbtn">${pageContext.request.userPrincipal.name}</button>
+                                <div class="dropdown-content">
+                                    <a href="/purchases">Purchase History</a>
+                                    <a href="/accountSettings">Account Settings</a>
+                                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
+                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+                                </div>
                             </div>
-                        </div>
-                    <!--</td>-->
-                    </c:when>
-                    <c:otherwise>
-                        <a href="/signin" id="signin">SIGN IN</a>
-                        <a href="/signup" id="signuplink">SIGN UP</a>
-                    </c:otherwise>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/signin" id="signin">SIGN IN</a>
+                            <a href="/signup" id="signuplink">SIGN UP</a>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </table>

@@ -60,6 +60,11 @@
             <artifactId>spring-data-jdbc-core</artifactId>
             <version>1.0.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -75,6 +80,14 @@
                     <target>1.7</target>
                     <fork>true</fork>
                     <executable>C:\Program Files\Java\jdk1.8.0_91\bin\javac</executable>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
