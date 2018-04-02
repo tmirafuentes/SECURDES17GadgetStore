@@ -4,17 +4,24 @@ import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.Transaction;
 import edu.dlsu.securdeproject.classes.User;
-import edu.dlsu.securdeproject.repositories.ProductRepository;
-import edu.dlsu.securdeproject.repositories.RoleRepository;
-import edu.dlsu.securdeproject.repositories.TransactionRepository;
-import edu.dlsu.securdeproject.repositories.UserRepository;
+import edu.dlsu.securdeproject.repositories.*;
+import edu.dlsu.securdeproject.security.password_recovery.PasswordResetToken;
 import edu.dlsu.securdeproject.security.registration.UserDto;
+import edu.dlsu.securdeproject.security.registration.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @Service
 public class MainService {
@@ -29,10 +36,18 @@ public class MainService {
 	private UserRepository userRepository;
 	@Autowired
 	private VerificationTokenRepository verificationTokenRepository;
+	@Autowired
+	private PasswordTokenRepository passwordTokenRepository;
+
+	/* Mail Sender */
+	private JavaMailSender mailSender;
 
 	/* Encryptor */
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private MessageSource messages;
 
 	/***** USER SERVICES *****/
 
@@ -61,6 +76,12 @@ public class MainService {
 		userRepository.save(u);
 	}
 
+	/* Update Password */
+	public void saveNewPassword(User user, String password) {
+		user.setPassword(bCryptPasswordEncoder.encode(password));
+		userRepository.save(user);
+	}
+
 	/* Retrieve specific user by username */
 	public User findUserByUsername(String username) {
 		return userRepository.findByUsername(username);
@@ -76,6 +97,9 @@ public class MainService {
 		return (ArrayList<User>) userRepository.findAll();
 	}
 
+	/* Add role */
+	public void saveRole(Role r) { roleRepository.save(r);}
+
 	/* Retrieve role name */
 	public Role findRoleByName(String name) {
 		return roleRepository.findByName(name);
@@ -85,19 +109,62 @@ public class MainService {
 	
 	/* Forgotten Password Token Creation */
 	public void createPasswordResetToken(User user, String token) {
-		//PasswordResetToken myToken = new PasswordResetToken(token, user);
-		//passwordTokenRespository.save(myToken);
+		PasswordResetToken myToken = new PasswordResetToken(user, token);
+		passwordTokenRepository.save(myToken);
+	}
+
+	/* Retrieve Password Token */
+	public PasswordResetToken getPasswordToken(String token) {
+		return passwordTokenRepository.findByToken(token);
+	}
+
+	/* Send Forgot Password E-mail Token */
+	public void sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
+		mailSender.send(constructResetTokenEmail(contextPath, locale, token, user));
+	}
+
+	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, User user) {
+		/* Set Link */
+		String url = contextPath + "/change-password?id=" + user.getUserId() +
+					 "&token=" + token;
+		String message = messages.getMessage("message.resetPassword", null, locale);
+
+		/* Construct actual e-mail */
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setSubject("Reset Password");
+		email.setText(message + " \r\n" + url);
+		email.setTo(user.getEmail());
+
+		return email;
+	}
+
+	/* Validate Password Token */
+	public String validatePasswordResetToken(Long id, String token) {
+		/* Invalid Token */
+		PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
+		if ((passToken == null) || (passToken.getUser().getUserId() != id))
+			return "invalidToken";
+
+		/* Expired Token */
+		Calendar cal = Calendar.getInstance();
+		if((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0)
+			return "expiredToken";
+
+		User user = passToken.getUser();
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return null;
 	}
 
 	/* E-mail Verification Token Creation */
 	public void createEmailVerificationToken(User user, String token) {
-		VerificationToken newToken = new VerificationToken(User user, String token);
+		VerificationToken newToken = new VerificationToken(user, token);
 		verificationTokenRepository.save(newToken);
 	}
 
 	/* Retrieve E-mail Verification Token */
-	public VerificationToken getVerificationToken(token) {
-		return tokenRepository.findByToken(token);
+	public VerificationToken getVerificationToken(String token) {
+		return verificationTokenRepository.findByToken(token);
 	}
 
 	/***** PRODUCT SERVICES *****/

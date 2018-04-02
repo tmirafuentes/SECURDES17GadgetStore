@@ -33,40 +33,46 @@ public class ValidationService implements Validator {
 		UserDto user = (UserDto) o;
 
 		/* Validate Username */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "message.emptyForm");
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32)
-			errors.rejectValue("username", "Size.userForm.username");
+			errors.rejectValue("username", "message.emptyForm");
 		if (mainService.findUserByUsername(user.getUsername()) != null)
-			errors.rejectValue("username", "Duplicate.userForm.username");
+			errors.rejectValue("username", "message.usernameDuplicate");
 
 		/* Validate Password */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "message.emptyForm");
 		if (user.getPassword().length() < 8 || user.getPassword().length() > 32)
-			errors.rejectValue("password", "Size.userForm.password");
+			errors.rejectValue("password", "message.passwordNotMet");
 		if (!user.getPasswordConfirm().equals(user.getPassword()))
-			errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+			errors.rejectValue("passwordConfirm", "message.passwordConfirmNotMatch");
 
 		/* Validate Email */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "message.emptyForm");
 		pattern = Pattern.compile(EMAIL_PATTERN);
 		matcher = pattern.matcher(user.getEmail());
-		if (!matcher.matches())
-			errors.rejectValue("email", "Duplicate.userForm.email");
+		//if (!matcher.matches())
+			//errors.rejectValue("email", "message.emailInvalid");
 
 		/* Validate First Name */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "message.emptyForm");
 
 		/* Validate Last Name */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "message.emptyForm");
 
 		/* Validate Mail Address */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mailAddress", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mailAddress", "message.emptyForm");
 		
 		/* Validate Birthdate */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthdate", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthdate", "message.emptyForm");
 
 		/* Validate Mobile Number */
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobileNumber", "message.emptyForm");
 		// Put Regex Somewhere
+	}
+
+	public boolean validatePassword(String password, String passwordConfirm) {
+		if (password.equals(passwordConfirm))
+			return true;
+		return false;
 	}
 }

@@ -1,7 +1,10 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,7 +17,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String mailAddress;
-	private Calendar birthdate;
+	private Date birthdate;
 	private String mobileNumber;
 	private boolean enabled;
 	private Set<Transaction> transactions;
@@ -86,11 +89,12 @@ public class User {
 		this.mailAddress = mailAddress;
 	}
 
-	public Calendar getBirthdate() {
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	public Date getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Calendar birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -119,5 +123,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

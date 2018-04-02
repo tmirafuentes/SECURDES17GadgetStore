@@ -1,5 +1,12 @@
 package edu.dlsu.securdeproject.security.registration;
 
+import edu.dlsu.securdeproject.classes.User;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
 @Entity
 public class VerificationToken {
 	private static final int EXPIRATION = 60 * 24;
@@ -19,6 +26,7 @@ public class VerificationToken {
 	public VerificationToken(User user, String token) {
 		this.user = user;
 		this.token = token;
+		//this.expiryDate = calculateExpiryDate()
 	}
 
 	@Id

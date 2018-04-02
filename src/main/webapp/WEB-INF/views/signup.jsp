@@ -36,6 +36,7 @@
                                     <td><form:label for="firstname" class="formlabel" path="firstName">First Name</form:label></td>
                                     <td>
                                         <form:input type="text" path="firstName" id="firstname"></form:input>
+                                        <form:errors path="firstName"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -44,6 +45,7 @@
                                     <td><form:label for="lastName" class="formlabel" path="lastName">Last Name</form:label></td>
                                     <td>
                                         <form:input type="text" path="lastName" id="lastname"></form:input>
+                                        <form:errors path="lastName"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -51,7 +53,8 @@
                                 <spring:bind path="birthdate">
                                     <td><form:label for="birthdate" class="formlabel" path="birthdate">Birthdate</form:label></td>
                                     <td>
-                                        <form:input type="text" path="birthdate" id="birthdate" placeholder="mm/dd/yyyy"></form:input>
+                                        <form:input type="text" path="birthdate" id="birthdate" placeholder="mm-dd-yyyy" value=""></form:input>
+                                        <form:errors path="birthdate"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -60,6 +63,7 @@
                                     <td><form:label for="mailAddress" class="formlabel" path="mailAddress">Mailing Address</form:label></td>
                                     <td>
                                         <form:textarea path="mailAddress" id="mailingaddress"></form:textarea>
+                                        <form:errors path="mailAddress"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -68,6 +72,7 @@
                                     <td><form:label for="mobileNumber" class="formlabel" path="mobileNumber">Mobile Number</form:label></td>
                                     <td>
                                         <form:input type="text" path="mobileNumber" id="mobilenum"></form:input>
+                                        <form:errors path="mobileNumber"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -76,6 +81,7 @@
                                     <td><form:label for="email" class="formlabel" path="email">Email</form:label></td>
                                     <td>
                                         <form:input type="email" path="email" id="email"></form:input>
+                                        <form:errors path="email"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -84,6 +90,7 @@
                                     <td><form:label for="username" class="formlabel" path="username">Username</form:label></td>
                                     <td>
                                         <form:input type="text" path="username" id="username"></form:input>
+                                        <form:errors path="username"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -92,6 +99,7 @@
                                     <td><form:label path="password" class="formlabel">Password</form:label></td>
                                     <td>
                                         <form:input type="password" path="password" id="password"></form:input>
+                                        <form:errors path="password"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>
@@ -100,6 +108,7 @@
                                     <td><form:label path="passwordConfirm" class="formlabel">Retype Password</form:label></td>
                                     <td>
                                         <form:input type="password" path="passwordConfirm" id="passwordConfirm"></form:input>
+                                        <form:errors path="passwordConfirm"></form:errors>
                                     </td>
                                 </spring:bind>
                             </tr>

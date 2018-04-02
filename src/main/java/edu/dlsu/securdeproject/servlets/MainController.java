@@ -4,15 +4,23 @@ import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Transaction;
+import edu.dlsu.securdeproject.security.registration.OnRegistrationCompleteEvent;
 import edu.dlsu.securdeproject.security.registration.UserDto;
 import edu.dlsu.securdeproject.security.SecurityService;
+import edu.dlsu.securdeproject.security.registration.VerificationToken;
 import edu.dlsu.securdeproject.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,10 +36,19 @@ public class MainController {
 	private ValidationService validationService;
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
+	@Autowired
+	private MessageSource messages;
 
 	/* Default Homepage */
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method=RequestMethod.GET)
 	public ModelAndView index(Model model) {
+		if (mainService.findRoleByName("ROLE_USER") == null)
+			mainService.saveRole(new Role("ROLE_USER"));
+		if (mainService.findRoleByName("ROLE_ADMIN") == null)
+			mainService.saveRole(new Role("ROLE_ADMIN"));
+
 		return new ModelAndView("index", "allProducts", mainService.findAllProducts());
 	}
 
@@ -44,13 +61,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public ModelAndView signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult, Model model, HttpRequest request) {
+	public ModelAndView signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult,
+									 Model model, WebRequest request) {
 		/* Validates Form Submitted*/
 		validationService.validate(userForm, bindingResult);
 	
 		/* If error, redirect to sign up again */
-		if (bindingResult.hasErrors())
-			return "signup";
+		if (bindingResult.hasErrors()) {
+            return new ModelAndView("signup", "userForm", userForm);
+        }
 
 		/* Else, save new account to the database */
 		ArrayList<Role> roles = new ArrayList<Role>();
@@ -59,9 +78,9 @@ public class MainController {
 
 		/* Send E-mail verification to confirm */
 		try {
-			String appUrl = requestGetContextPath();
+			String appUrl = request.getContextPath();
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), appUrl));
-		} catch(Exception e) {}
+		} catch(Exception e) {System.out.println("Error: " + e);}
 
 		///* Keep user logged in after registering */
 		//securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
@@ -77,7 +96,7 @@ public class MainController {
 		VerificationToken verificationToken = mainService.getVerificationToken(token);
 		if (verificationToken == null) {
 			String message = messages.getMessage("message.invalidToken", null, locale);
-			return new ModelAndView("/error", "message", message);
+			return new ModelAndView("error", "message", message);
 		}
 
 		// Check if token has expired
@@ -85,14 +104,14 @@ public class MainController {
 		Calendar cal = Calendar.getInstance();
 		if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
 			String message = messages.getMessage("message.expiredToken", null, locale);
-			return new ModelAndView("/error", "message", message);
+			return new ModelAndView("error", "message", message);
 		}
 
 		// Enable user and auto login
 		user.setEnabled(true);
 		mainService.saveUser(user);
-		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-		return new ModelAndView("/welcome", null, null);
+		securityService.autologin(user.getUsername(), user.getPassword());
+		return new ModelAndView("welcome", "allProducts", mainService.findAllProducts());
 	}
 
 	/* Sign In */
@@ -148,6 +167,44 @@ public class MainController {
 		mainService.saveUser(userForm);
 
 		return editAccountPage(model);		
+	}
+
+	/* Forgot Password */
+	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+	public String forgotPassword(HttpServletRequest request, @RequestParam("email") String email) {
+		User user = mainService.findUserByEmail(email);
+		if (user == null)
+			return "forgot-password";
+
+		String token = UUID.randomUUID().toString();
+		mainService.createPasswordResetToken(user, token);
+		mainService.sendResetTokenEmail("http://" + request.getServerName() + ":" +
+										request.getServerPort() + request.getContextPath(), request.getLocale(),
+										token, user);
+
+		return "redirect:/forgot-password-confirm";
+	}
+
+	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
+	public String changePasswordPage(Locale locale, Model model, @RequestParam("id") Long id, @RequestParam("token") String token) {
+		String result = mainService.validatePasswordResetToken(id, token);
+		if (result != null) {
+			model.addAttribute("message", messages.getMessage("message." + result, null, locale));
+			return "redirect:/login";
+		}
+		return "/change-password";
+	}
+
+	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
+	public String changePasswordSubmit(@RequestParam("password") String password, @RequestParam("passwordConfirm") String passwordConfirm) {
+		/* Validate Passwords */
+		if (!validationService.validatePassword(password, passwordConfirm))
+			return "/change-password";
+
+		/* Save New Password */
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mainService.saveNewPassword(user, password);
+		return "redirect:/change-password-success";
 	}
 
 	/* View All Transactions */

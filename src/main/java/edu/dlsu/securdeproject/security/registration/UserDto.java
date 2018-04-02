@@ -1,10 +1,12 @@
 package edu.dlsu.securdeproject.security.registration;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.beans.Transient;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UserDto {
 	@NotNull
@@ -28,7 +30,7 @@ public class UserDto {
 	@NotEmpty
 	private String email;
 
-	private Calendar birthdate;
+	private Date birthdate;
 
 	private String mailAddress;
 
@@ -87,11 +89,12 @@ public class UserDto {
 		this.mailAddress = mailAddress;
 	}
 
-	public Calendar getBirthdate() {
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	public Date getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Calendar birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 

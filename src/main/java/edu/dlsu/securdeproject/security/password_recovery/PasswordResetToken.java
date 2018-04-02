@@ -14,6 +14,13 @@ public class PasswordResetToken {
 	private User user;
 	private Date expiryDate;
 
+	public PasswordResetToken() {}
+
+	public PasswordResetToken(User user, String token) {
+		this.user = user;
+		this.token = token;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {

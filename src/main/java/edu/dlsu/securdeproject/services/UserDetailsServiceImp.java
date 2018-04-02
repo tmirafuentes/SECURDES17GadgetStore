@@ -2,6 +2,7 @@ package edu.dlsu.securdeproject.services;
 
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.security.brute_force_prevention.LoginAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
