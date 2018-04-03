@@ -57,13 +57,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/signin")
-                .defaultSuccessUrl("/welcome")
+                .defaultSuccessUrl("/")
                 .failureUrl("/signin?error=true")
                 .permitAll()
                 .and()
             .logout()
                 .logoutSuccessUrl("/signin")
-                .permitAll();
+                .permitAll()
+                .and()
+            .sessionManagement()
+                .maximumSessions(2)
+                .expiredUrl("/session-expired")
+                .invalidSessionUrl("/invalid-session")
+                .sessionFixation().migrateSession();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Autowired

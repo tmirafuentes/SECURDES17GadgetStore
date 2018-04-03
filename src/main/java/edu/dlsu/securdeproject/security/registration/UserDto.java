@@ -8,6 +8,7 @@ import java.beans.Transient;
 import java.util.Calendar;
 import java.util.Date;
 
+@PasswordMatches
 public class UserDto {
 	@NotNull
 	@NotEmpty
@@ -26,6 +27,7 @@ public class UserDto {
 	private String password;
 	private String passwordConfirm;
 
+	@ValidEmail
 	@NotNull
 	@NotEmpty
 	private String email;

@@ -23,10 +23,10 @@ public class VerificationToken {
 		return new Date(cal.getTime().getTime());
 	}
 
-	public VerificationToken(User user, String token) {
+	public VerificationToken(final User user, final String token) {
 		this.user = user;
 		this.token = token;
-		//this.expiryDate = calculateExpiryDate()
+		this.expiryDate = calculateExpiryDate(EXPIRATION);
 	}
 
 	@Id

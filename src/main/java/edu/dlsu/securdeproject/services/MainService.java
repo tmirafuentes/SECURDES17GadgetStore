@@ -162,6 +162,14 @@ public class MainService {
 		verificationTokenRepository.save(newToken);
 	}
 
+	/* Update E-Mail Verification Token */
+	public VerificationToken generateNewVerificationToken(String exisitingToken) {
+		VerificationToken vToken = getVerificationToken(existingToken);
+		vToken.setToken(UUID.randomUUID().toString());
+		vToken = tokenRepository.save(vToken);
+		return vToken;
+	}
+
 	/* Retrieve E-mail Verification Token */
 	public VerificationToken getVerificationToken(String token) {
 		return verificationTokenRepository.findByToken(token);
