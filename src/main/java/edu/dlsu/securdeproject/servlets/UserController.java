@@ -101,15 +101,123 @@ public class UserController {
 
 		/* Send email */
 		User user = newToken.getUser();
-
+		String appUrl = getAppUrl();
+		SimpleMailMessage email = constructVerificationTokenEmail(appUrl, newToken, user);
+		mainService.sendEmail(email);
 	}
 
 	/*** Sign in ***/
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String signInPage(Model model, String error, String logout) {
+	public String signInPage(Model model, String error, String logout) 
+	{
+		if (error != null)
+			model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
 
+		if (logout != null)
+			model.addAttribute("message", messages.getMessage("message.logoutSuccess", null, null));
+
+		return "signin";
 	}
 
+	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+	public String signInPage(Model model, @RequestParam("username") String username, @RequestParam("password") String password) 
+	{
+		/* Log-in */
+		securityService.autologin(username, password);
+
+		/* Redirect to Admin home page if Admin */
+		User currUser = mainService.findUserByUsername(securityService.findLoggedInUsername());
+		for(Role role: currUser.getRoles())
+			if (role.getName().equals("ROLE_ADMIN"))
+				return "redirect:/admin";
+
+		return "redirect:/welcome";
+	}
+
+	/*** Edit Account Details ***/
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	public String editAccountPage(Model model) 
+	{
+		/* Get current user profile */
+		User currUser = retrieveUser();
+
+		model.addAttribute("userForm", currUser);
+		return "account";
+	}
+
+	@RequestMapping(value = "/account", method = RequestMethod.POST)
+	public String editAccountSubmit(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) 
+	{
+		/* If error, redirect */
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("error", messages.getMessage("message.accountUpdate", null, null));
+			model.addAttribute("userForm", userForm);
+			return "account";
+		}
+
+		/* Save changes */
+		mainService.saveUser(userForm);
+		return "redirect:/account";
+	}
+
+	/*** Forgot Password ***/
+	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
+	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email) 
+	{
+		/* Check if e-mail exists */
+		User user = mainService.findUserByEmail(email);
+		if (user == null) {
+			model.addAttribute("error", messages.getMessage("message.emailNotExist", null, null));
+			return "forgot-password";
+		}
+
+		/* Create new Password Token */
+		String token = UUID.randomUUID().toString();
+		mainService.createPasswordResetToken(user, token);
+
+		/* Send Password Reset Token E-mail */
+		SimpleMailMessage passwordResetEmail = constructResetTokenEmail(getAppUrl(), token, user);
+		mainService.sendEmail(passwordResetMail);
+
+		return "redirect:/forgot-password-confirm";
+	}
+
+	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
+	public String changePasswordPage(Model model, @RequestParam("id") Long id, @RequestParam("token") String token) 
+	{
+		/* Validate Password Reset Token */
+		String result = mainService.validatePasswordResetToken(id, token);
+		if (result != null) {
+			model.addAttribute("message", messages.getMessage("message." + result, null, null));
+			return "redirect:/login";
+		}
+
+		return "/change-password";
+	}
+
+	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
+	public String changePasswordSubmit(@RequestParam("password") String password, @RequestParam("passwordConfirm") String passwordConfirm) 
+	{
+		/* Validate the passwords */
+		if (!validationService.validatePassword(password, passwordConfirm))
+			return "/change-password";
+
+		/* Save New Password */
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mainService.saveNewPassword(user, password);
+
+		return "redirect:/change-password-success";
+	}
+
+	/*** View All Transactions ***/
+	@RequestMapping(value = "/purchases", method = RequestMethod.GET)
+	public String viewTransactionsPage(Model model) 
+	{
+		/* Get Current User */
+		User currUser = retrieveUser();
+
+
+	}
 
 	/***
 	 ***
@@ -117,13 +225,22 @@ public class UserController {
 	 ***
 	 ***/
 
+	/*** Retrieve current user ***/
+	private User retrieveUser() 
+	{
+		String username = securityService.findLoggedInUsername();
+		return mainService.findUserByUsername(username);
+	} 	 
+
 	/*** Template URL ***/
-	private String getAppUrl(HttpServletRequest request) {
+	private String getAppUrl(HttpServletRequest request) 
+	{
 		return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 	}
 
 	/*** Construct Template Email ***/
-	private SimpleMailMessage constructEmail(String subject, String message, User user) {
+	private SimpleMailMessage constructEmail(String subject, String message, User user) 
+	{
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setSubject(subject);
 		email.setMessage(message);
@@ -132,9 +249,18 @@ public class UserController {
 	}
 
 	/*** Construct Specific Emails ***/
-	private SimpleMailMessage constructVerificationTokenEmail(String contextPath, VerificationToken newToken, User user) {
+	private SimpleMailMessage constructVerificationTokenEmail(String contextPath, VerificationToken newToken, User user) 
+	{
 		String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken.getToken();
-		String message = "Confirm your registration by clicking here: ";
-		return constructEmail("Resend Registration Token", message + " \r\n" + confirmationUrl, user);
+		String message = messages.getMessage("message.registerSuccess", null, null);
+		return constructEmail("Resend Troy's Toys Confirmation E-mail", message + " \r\n" + confirmationUrl, user);
+	}
+
+	private SimpleMailMessage constructResetTokenEmail(String contextPath, PasswordResetToken newToken, User user) 
+	{
+		String confirmationUrl = contextPath + "/change-password?id=" + user.getUserId() + 
+								 "&token=" + newToken.getToken();
+		String message = messages.getMessage("message.resetPassword", null, null);
+		return constructEmail("Reset Password For Troy's Toys", message + " \r\n" + confirmationUrl, user);
 	}
 }

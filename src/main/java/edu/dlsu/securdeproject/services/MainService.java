@@ -119,23 +119,8 @@ public class MainService {
 	}
 
 	/* Send Forgot Password E-mail Token */
-	public void sendResetTokenEmail(String contextPath, Locale locale, String token, User user) {
-		mailSender.send(constructResetTokenEmail(contextPath, locale, token, user));
-	}
-
-	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, User user) {
-		/* Set Link */
-		String url = contextPath + "/change-password?id=" + user.getUserId() +
-					 "&token=" + token;
-		String message = messages.getMessage("message.resetPassword", null, locale);
-
-		/* Construct actual e-mail */
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setSubject("Reset Password");
-		email.setText(message + " \r\n" + url);
-		email.setTo(user.getEmail());
-
-		return email;
+	public void sendEmail(SimpleMailMessage email) {
+		mailSender.send(email);
 	}
 
 	/* Validate Password Token */

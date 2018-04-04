@@ -220,32 +220,6 @@ public class MainController {
 		return new ModelAndView("purchases", "purchases", allTransactions);
 	}
 
-	/* Reset Password */
-	@RequestMapping(value = "/forgot-password", method=RequestMethod.GET)
-	public ModelAndView forgotPasswordPage(Model model) {
-		return new ModelAndView("forgot-password", null, null);
-	}
-
-	/*@RequestMapping(value = "/forgot-password", method=RequestMethod.POST)
-	@ResponseBody
-	public GenericResponse forgotPasswordSubmit(HttpServletRequest request, @RequestParam("email") String email) {
-		User user = mainService.findUserByEmail(email);
-		if (user == null)
-			throw new UserNotFoundException();
-
-		String token = UUID.randomUUID().toString();
-		mainService.createPasswordResetToken(user, token);
-		mailSender.send(constructResetTokenEmail(getAppUrl(request), request.getLocale(),
-												 token, user));
-		return new GenericResponse(messages.getMessage("message.resetPasswordEmail",
-													   null, request.getLocale()));
-	}
-
-	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale,
-													   String token, User user) {
-		//String url = contextPath + "/"
-	}*/
-
 	/*** SUBSET: ADMIN ACTIONS ***/
 
 	/* Admin Home Page */
