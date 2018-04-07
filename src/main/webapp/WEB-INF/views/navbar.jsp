@@ -10,7 +10,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="uikit.css">
+    <c:url value="/css/uikit.css" var="jstlCss" />
+    <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
 </head>
 <body>
