@@ -14,85 +14,127 @@
 
 <html>
     <head>
-        <c:url value="/resources/static/css/index.css" var="jstlCss" />
+        <c:url value="/css/uikit.css" var="jstlCss" />
         <link rel="stylesheet" type="text/css" href="${jstlCss}">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-        <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
         <meta charset="UTF-8">
-
-        <title>Update Account Details</title>
+        <title>Account Settings</title>
+        <script src="uikit.min.js"></script>
+        <script src="uikit-icons.min.js"></script>
+        <script src="jquery-3.3.1.min.js"></script>
     </head>
     <body>
+        <!--Navbar-->
         <jsp:include page="navbar.jsp" />
-        <div class="heading">
-            <h1>Account Settings</h1>
-        </div>
-        <div class="container">
-            <div id="login">
-                <form:form method="POST" modelAttribute="custForm" class="form-updateAcct">
-                    <div class="div-form">
-                        <table>
-                            <tr>
-                                <spring:bind path="firstName">
-                                    <td><form:label for="firstname" class="formlabel">First Name</form:label></td>
-                                    <td>
-                                        <form:input type="text" path="firstName" id="firstname"></form:input>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <spring:bind path="lastName">
-                                    <td><form:label for="lastName" class="formlabel">Last Name</form:label></td>
-                                    <td>
-                                        <form:input type="text" path="lastName" id="lastname"></form:input>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <spring:bind path="birthdate">
-                                    <td><form:label for="birthdate" class="formlabel">Birthdate</form:label></td>
-                                    <td>
-                                        <form:input type="date" path="birthdate" id="birthdate"></form:input>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <spring:bind path="email">
-                                    <td><form:label for="email" class="formlabel">Email</form:label></td>
-                                    <td>
-                                        <form:input type="email" path="email" id="email"></form:input>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <td><label class="formlabel">Password</label></td>
-                                <td><a href="/changepassword.html">Change password...</a></td>
-                            </tr>
-                            <tr>
-                                <spring:bind path="mailAddress">
-                                    <td><form:label for="mailAddress" class="formlabel">Mailing Address</form:label></td>
-                                    <td>
-                                        <form:textarea path="mailAddress" id="mailingaddress"></form:textarea>
-                                    </td>
-                                </spring:bind>
-                            </tr>
-                            <tr>
-                                <spring:bind path="mobileNumber">
-                                    <td><form:label for="mobileNumber" class="formlabel">Mobile Number</form:label></td>
-                                    <td>
-                                        <form:input type="text" path="mobileNumber" id="mobilenum"></form:input>
-                                    </td>
-                              </spring:bind>
-                            </tr>
-                            <tr>
-                                <td/>
-                                <td><button type="submit" class="bluebtn-allcaps">Save</td>
-                            </tr>
-                        </table>
-                    </div>
-                </form:form>
+        
+        <!--Divider-->
+        <div class="uk-panel uk-panel-divider"></div>
+    
+        <!--Sign up-->
+        <div class="uk-panel uk-panel-box uk-panel-space">
+            <h1 class="uk-text-center">Sign up</h1>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
+                    <form:form method="POST" modelAttribute="custForm" class="uk-form uk-form-stacked">
+                        <!--First Name-->
+                        <div class="uk-form-row">
+                            <spring:bind path="firstName">
+                                <form:label class="uk-form-label" for="firstname" path="firstName">First Name*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="text" path="firstName" id="firstName" class="uk-width-1-1"></form:input>
+                                    <form:errors path="firstName"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Last Name-->
+                        <div class="uk-form-row">
+                            <spring:bind path="lastName">
+                                <form:label class="uk-form-label" for="lastName" path="lastName">Last Name*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="text" path="lastName" id="lastName" class="uk-width-1-1"></form:input>
+                                    <form:errors path="lastName"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Birthdate-->
+                        <div class="uk-form-row">
+                            <spring:bind path="birthdate">
+                                <form:label class="uk-form-label" for="birthdate" path="birthdate">Birthdate*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="text" class="uk-width-1-1" id="birthdate" path="birthdate" placeholder="mm-dd-yyyy" value=""></form:input>
+                                    <form:errors path="birthdate"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Mailing Address-->
+                        <div class="uk-form-row">
+                            <spring:bind path="mailAddress">
+                                <form:label class="uk-form-label" for="mailAddress" path="mailAddress">Mailing Address</form:label>
+                                <div class="uk-form-controls">
+                                    <form:textarea class="uk-width-1-1" path="mailAddress" id="mailAddress"></form:textarea>
+                                    <form:errors path="mailAddress"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Mobile Number-->
+                        <div class="uk-form-row">
+                            <spring:bind path="mobileNumber">
+                                <form:label class="uk-form-label" for="mobileNumber" path="mobileNumber">Mobile Number*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="text" class="uk-width-1-1" id="mobileNumber" path="mobileNumber"></form:input>
+                                    <form:errors path="mobileNumber"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Email-->
+                        <div class="uk-form-row">
+                            <spring:bind path="email">
+                                <form:label class="uk-form-label" for="email" path="email">Email*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="email" class="uk-width-1-1" id="email" path="email"></form:input>
+                                    <form:errors path="email"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Username-->
+                        <div class="uk-form-row">
+                            <spring:bind path="username">
+                                <form:label class="uk-form-label" for="username" path="username">Username*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="text" class="uk-width-1-1" id="username" path="username"></form:input>
+                                    <form:errors path="username"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Password-->
+                        <div class="uk-form-row">
+                            <spring:bind path="password">
+                                <form:label class="uk-form-label" for="password" path="password">Password*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="password" class="uk-width-1-1" id="password" path="password"></form:input>
+                                    <form:errors path="password"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Retype PW-->
+                        <div class="uk-form-row">
+                            <spring:bind path="passwordConfirm">
+                                <form:label class="uk-form-label" for="passwordConfirm" path="passwordConfirm">Retype Password*</form:label>
+                                <div class="uk-form-controls">
+                                    <form:input type="password" class="uk-width-1-1" id="passwordConfirm" path="passwordConfirm"></form:input>
+                                    <form:errors path="passwordConfirm"></form:errors>
+                                </div>
+                            </spring:bind>
+                        </div>
+                        <!--Sign up button-->
+                        <div class="uk-form-row">
+                            <button type="submit" class="uk-button uk-button-primary">Save</button>
+                        </div>
+                    </form:form>
+                </div>
             </div>
         </div>
+        
+        <!--Footer-->
         <jsp:include page="footer.jsp" />
     </body>
 </html>

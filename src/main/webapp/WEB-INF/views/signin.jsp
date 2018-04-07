@@ -68,7 +68,7 @@
                         
                         <!--Sign in button-->
                         <div class="uk-form-row">
-                            <button type="button" class="uk-button uk-button-primary">Sign in</button>
+                            <button type="submit" class="uk-button uk-button-primary">Sign in</button>
                         </div>
                         
                         <!--Sign up link-->
@@ -79,6 +79,8 @@
                 </div>
             </div>
         </div>
+        
+        <!--Footer-->
         <jsp:include page="footer.jsp" />
     </body>
 </html>

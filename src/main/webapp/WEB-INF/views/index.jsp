@@ -31,12 +31,14 @@
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <form:form method="get">
             <h1>What's New?</h1>
-            <ul class="uk-grid uk-grid-small uk-grid-width-small-1-2 uk-grid-width-medium-1-4 uk-grid-width-large-1-6">
-                <c:choose>
-                    <c:when items="${empty products}">
-                        <h3>No products to display.</h3>
-                    </c:when>
-                    <c:otherwise>
+            <c:choose>
+                <c:when items="${empty products}">
+                    <div class="uk-text-center uk-container-center uk-width-1-1 uk-alert uk-alert-danger">
+                        No products to display.
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <ul class="uk-grid uk-grid-small uk-grid-width-small-1-2 uk-grid-width-medium-1-4 uk-grid-width-large-1-6">
                         <c:forEach items="${products}" var="item">
                             <li><div class="uk-panel uk-panel-box uk-text-center">
                                 <img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" />
@@ -48,9 +50,9 @@
                                 </form>
                             </div></li>
                         </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
         </form:form>
     </div>
 
