@@ -15,93 +15,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Troy's Toys</title>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">
+    <title>Troy's Toys</title>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <!--Navbar-->
 <%@ include file="navbar.jsp" %>
 
-<div class="main">
-    <!--Ad
-    <div class="ad">
-        <a href="#" class="control_next">&gt;</a>
-        <a href="#" class="control_prev">&lt;</a>
-        <ul>
-            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2017/03/believe-in-love-again-grid-slider.png');" />
-            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2016/10/anti-piracy-grid-slider.jpg');" />
-            <li style="background: url('https://pcx.com.ph/wp-content/uploads/2017/09/1100-x-200-365.jpg');" />
-        </ul>
-    </div>-->
-
     <!--What's New-->
-
-    <div id="outputSection">
+    <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <form:form method="get">
-        <table id="outputTable">
-            <tr>
-                <th>Product Name</th>
-                <th>Price</th>
-            </tr>
-            <c:forEach items="${products}" var="item"> <!--TODO: Need to fix variables-->
-                <tr>
-                <td><c:out value="${item.productName}"/></td>
-                <td><c:out value="${item.productPrice}"/></td>
-                <td/>
-                <td>
-                    <form id="formPrice">
-                        <input type="text" value="${item.productId}" hidden="true" name="prodId">
-                        <a href="/viewProduct?prodId=${item.productId}">View</a>
-                    </form>
-                </td>
-                </tr>
-            </c:forEach>
-        </table>
+            <h1>What's New?</h1>
+            <ul class="uk-grid uk-grid-small uk-grid-width-small-1-2 uk-grid-width-medium-1-4 uk-grid-width-large-1-6">
+                <c:choose>
+                    <c:when items="${empty products}">
+                        <h3>No products to display.</h3>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${products}" var="item">
+                            <li><div class="uk-panel uk-panel-box uk-text-center">
+                                <img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" />
+                                <h4><c:out value="${item.productName}"/></h4>
+                                <h5><c:out value="${item.productPrice}"/></h5>
+                                <form id="formPrice">
+                                    <input type="text" value="${item.productId}" hidden="true" name="prodId">
+                                    <a href="/viewProduct?prodId=${item.productId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
+                                </form>
+                            </div></li>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
         </form:form>
     </div>
 
     <%@ include file="footer.jsp" %>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script>
-    jQuery(document).ready(function ($) {
-        $('#checkbox').change(function(){
-            setInterval(function () {
-                moveRight();
-            }, 3000);
-        });
-        var slideCount = $('#ad ul li').length;
-        var slideWidth = $('#ad ul li').width();
-        var slideHeight = $('#ad ul li').height();
-        var adUlWidth = slideCount * slideWidth;
-        $('#ad').css({ width: slideWidth, height: slideHeight });
-        $('#ad ul').css({ width: adUlWidth, marginLeft: - slideWidth });
-        $('#ad ul li:last-child').prependTo('#ad ul');
-        function moveLeft() {
-            $('#ad ul').animate({
-                left: + slideWidth
-            }, 200, function () {
-                $('#ad ul li:last-child').prependTo('#ad ul');
-                $('#ad ul').css('left', '');
-            });
-        };
-        function moveRight() {
-            $('#ad ul').animate({
-                left: - slideWidth
-            }, 200, function () {
-                $('#ad ul li:first-child').appendTo('#ad ul');
-                $('#ad ul').css('left', '');
-            });
-        };
-        $('a.control_prev').click(function () {
-            moveLeft();
-        });
-        $('a.control_next').click(function () {
-            moveRight();
-        });
-    });
-</script>
 </html>
