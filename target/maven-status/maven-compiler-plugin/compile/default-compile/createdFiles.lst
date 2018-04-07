@@ -1,4 +1,5 @@
 edu\dlsu\securdeproject\classes\User.class
+edu\dlsu\securdeproject\servlets\UserController.class
 edu\dlsu\securdeproject\services\ValidationService.class
 edu\dlsu\securdeproject\security\registration\OnRegistrationCompleteEvent.class
 edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService$1.class
@@ -13,6 +14,7 @@ edu\dlsu\securdeproject\security\SecurityServiceInterface.class
 edu\dlsu\securdeproject\classes\Transaction.class
 edu\dlsu\securdeproject\security\brute_force_prevention\AuthenticationSuccessEventListener.class
 edu\dlsu\securdeproject\classes\Role.class
+edu\dlsu\securdeprojct\validation\ValidPassword.class
 edu\dlsu\securdeproject\repositories\UserRepository.class
 edu\dlsu\securdeproject\security\password_recovery\PasswordResetToken.class
 edu\dlsu\securdeproject\repositories\TransactionRepository.class
@@ -21,8 +23,12 @@ edu\dlsu\securdeproject\services\MainService.class
 edu\dlsu\securdeproject\security\brute_force_prevention\CustomAuthenticationFailureHandler.class
 edu\dlsu\securdeproject\WebApplication.class
 edu\dlsu\securdeproject\security\SecurityConfiguration.class
+edu\dlsu\securdeproject\validation\PasswordMatchesValidator.class
 edu\dlsu\securdeproject\security\registration\RegistrationListener.class
 edu\dlsu\securdeproject\servlets\MainController.class
 edu\dlsu\securdeproject\security\registration\VerificationToken.class
 edu\dlsu\securdeproject\security\registration\UserDto.class
+edu\dlsu\securdeproject\validation\ValidEmail.class
+edu\dlsu\securdeproject\validation\EmailValidator.class
+edu\dlsu\securdeproject\validation\PasswordMatches.class
 edu\dlsu\securdeproject\repositories\PasswordTokenRepository.class

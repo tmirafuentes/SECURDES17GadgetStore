@@ -16,7 +16,7 @@
 <html>
 <head>
     <title>Troy's Toys</title>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">

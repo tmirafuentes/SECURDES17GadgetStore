@@ -1,5 +1,35 @@
 package edu.dlsu.securdeproject.servlets;
 
+import edu.dlsu.securdeproject.classes.Role;
+import edu.dlsu.securdeproject.classes.Transaction;
+import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.security.SecurityService;
+import edu.dlsu.securdeproject.security.registration.OnRegistrationCompleteEvent;
+import edu.dlsu.securdeproject.classes.dtos.UserDto;
+import edu.dlsu.securdeproject.security.registration.VerificationToken;
+import edu.dlsu.securdeproject.services.MainService;
+import edu.dlsu.securdeproject.services.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.UUID;
+
 @Controller
 public class UserController {
 	/*** Services ***/
@@ -23,7 +53,7 @@ public class UserController {
 
 	/*** Register Account ***/
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signUpPage(Model model) 
+	public String signUpPage(Model model)
 	{
 		/* Initialize user registration form */
 		model.addAttribute("userForm", new UserDto());
@@ -64,7 +94,7 @@ public class UserController {
 
 	/*** Confirm Registration ***/
 	@RequestMapping(value = "/signup-confirm", method = RequestMethod.GET)
-	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) 
+	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token)
 	{
 		Locale locale = request.getLocale();
 
@@ -101,9 +131,11 @@ public class UserController {
 
 		/* Send email */
 		User user = newToken.getUser();
-		String appUrl = getAppUrl();
-		SimpleMailMessage email = constructVerificationTokenEmail(appUrl, newToken, user);
+		String appUrl = getAppUrl(request);
+		SimpleMailMessage email = constructVerificationTokenEmail(appUrl, newToken.getToken(), user);
 		mainService.sendEmail(email);
+
+		return "redirect:/signup-success";
 	}
 
 	/*** Sign in ***/
@@ -120,7 +152,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public String signInPage(Model model, @RequestParam("username") String username, @RequestParam("password") String password) 
+	public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password)
 	{
 		/* Log-in */
 		securityService.autologin(username, password);
@@ -162,7 +194,7 @@ public class UserController {
 
 	/*** Forgot Password ***/
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
-	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email) 
+	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email, Model model)
 	{
 		/* Check if e-mail exists */
 		User user = mainService.findUserByEmail(email);
@@ -176,8 +208,8 @@ public class UserController {
 		mainService.createPasswordResetToken(user, token);
 
 		/* Send Password Reset Token E-mail */
-		SimpleMailMessage passwordResetEmail = constructResetTokenEmail(getAppUrl(), token, user);
-		mainService.sendEmail(passwordResetMail);
+		SimpleMailMessage passwordResetEmail = constructResetTokenEmail(getAppUrl(request), token, user);
+		mainService.sendEmail(passwordResetEmail);
 
 		return "redirect:/forgot-password-confirm";
 	}
@@ -216,8 +248,51 @@ public class UserController {
 		/* Get Current User */
 		User currUser = retrieveUser();
 
+		/* Get All Transactions from User */
+		ArrayList<Transaction> allTransactions = mainService.findTransactionsByUser(currUser);
+		model.addAttribute("purchases", allTransactions);
 
+		return "transactions";
 	}
+
+	/*** Create New Admin (Pwedeng Waley) ***/
+	@RequestMapping(value = "/admin-signup", method = RequestMethod.GET)
+    public String adminSignupPage(Model model)
+    {
+	    model.addAttribute("adminForm", new UserDto());
+	    return "admin-signup";
+    }
+
+    @RequestMapping(value = "/admin-signup", method = RequestMethod.POST)
+    public String adminSignupSubmit(@ModelAttribute("adminForm") @Valid UserDto adminForm, BindingResult bindingResult, Model model)
+    {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("adminForm", adminForm);
+            return "admin-signup";
+        }
+
+        /* Save new Admin to the database */
+        ArrayList<Role> roles = new ArrayList<Role>();
+        roles.add(mainService.findRoleByName("ROLE_USER"));
+        roles.add(mainService.findRoleByName("ROLE_ADMIN"));
+        mainService.saveUser(adminForm, roles);
+
+        return "redirect:/admin";
+    }
+
+    /*** View Transactions For Overriding ***/
+    @RequestMapping(value = "/admin/trans", method = RequestMethod.GET)
+    public String adminTransactionsPage(Model model) {
+        model.addAttribute("transactions", mainService.findAllTransactions());
+        return "admin-trans";
+    }
+
+    /*** View Users ***/
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String adminUsersPage(Model model) {
+        model.addAttribute("users", mainService.findAllUsers());
+        return "admin-users";
+    }
 
 	/***
 	 ***
@@ -243,23 +318,23 @@ public class UserController {
 	{
 		SimpleMailMessage email = new SimpleMailMessage();
 		email.setSubject(subject);
-		email.setMessage(message);
+		email.setText(message);
 		email.setTo(user.getEmail());
 		return email;
 	}
 
 	/*** Construct Specific Emails ***/
-	private SimpleMailMessage constructVerificationTokenEmail(String contextPath, VerificationToken newToken, User user) 
+	private SimpleMailMessage constructVerificationTokenEmail(String contextPath, String newToken, User user)
 	{
-		String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken.getToken();
+		String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken;
 		String message = messages.getMessage("message.registerSuccess", null, null);
 		return constructEmail("Resend Troy's Toys Confirmation E-mail", message + " \r\n" + confirmationUrl, user);
 	}
 
-	private SimpleMailMessage constructResetTokenEmail(String contextPath, PasswordResetToken newToken, User user) 
+	private SimpleMailMessage constructResetTokenEmail(String contextPath, String newToken, User user)
 	{
 		String confirmationUrl = contextPath + "/change-password?id=" + user.getUserId() + 
-								 "&token=" + newToken.getToken();
+								 "&token=" + newToken;
 		String message = messages.getMessage("message.resetPassword", null, null);
 		return constructEmail("Reset Password For Troy's Toys", message + " \r\n" + confirmationUrl, user);
 	}

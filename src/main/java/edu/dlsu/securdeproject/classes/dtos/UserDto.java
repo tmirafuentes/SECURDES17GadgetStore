@@ -1,5 +1,7 @@
-package edu.dlsu.securdeproject.security.registration;
+package edu.dlsu.securdeproject.classes.dtos;
 
+import edu.dlsu.securdeproject.validation.PasswordMatches;
+import edu.dlsu.securdeproject.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,6 +39,8 @@ public class UserDto {
 	private String mailAddress;
 
 	private String mobileNumber;
+
+	public UserDto() {}
 
 	public String getUsername() {
 		return username;

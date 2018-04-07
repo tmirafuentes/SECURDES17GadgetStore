@@ -1,5 +1,7 @@
 package edu.dlsu.securdeprojct.validation;
 
+import edu.dlsu.securdeproject.validation.PasswordMatchesValidator;
+
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -13,7 +15,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = PasswordConstraintValidator.class)
+@Constraint(validatedBy = PasswordMatchesValidator.class)
 @Target({ TYPE, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface ValidPassword {

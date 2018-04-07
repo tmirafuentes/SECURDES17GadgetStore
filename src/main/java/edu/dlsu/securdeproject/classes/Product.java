@@ -9,8 +9,8 @@ public class Product {
 	private double productPrice;
 	private int productQuantity;
 	private String productDescription;
-	private String productBrand;
-	private String productType;
+	private Brand productBrand;
+	private Type productType;
 
 	public Product() {}
 
@@ -56,19 +56,19 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
-	public String getProductBrand() {
+	public Brand getProductBrand() {
 		return productBrand;
 	}
 
-	public void setProductBrand(String productBrand) {
+	public void setProductBrand(Brand productBrand) {
 		this.productBrand = productBrand;
 	}
 
-	public String getProductType() {
+	public Type getProductType() {
 		return productType;
 	}
 
-	public void setProductType(String productType) {
+	public void setProductType(Type productType) {
 		this.productType = productType;
 	}
 }

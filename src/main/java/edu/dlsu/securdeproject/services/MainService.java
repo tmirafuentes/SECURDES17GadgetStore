@@ -1,12 +1,10 @@
 package edu.dlsu.securdeproject.services;
 
-import edu.dlsu.securdeproject.classes.Product;
-import edu.dlsu.securdeproject.classes.Role;
-import edu.dlsu.securdeproject.classes.Transaction;
-import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.classes.*;
+import edu.dlsu.securdeproject.classes.dtos.ProductDto;
 import edu.dlsu.securdeproject.repositories.*;
 import edu.dlsu.securdeproject.security.password_recovery.PasswordResetToken;
-import edu.dlsu.securdeproject.security.registration.UserDto;
+import edu.dlsu.securdeproject.classes.dtos.UserDto;
 import edu.dlsu.securdeproject.security.registration.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,12 +13,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
@@ -28,6 +24,10 @@ public class MainService {
 	/* Repositories */
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private TypeRepository typeRepository;
+	@Autowired
+	private BrandRepository brandRepository;
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
@@ -46,7 +46,6 @@ public class MainService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@Autowired
 	private MessageSource messages;
 
 	/***** USER SERVICES *****/
@@ -148,10 +147,10 @@ public class MainService {
 	}
 
 	/* Update E-Mail Verification Token */
-	public VerificationToken generateNewVerificationToken(String exisitingToken) {
+	public VerificationToken generateNewVerificationToken(String existingToken) {
 		VerificationToken vToken = getVerificationToken(existingToken);
 		vToken.setToken(UUID.randomUUID().toString());
-		vToken = tokenRepository.save(vToken);
+		vToken = verificationTokenRepository.save(vToken);
 		return vToken;
 	}
 
@@ -164,6 +163,17 @@ public class MainService {
 
 	/*** DATABASE SERVICES ***/
 	/* Save Product */
+	public void saveProduct(ProductDto p) {
+		Product newProd = new Product();
+		newProd.setProductName(p.getProductName());
+		newProd.setProductPrice(p.getProductPrice());
+		newProd.setProductQuantity(p.getProductQuantity());
+		newProd.setProductDescription(p.getProductDescription());
+		newProd.setProductBrand(findBrandByName(p.getProductBrand()));
+		newProd.setProductType(findTypeByName(p.getProductType()));
+		productRepository.save(newProd);
+	}
+
 	public void saveProduct(Product p) {
 		productRepository.save(p);
 	}
@@ -191,6 +201,23 @@ public class MainService {
 	/* Delete a product */
 	public void deleteProduct(Product p) {
 		productRepository.delete(p);
+	}
+
+	/* Retrieve all product brands */
+	public ArrayList<Brand> findAllProductBrands() {
+		return (ArrayList<Brand>) brandRepository.findAll();
+	}
+
+	public Brand findBrandByName(String brandName) {
+		return brandRepository.findByBrandName(brandName);
+	}
+
+	public ArrayList<Type> findAllProductTypes() {
+		return (ArrayList<Type>) typeRepository.findAll();
+	}
+
+	public Type findTypeByName(String typeName) {
+		return typeRepository.findByTypeName(typeName);
 	}
 
 	/***** TRANSACTION SERVICES *****/
