@@ -24,8 +24,8 @@
     <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<!--Navbar-->
-<%@ include file="navbar.jsp" %>
+    <!--Navbar-->
+    <%@ include file="navbar.jsp" %>
 
     <!--What's New-->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
