@@ -7,12 +7,20 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="uikit.css">
+    <meta charset="UTF-8">
+</head>
 <body>
-<div id="wrapperFoot">
-    <footer>
-        <p><a href="">ABOUT US</a>  |  <a href="">CONTACT US</a>  |  <a href="">TERMS OF SERVICE</a></p>
+<footer class="uk-panel">
+    <ul class="uk-subnav uk-subnav-line uk-flex-center">
+        <li><a href="/about-us">ABOUT US</a></li>
+        <li><a href="/contact-us">CONTACT US</a></li>
+        <li><a href="/tos">TERMS OF SERVICE</a></li>
+    </ul>
+    <div class="uk-panel uk-text-center">
         <small>&copy; 2018 Minions nina Marnel at Courtney Inc.</small>
-    </footer>
-</div>
+    </div>
+</footer>
 </body>
 </html>
