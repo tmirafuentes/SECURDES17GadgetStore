@@ -13,42 +13,61 @@
 
 <html>
 <head>
+    <c:url value="/css/uikit.css" var="jstlCss" />
+    <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
     <title>Troy's Toys</title>
-    <c:url value="/css/index.css" var="jstlCss" />
-    <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-    <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
+    <!--Navbar-->
     <%@ include file="navbar.jsp" %>
-
-    <h1 id= "headConfirm">Confirm Purchasing Details</h1>
-
-    <form:form method="POST" action="${contextPath}/buyProduct">
-    <div id="holdingAllCon">
-        <div id="imageConfirm">
-            <img id="productPicConfirmation">
-        </div>
-        <div id="confirmHolder"> <!--TODO: Fix variables-->
-            <p id ="productNameConfirmation">${indiProd.productName}</p>
-            <p class="phraseConfirm">Pesos:</p>
-            <p id ="productPriceConfirmation">${indiProd.productPrice}</p>
-            <p class="phraseConfirm">Quantity:</p>
-            <p id ="productQuantityConfirmation">${prodQty}</p>
-            <p class="phraseConfirm">Current mailing address:</p>
-            <p id ="customerMailing">${currCust.mailAddress}</p>
-            <div id="buttonsConfirm">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
-                <input type="text" value="${currCust.username}" hidden="true" name="custName">
-                <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty">
-                <button type="submit" id="btnConfirmPurchase">Confirm</button>
+        
+    <!-- Product Details -->
+    <div class="uk-panel uk-panel-box-secondary uk-panel-space">
+        <h1 class="uk-text-center">Confirm Purchasing Details</h1>
+        <form:form method="POST" action="${contextPath}/buyProduct">
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-panel uk-panel-box uk-text-left uk-container-center uk-width-1-2">
+                    <div class="uk-text-center">
+                        <img id="productPicConfirmation" src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" width="400px">
+                    </div>
+                    <table class="uk-table">
+                        <tr>
+                            <td>Product Name</td>
+                            <td>${indiProd.productName}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>PHP ${indiProd.productPrice}</td>
+                        </tr>
+                        <tr>
+                            <td>Specifications</td>
+                            <td>${indiProd.productDescription}</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>${prodQty}</td>
+                        </tr>
+                        <tr>
+                            <td>Current Mailing Address</td>
+                            <td>${currCust.mailAddress}</td>
+                        </tr>
+                    </table>
+                    <div class="uk-text-right">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
+                        <input type="text" value="${currCust.username}" hidden="true" name="custName">
+                        <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty"><button type="submit" class="uk-button uk-button-primary">CONFIRM</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form:form>
     </div>
-    </form:form>
 
+    <!--Footer-->
     <%@ include file="footer.jsp" %>
 </body>
 </html>

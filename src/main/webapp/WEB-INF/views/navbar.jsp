@@ -9,56 +9,57 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
-<!--
 <head>
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+    <c:url value="/css/uikit.css" var="jstlCss" />
+    <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
-</head>-->
+</head>
 <body>
-<!--Navbar-->
-<header>
-    <div class="navbartop">
-        <table id="navTable">
-            <tr>
-                <td><p id="logo"> Troy's Toys</p></td>
-                <td>
-                    <form class="search" role="search" id="searchPart">
-                        <input type="text" placeholder="Search for a product..." id="searchBar">
-                    </form>
-                </td>
-                <td id="dropdownHolder">
-                    <c:choose>
-                        <c:when test="${pageContext.request.userPrincipal.name != null}">
-                            <div class="dropdown">
-                                <button class="dropbtn">${pageContext.request.userPrincipal.name}</button>
-                                <div class="dropdown-content">
-                                    <a href="/purchases">Purchase History</a>
-                                    <a href="/accountSettings">Account Settings</a>
-                                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+    <nav class="uk-navbar">
+        <a class="uk-navbar-brand" href="index.jsp">Troy's Toys</a>
+        <ul class="uk-navbar-nav">
+            <li><a href="/desktops">Desktops</a></li>
+            <li><a href="/laptops">Laptops</a></li>
+            <li><a href="/tablets">Tablets</a></li>
+            <li><a href="/mobiles">Mobiles</a></li>
+        </ul>
+
+        <div class="uk-navbar-content uk-hidden-small">
+            <form class="uk-form uk-margin-remove uk-display-inline-block">
+                <input type="text" placeholder="Search products...">
+                <button class="uk-button uk-button-primary">Submit</button>
+            </form>
+        </div>
+
+        <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+            <c:choose>
+                <c:when test="${pageContext.request.userPrincipal.name != null}">
+                    <!-- This is the container enabling the JavaScript -->
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <!-- This is the button toggling the dropdown -->
+                        <button class="uk-button">${pageContext.request.userPrincipal.name}</button>
+                        <!-- This is the dropdown -->
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="/purchases">Purchase History</a></li>
+                                <li><a href="/accountSettings">Account Settings</a></li>
+                                <li><form id="logoutForm" method="POST" action="${contextPath}/logout">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     </form>
-                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="/signin" id="signin">SIGN IN</a>
-                            <a href="/signup" id="signuplink">SIGN UP</a>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="/desktops">DESKTOPS</a></li>
-            <li><a href="/laptops">LAPTOPS</a></li>
-            <li><a href="/tablets">TABLETS</a></li>
-            <li><a href="/mobiles">MOBILES</a></li>
-        </ul>
+                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="uk-button-group">
+                        <a class="uk-button" href="signin.html">Sign in</a>
+                        <a class="uk-button uk-button-primary" href="signup.html">Sign up</a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
     </nav>
-</header>
 </body>
 </html>

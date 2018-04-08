@@ -13,54 +13,74 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-    <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Sign In</title>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
     <body>
+        <!--Navbar-->
         <jsp:include page="navbar.jsp" />
-        <div class="heading">
+        
+        <!--Divider-->
+        <div class="uk-panel uk-panel-divider"></div>
+        
+        <div class="uk-panel uk-panel-box-secondary uk-panel-space">
             <h1>Sign In</h1>
-        </div>
-        <div class="container">
-            <div id="login">
-                <form method="POST" action="${contextPath}/signin" class="form-signin">
-                    <div class="div-form">
-                        <table>
-                            <tr>
-                                <td colspan='2'>${message}</td>
-                            </tr>
-                            <tr>
-                                <td><label for="username" class="formlabel">Username</label></td>
-                                <td><input type="text" name="username" id="username" autofocus="true" /></td>
-                            </tr>
-                            <tr>
-                                <td><label for="password" class="formlabel">Password</label></td>
-                                <td><input type="password" name="password" id="password" /></td>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>${error}</td>
-                            </tr>
-                            <tr>
-                                <td><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"></td>
-                                <td><a href="forgot.jsp">Forgot password?</a></td>
-                            </tr>
-                            <tr>
-                                <td />
-                                <td><button type="submit" class="bluebtn-allcaps">Log In</button></td>
-                            </tr>
-                            <tr>
-                                <td />
-                                <td>No account? <a href="signup.jsp">Sign up here.</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
+                    <form method="POST" action="${contextPath}/signin" class="uk-form uk-form-stacked">
+                        
+                        <!--Message-->
+                        <div class="uk-form-row">
+                            ${message}
+                        </div>
+                        
+                        <!--Username-->
+                        <div class="uk-form-row">
+                            <label class="uk-form-label" for="username">Username</label>
+                            <div class="uk-form-controls">
+                                <input type="text" name="username" id="username" autofocus="true" class="uk-width-1-1"/>
+                            </div>
+                        </div>
+                        
+                        <!--Password-->
+                        <div class="uk-form-row">
+                            <label class="uk-form-label" for="password">Password</label>
+                            <div class="uk-form-controls">
+                                <input type="password" name="password" id="password" class="uk-width-1-1" />
+                            </div>
+                        </div>
+                        
+                        <!--Error message-->
+                        <div class="uk-form-row">
+                            ${error}
+                        </div>
+                        
+                        <!--Forgot password-->
+                        <div class="uk-form-row">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                            <a href="forgot.jsp">Forgot password?</a>
+                        </div>
+                        
+                        <!--Sign in button-->
+                        <div class="uk-form-row">
+                            <button type="submit" class="uk-button uk-button-primary">Sign in</button>
+                        </div>
+                        
+                        <!--Sign up link-->
+                        <div class="uk-form-row">
+                            No account? <a href="signup.jsp">Sign up here.</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        
+        <!--Footer-->
         <jsp:include page="footer.jsp" />
     </body>
 </html>

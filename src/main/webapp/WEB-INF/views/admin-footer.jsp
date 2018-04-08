@@ -16,11 +16,6 @@
 <footer class="uk-panel">
     <br />
     <br />
-    <ul class="uk-subnav uk-subnav-line uk-flex-center">
-        <li><a href="/about-us">ABOUT US</a></li>
-        <li><a href="/contact-us">CONTACT US</a></li>
-        <li><a href="/tos">TERMS OF SERVICE</a></li>
-    </ul>
     <div class="uk-panel uk-text-center">
         <small>&copy; 2018 Minions nina Marnel at Courtney Inc.</small>
     </div>
