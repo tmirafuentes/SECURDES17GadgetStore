@@ -1,3 +1,4 @@
+<!-- ADMIN DISPLAY ALL PRODUCTS-->
 <%--
   Created by IntelliJ IDEA.
   User: muonsei
@@ -12,31 +13,34 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admin | Troy's Toys</title>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">
+    <title>Troy's Toys</title>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-    <%@ include file="navbar.jsp" %>
+    <!--Navbar-->
+    <%@ include file="admin-navbar.jsp" %>
 
-    <div id="adminBody">
-        <p id="titleH">ADMIN FUNCTIONS</p>
-        <a href="${contextPath}/addProduct">
-            <button id="btnAdminAdd">Add Item</button>
-        </a>
-        <div id="adminSection">
-            <form:form method="GET">
-            <table id="productList">
+    <!--Body-->
+    <div class="uk-panel uk-panel-box-secondary uk-panel-space">
+        <h1>Products</h1>
+        <a href="${contextPath}/addProduct" class="uk-button uk-button-success uk-button-large">+ ADD NEW PRODUCT</a>
+        <form:form method="GET">
+            <table class="uk-table">
                 <tr>
-                    <th id="pID">Product ID</th>
-                    <th id="pName">Name</th>
-                    <th id="pPrice">Price</th>
-                    <th id="pQuan">Quantity</th>
-                    <th id="pDesc">Description</th>
-                    <th id="pEdit">Edit</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <!--<th>Brand</th>--><!--TODO: Fix brand-->
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <c:forEach items="${products}" var="item">
                     <tr>
@@ -44,21 +48,19 @@
                         <td><c:out value="${item.productName}"/></td>
                         <td><c:out value="${item.productPrice}"/></td>
                         <td><c:out value="${item.productQuantity}"/></td>
+                        <!--<td><c:out value="${item.productBrand}"/></td>--><!--TODO: Fix brand-->
                         <td><c:out value="${item.productDescription}"/></td>
                         <td><c:out value="${item.productType}"/></td>
-                        <td>
-                            <input type="text" value="${item.productId}" hidden="true" name="prodId">
-                            <a href="/editProduct?prodId=${item.productId}">Edit</a>
-                            <a href="/deleteProduct?prodId=${item.productId}">Delete</a>
-                        </td>
+                        <td><a href="/deleteProduct?prodId=${item.productId}" class="uk-button uk-button-danger">Delete</a></td>
+                        <td><input type="text" value="${item.productId}" hidden="true" name="prodId"><a href="/editProduct?prodId=${item.productId}" class="uk-button">Edit</a></td>
                     </tr>
                 </c:forEach>
             </table>
-            </form:form>
-        </div>
+        </form:form>
     </div>
 
-    <%@ include file="footer.jsp" %>
+    <!--Footer-->
+    <%@ include file="admin-footer.jsp" %>
 </body>
 </html>
 
