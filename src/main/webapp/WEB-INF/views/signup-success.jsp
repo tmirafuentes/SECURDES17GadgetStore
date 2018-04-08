@@ -25,7 +25,7 @@
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <h1 class="uk-text-center">Sign up</h1>
         <div class="uk-text-center uk-container-center uk-width-1-3 uk-alert uk-alert-success">
-            You signed up successfully. <a href="signin">Click here to sign in.</a>
+            You signed up successfully. <a href="/signin">Click here to sign in.</a>
         </div>
     </div>
     
