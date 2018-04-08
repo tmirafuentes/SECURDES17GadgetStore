@@ -56,6 +56,8 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "brand_id")
 	public Brand getProductBrand() {
 		return productBrand;
 	}
@@ -64,6 +66,8 @@ public class Product {
 		this.productBrand = productBrand;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "type_id")
 	public Type getProductType() {
 		return productType;
 	}

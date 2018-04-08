@@ -20,7 +20,7 @@ import java.util.Set;
 public class UserDetailsServiceImp implements UserDetailsService {
     /* External Services */
     @Autowired
-    private MainService mainService;
+    private UserService userService;
 
     @Autowired
     private LoginAttemptService loginAttemptService;
@@ -38,7 +38,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         /* Try retrieving a user */
         try {
-            User user = mainService.findUserByUsername(username);
+            User user = userService.findUserByUsername(username);
 
             Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
             for (Role role : user.getRoles())

@@ -1,11 +1,13 @@
 package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Type {
-    private Long id;
+    private Long typeId;
     private String typeName;
+    private Set<Product> products;
 
     public Type() {}
 
@@ -13,12 +15,14 @@ public class Type {
         this.typeName = typeName;
     }
 
-    public Long getId() {
-        return id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     public String getTypeName() {
@@ -27,5 +31,14 @@ public class Type {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    @OneToMany(mappedBy = "productId")
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

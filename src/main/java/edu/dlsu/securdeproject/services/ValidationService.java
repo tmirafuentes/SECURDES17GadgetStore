@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
 @Component
 public class ValidationService implements Validator {
 	/* Local Variables */
-	@Autowired
-	private MainService mainService;
 
 	/* Email Validator */
 	private Pattern pattern;
@@ -35,8 +33,6 @@ public class ValidationService implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "message.emptyForm");
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32)
 			errors.rejectValue("username", "message.emptyForm");
-		if (mainService.findUserByUsername(user.getUsername()) != null)
-			errors.rejectValue("username", "message.usernameDuplicate");
 
 		/* Validate Password */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "message.emptyForm");

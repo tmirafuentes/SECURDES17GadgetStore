@@ -1,14 +1,13 @@
 package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Brand {
-    private Long id;
+    private Long brandId;
     private String brandName;
+    private Set<Product> products;
 
     public Brand() {}
 
@@ -18,12 +17,12 @@ public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
+    public Long getBrandId() {
+        return brandId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
     public String getBrandName() {
@@ -32,5 +31,14 @@ public class Brand {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    @OneToMany(mappedBy = "productId")
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

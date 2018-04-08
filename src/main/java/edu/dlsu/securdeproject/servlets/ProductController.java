@@ -5,7 +5,7 @@ import edu.dlsu.securdeproject.classes.Product;
 import edu.dlsu.securdeproject.classes.Type;
 import edu.dlsu.securdeproject.classes.dtos.ProductDto;
 import edu.dlsu.securdeproject.security.SecurityService;
-import edu.dlsu.securdeproject.services.MainService;
+import edu.dlsu.securdeproject.services.ProductService;
 import edu.dlsu.securdeproject.services.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -21,13 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 
 @Controller
 public class ProductController {
     /*** Services ***/
     @Autowired
-    private MainService mainService;
+    private ProductService productService;
     @Autowired
     private ValidationService validationService;
     @Autowired
@@ -40,7 +39,7 @@ public class ProductController {
 
     /***
      ***
-     URL MAPPING
+        URL MAPPING
      ***
      ***/
 
@@ -63,7 +62,7 @@ public class ProductController {
             return "add-product";
 
         /* Else, save new product to the database */
-        mainService.saveProduct(prodForm);
+        productService.saveProduct(prodForm);
 
         model.addAttribute("message", messages.getMessage("message.addProductSuccess", null, null));
         return "redirect:/admin";
@@ -74,7 +73,7 @@ public class ProductController {
     public String editProductPage(Model model, @RequestParam("prodId") Long prodId)
     {
         /* Find Specific Product */
-        Product currProd = mainService.findProductByProductId(prodId);
+        Product currProd = productService.findProductByProductId(prodId);
         currProd.setProductId(prodId);
 
         /* Generate Form */
@@ -85,7 +84,7 @@ public class ProductController {
         return "edit-product";
     }
 
-    @RequestMapping(value = "/admin/edit-product", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/edit-product", method = RequestMethod.POST)
     public String editProductSubmit(@ModelAttribute("prodForm") @Valid ProductDto prodForm, BindingResult bindingResult, Model model)
     {
         if (bindingResult.hasErrors())
@@ -97,26 +96,53 @@ public class ProductController {
 
     /*** Filter Products ***/
     @RequestMapping(value = "/desktops", method = RequestMethod.GET)
-    public String getDesktops(Model model) {
-        model.addAttribute("allProducts", mainService.findProductsByType("Desktop"));
+    public String getDesktops(Model model)
+    {
+        model.addAttribute("allProducts", productService.findProductsByType("Desktop"));
         return "index";
     }
 
-    public String getLaptops(Model model) {
-        model.addAttribute("allProducts", mainService.findProductsByType("Laptop"));
+    @RequestMapping(value = "/laptops", method = RequestMethod.GET)
+    public String getLaptops(Model model)
+    {
+        model.addAttribute("allProducts", productService.findProductsByType("Laptop"));
         return "index";
     }
 
-    public String getTablets(Model model) {
-        model.addAttribute("allProducts", mainService.findProductsByType("Tablet"));
+    @RequestMapping(value = "/tablets", method = RequestMethod.GET)
+    public String getTablets(Model model)
+    {
+        model.addAttribute("allProducts", productService.findProductsByType("Tablet"));
         return "index";
     }
 
-    public String getMobiles(Model model) {
-        model.addAttribute("allProducts", mainService.findProductsByType("Mobile"));
+    @RequestMapping(value = "/mobiles", method = RequestMethod.GET)
+    public String getMobiles(Model model)
+    {
+        model.addAttribute("allProducts", productService.findProductsByType("Mobile"));
         return "index";
     }
 
+    /*** View a Product ***/
+    @RequestMapping(value = "/view-product", method = RequestMethod.GET)
+    public String viewProductPage(Model model, @RequestParam("prodId") long prodId)
+    {
+        Product p = productService.findProductByProductId(prodId);
+
+        model.addAttribute("product", p);
+        return "view-product";
+    }
+
+    /*** Delete a Product ***/
+    @RequestMapping(value = "/admin/delete-product", method = RequestMethod.GET)
+    public String deleteProduct(Model model, @RequestParam("prodId") long prodId)
+    {
+        Product p = productService.findProductByProductId(prodId);
+        productService.deleteProduct(p);
+
+        model.addAttribute("message", messages.getMessage("message.deleteProduct", null, null));
+        return "redirect:/admin";
+    }
 
     /***
      ***
@@ -125,12 +151,12 @@ public class ProductController {
      ***/
 
     private Iterator generateProductTypes() {
-        ArrayList<Type> productTypes = mainService.findAllProductTypes();
+        ArrayList<Type> productTypes = productService.findAllProductTypes();
         return productTypes.iterator();
     }
 
     private Iterator generateProductBrands() {
-        ArrayList<Brand> productBrands = mainService.findAllProductBrands();
+        ArrayList<Brand> productBrands = productService.findAllProductBrands();
         return productBrands.iterator();
     }
 }
