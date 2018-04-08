@@ -13,44 +13,58 @@
 
 <html>
 <head>
-    <c:url value="/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-    <link href="https://github.com/theleagueof/league-spartan/blob/master/_webfonts/stylesheet.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Admin | Troy's Toys</title>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<%@ include file="navbar.jsp" %>
-    <div id="adminBody">
-        <p id="titleH">ADMIN Transaction Functions</p>
-        <div id="adminSection">
-            <form method="POST" action="${contextPath}/cancelTransaction">
-                <table id="transactionList">
+
+    <!--Navbar-->
+    <%@ include file="navbar.jsp" %>
+    
+    <!--Body-->
+    <div class="uk-panel uk-panel-box-secondary uk-panel-space">
+        <h1>Transactions</h1>
+        <form method="POST" action="${contextPath}/cancelTransaction">
+            <table class="uk-table">
+                <tr>
+                    <th>Trans ID</th>
+                    <th>Timestamp</th>
+                    <th>Prod ID</th>
+                    <th>Cust ID</th>
+                    <th>Qty</th>
+                    <th>Total Amt</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                <c:forEach items="${transactions}" var="transaction">
                     <tr>
-                        <th id="tID">Transaction ID</th>
-                        <th id="pID">Product ID</th>
-                        <th id="cID">Customer ID</th>
-                        <th id="tAmt">Total Amount</th>
-                        <th id="tStamp">Time Stamp</th>
-                        <th id="tStat">Status</th>
+                        <td><c:out value="${transaction.transactionId}"/></td>
+                        <td><c:out value="${transaction.timestamp}"/></td>
+                        <td><c:out value="${transaction.product.productId}"/></td>
+                        <td><c:out value="${transaction.user.userId}"></c:out></td>
+                        <td><c:out value="${transaction.quantity}"/></td>
+                        <td><c:out value="${transaction.totalAmount}"/></td>
+                        <td><c:out value="${transaction.status}"/></td>
+                        <c:choose>
+                            <c:when value="${transaction.status}">
+                                <button type="submit" class="uk-button uk-button-danger">CANCEL</button>
+                            </c:when>
+                            <c:otherwise> <!--Disabled when canceled already-->
+                                <button type="submit" class="uk-button uk-button-danger" disabled>CANCEL</button>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
-                    <c:forEach items="${transactions}" var="transaction">
-                        <tr>
-                            <td><c:out value="${transaction.transactionId}"/></td>
-                            <td><c:out value="${transaction.timestamp}"/></td>
-                            <td><c:out value="${transaction.product.productId}"/></td>
-                            <td><c:out value="${transaction.product.productName}"/></td>
-                            <td><c:out value="${transaction.quantity}"/></td>
-                            <td><c:out value="${transaction.totalAmount}"/></td>
-                            <td><c:out value="${transaction.status}" /></td>
-                            <td><button type="submit" class="bluebtn-allcaps">Cancel</button></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </form>
-        </div>
+                </c:forEach>
+            </table>
+        </form>
     </div>
+        
+    <!--Footer-->
     <%@ include file="footer.jsp" %>
 </body>
 </html>
