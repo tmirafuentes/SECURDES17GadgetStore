@@ -16,7 +16,7 @@
     <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
-    <title>Sign In</title>
+    <title>Password Reset</title>
     <script src="uikit.min.js"></script>
     <script src="uikit-icons.min.js"></script>
     <script src="jquery-3.3.1.min.js"></script>
@@ -30,25 +30,8 @@
         
         <div class="uk-panel uk-panel-box-secondary uk-panel-space">
             <h1 class="uk-text-center">Password Reset</h1>
-            <p class="uk-text-center">Please enter your email address to receive a password reset link.</p>
-            <div class="uk-grid uk-grid-small">
-                <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
-                    <div class="uk-grid uk-grid-small">
-                <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
-                    <form class="uk-form uk-form-stacked">
-                        <div class="uk-form-row">
-                            <label class="uk-form-label" for="form-h-it">Email</label>
-                            <div class="uk-form-controls">
-                                <input type="email" class="uk-width-1-1"> <!--TODO: Add functionality-->
-                            </div>
-                        </div>
-                        <div class="uk-form-row">
-                            <a href="#" class="uk-button uk-button-primary">SEND EMAIL</a> <!--TODO: Add functionality-->
-                        </div>
-                    </form>
-                </div>
-            </div>
-                </div>
+            <div class="uk-text-center uk-container-center uk-width-1-2 uk-alert uk-alert-success">
+                An email has been sent. Please check your email for the password reset link.
             </div>
         </div>
         

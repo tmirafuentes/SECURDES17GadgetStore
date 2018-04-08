@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: muonsei
-  Date: 4/9/18
-  Time: 4:46 AM
+  Date: 2/28/18
+  Time: 12:20 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,7 +16,7 @@
     <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
-    <title>Sign In</title>
+    <title>Password Reset</title>
     <script src="uikit.min.js"></script>
     <script src="uikit-icons.min.js"></script>
     <script src="jquery-3.3.1.min.js"></script>
@@ -30,24 +30,25 @@
         
         <div class="uk-panel uk-panel-box-secondary uk-panel-space">
             <h1 class="uk-text-center">Password Reset</h1>
-            <p class="uk-text-center">Please enter your email address to receive a password reset link.</p>
             <div class="uk-grid uk-grid-small">
-                <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
-                    <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
                     <form class="uk-form uk-form-stacked">
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="form-h-it">Email</label>
+                            <label class="uk-form-label" for="form-h-it">New Password</label>
                             <div class="uk-form-controls">
-                                <input type="email" class="uk-width-1-1"> <!--TODO: Add functionality-->
+                                <input type="password" class="uk-width-1-1">
                             </div>
                         </div>
                         <div class="uk-form-row">
-                            <a href="#" class="uk-button uk-button-primary">SEND EMAIL</a> <!--TODO: Add functionality-->
+                            <label class="uk-form-label" for="form-h-it">Confirm New Password</label>
+                            <div class="uk-form-controls">
+                                <input type="password" class="uk-width-1-1">
+                            </div>
+                        </div>
+                        <div class="uk-form-row">
+                            <a href="#" class="uk-button uk-button-primary">CHANGE PASSWORD</a> <!--TODO: Add functionality-->
                         </div>
                     </form>
-                </div>
-            </div>
                 </div>
             </div>
         </div>
