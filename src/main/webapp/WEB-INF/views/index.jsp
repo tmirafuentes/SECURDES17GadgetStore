@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Troy's Toys</title>
     <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">

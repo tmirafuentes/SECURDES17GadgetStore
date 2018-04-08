@@ -3,7 +3,7 @@ package edu.dlsu.securdeproject.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import edu.dlsu.securdeproject.security.registration.UserDto;
+import edu.dlsu.securdeproject.classes.dtos.UserDto;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 

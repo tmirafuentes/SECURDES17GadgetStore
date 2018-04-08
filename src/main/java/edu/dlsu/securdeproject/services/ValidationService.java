@@ -1,8 +1,7 @@
 package edu.dlsu.securdeproject.services;
 
 import edu.dlsu.securdeproject.classes.User;
-import edu.dlsu.securdeproject.security.registration.UserDto;
-import edu.dlsu.securdeproject.services.MainService;
+import edu.dlsu.securdeproject.classes.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -15,8 +14,6 @@ import java.util.regex.Pattern;
 @Component
 public class ValidationService implements Validator {
 	/* Local Variables */
-	@Autowired
-	private MainService mainService;
 
 	/* Email Validator */
 	private Pattern pattern;
@@ -36,8 +33,6 @@ public class ValidationService implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "message.emptyForm");
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32)
 			errors.rejectValue("username", "message.emptyForm");
-		if (mainService.findUserByUsername(user.getUsername()) != null)
-			errors.rejectValue("username", "message.usernameDuplicate");
 
 		/* Validate Password */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "message.emptyForm");

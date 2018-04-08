@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalAuthentication
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -45,13 +48,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/purchases"           
                             ).hasRole("USER")
                 .antMatchers("/admin", 
-                             "/admin-prods",
-                             "/admin-trans", 
-                             "/admin-users",
+                             "/admin/products",
+                             "/admin/trans",
+                             "/admin/users",
                              "/admin-audit-trail",
-                             "/add-product", 
-                             "/edit-product",
-                             "/delete-product"
+                             "/admin/add-product",
+                             "/admin/edit-product",
+                             "/admin/delete-product"
                              ).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -66,10 +69,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .sessionManagement()
+                .sessionFixation().migrateSession()
                 .maximumSessions(2)
-                .expiredUrl("/session-expired")
-                .invalidSessionUrl("/invalid-session")
-                .sessionFixation().migrateSession();
+                .expiredUrl("/session-expired");
     }
 
     @Bean
@@ -79,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        //auth.authenticationProvider(authenticationProvider);
     }
 }

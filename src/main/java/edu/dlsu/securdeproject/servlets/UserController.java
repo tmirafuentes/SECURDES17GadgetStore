@@ -1,10 +1,42 @@
 package edu.dlsu.securdeproject.servlets;
 
+import edu.dlsu.securdeproject.classes.Role;
+import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.security.SecurityService;
+import edu.dlsu.securdeproject.security.registration.OnRegistrationCompleteEvent;
+import edu.dlsu.securdeproject.classes.dtos.UserDto;
+import edu.dlsu.securdeproject.security.registration.VerificationToken;
+import edu.dlsu.securdeproject.services.TransactionService;
+import edu.dlsu.securdeproject.services.UserService;
+import edu.dlsu.securdeproject.services.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.UUID;
+
 @Controller
 public class UserController {
 	/*** Services ***/
 	@Autowired
-	private MainService mainService;
+	private UserService userService;
+	@Autowired
+	private TransactionService transactionService;
 	@Autowired
 	private ValidationService validationService;
 	@Autowired
@@ -23,7 +55,7 @@ public class UserController {
 
 	/*** Register Account ***/
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String signUpPage(Model model) 
+	public String signUpPage(Model model)
 	{
 		/* Initialize user registration form */
 		model.addAttribute("userForm", new UserDto());
@@ -35,7 +67,7 @@ public class UserController {
 							   WebRequest request, Model model)
 	{
 		/* Check if username already exists */
-		if (mainService.findUserByUsername(userForm.getUsername()) != null)
+		if (userService.findUserByUsername(userForm.getUsername()) != null)
 			bindingResult.rejectValue("username", "message.usernameDuplicate");
 
 		/* Retry Registration if there are any errors */
@@ -46,8 +78,8 @@ public class UserController {
 
 		/* Register new user */
 		ArrayList<Role> roles = new ArrayList<Role>();
-		roles.add(mainService.findRoleByName("ROLE_USER"));
-		User newUser = mainService.saveUser(userForm, roles);
+		roles.add(userService.findRoleByName("ROLE_USER"));
+		User newUser = userService.saveNewUser(userForm, roles);
 
 		/* Publish Event and send confirmation e-mail */
 		try {
@@ -64,12 +96,12 @@ public class UserController {
 
 	/*** Confirm Registration ***/
 	@RequestMapping(value = "/signup-confirm", method = RequestMethod.GET)
-	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) 
+	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token)
 	{
 		Locale locale = request.getLocale();
 
 		/* Check if Token is valid */
-		VerificationToken verificationToken = mainService.getVerificationToken(token);
+		VerificationToken verificationToken = securityService.getVerificationToken(token);
 		if (verificationToken == null) {
 			model.addAttribute("errorMessage", messages.getMessage("message.invalidToken", null, locale));
 			return "redirect:/error";
@@ -87,7 +119,7 @@ public class UserController {
 
 		/* Enable user account and auto login */
 		user.setEnabled(true);
-		mainService.saveUser(user);
+		userService.saveUser(user);
 		securityService.autologin(user.getUsername(), user.getPassword());
 		return "redirect:/";
 	}
@@ -97,13 +129,15 @@ public class UserController {
 	public String resendVerificationEmail(HttpServletRequest request, @RequestParam("token") String existingToken)
 	{
 		/* Generate new token */
-		VerificationToken newToken = mainService.generateNewVerificationToken(existingToken);
+		VerificationToken newToken = securityService.generateNewVerificationToken(existingToken);
 
 		/* Send email */
 		User user = newToken.getUser();
-		String appUrl = getAppUrl();
-		SimpleMailMessage email = constructVerificationTokenEmail(appUrl, newToken, user);
-		mainService.sendEmail(email);
+		String appUrl = userService.getAppUrl(request);
+		SimpleMailMessage email = userService.constructVerificationTokenEmail(appUrl, newToken.getToken(), user);
+		securityService.sendEmail(email);
+
+		return "redirect:/signup-success";
 	}
 
 	/*** Sign in ***/
@@ -120,13 +154,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public String signInPage(Model model, @RequestParam("username") String username, @RequestParam("password") String password) 
+	public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password)
 	{
 		/* Log-in */
 		securityService.autologin(username, password);
 
 		/* Redirect to Admin home page if Admin */
-		User currUser = mainService.findUserByUsername(securityService.findLoggedInUsername());
+		User currUser = userService.findUserByUsername(securityService.findLoggedInUsername());
 		for(Role role: currUser.getRoles())
 			if (role.getName().equals("ROLE_ADMIN"))
 				return "redirect:/admin";
@@ -139,7 +173,7 @@ public class UserController {
 	public String editAccountPage(Model model) 
 	{
 		/* Get current user profile */
-		User currUser = retrieveUser();
+		User currUser = userService.retrieveUser();
 
 		model.addAttribute("userForm", currUser);
 		return "account";
@@ -156,16 +190,16 @@ public class UserController {
 		}
 
 		/* Save changes */
-		mainService.saveUser(userForm);
+		userService.saveUser(userForm);
 		return "redirect:/account";
 	}
 
 	/*** Forgot Password ***/
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
-	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email) 
+	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email, Model model)
 	{
 		/* Check if e-mail exists */
-		User user = mainService.findUserByEmail(email);
+		User user = userService.findUserByEmail(email);
 		if (user == null) {
 			model.addAttribute("error", messages.getMessage("message.emailNotExist", null, null));
 			return "forgot-password";
@@ -173,11 +207,11 @@ public class UserController {
 
 		/* Create new Password Token */
 		String token = UUID.randomUUID().toString();
-		mainService.createPasswordResetToken(user, token);
+		securityService.createPasswordResetToken(user, token);
 
 		/* Send Password Reset Token E-mail */
-		SimpleMailMessage passwordResetEmail = constructResetTokenEmail(getAppUrl(), token, user);
-		mainService.sendEmail(passwordResetMail);
+		SimpleMailMessage passwordResetEmail = userService.constructResetTokenEmail(userService.getAppUrl(request), token, user);
+		securityService.sendEmail(passwordResetEmail);
 
 		return "redirect:/forgot-password-confirm";
 	}
@@ -186,7 +220,7 @@ public class UserController {
 	public String changePasswordPage(Model model, @RequestParam("id") Long id, @RequestParam("token") String token) 
 	{
 		/* Validate Password Reset Token */
-		String result = mainService.validatePasswordResetToken(id, token);
+		String result = securityService.validatePasswordResetToken(id, token);
 		if (result != null) {
 			model.addAttribute("message", messages.getMessage("message." + result, null, null));
 			return "redirect:/login";
@@ -204,63 +238,47 @@ public class UserController {
 
 		/* Save New Password */
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		mainService.saveNewPassword(user, password);
+		userService.saveNewPassword(user, password);
 
 		return "redirect:/change-password-success";
 	}
 
-	/*** View All Transactions ***/
-	@RequestMapping(value = "/purchases", method = RequestMethod.GET)
-	public String viewTransactionsPage(Model model) 
-	{
-		/* Get Current User */
-		User currUser = retrieveUser();
+	/*** Create New Admin (Pwedeng Waley) ***/
+	@RequestMapping(value = "/admin/signup", method = RequestMethod.GET)
+    public String adminSignupPage(Model model)
+    {
+	    model.addAttribute("adminForm", new UserDto());
+	    return "admin-signup";
+    }
 
+    @RequestMapping(value = "/admin/signup", method = RequestMethod.POST)
+    public String adminSignupSubmit(@ModelAttribute("adminForm") @Valid UserDto adminForm, BindingResult bindingResult, Model model)
+    {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("adminForm", adminForm);
+            return "admin-signup";
+        }
 
-	}
+        /* Save new Admin to the database */
+        ArrayList<Role> roles = new ArrayList<Role>();
+        roles.add(userService.findRoleByName("ROLE_USER"));
+        roles.add(userService.findRoleByName("ROLE_ADMIN"));
+        userService.saveNewUser(adminForm, roles);
 
-	/***
-	 ***
-	 	 OTHER FUNCTIONS
-	 ***
-	 ***/
+        return "redirect:/admin";
+    }
 
-	/*** Retrieve current user ***/
-	private User retrieveUser() 
-	{
-		String username = securityService.findLoggedInUsername();
-		return mainService.findUserByUsername(username);
-	} 	 
+    /*** View Transactions For Overriding ***/
+    @RequestMapping(value = "/admin/trans", method = RequestMethod.GET)
+    public String adminTransactionsPage(Model model) {
+        model.addAttribute("transactions", transactionService.findAllTransactions());
+        return "admin-trans";
+    }
 
-	/*** Template URL ***/
-	private String getAppUrl(HttpServletRequest request) 
-	{
-		return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-	}
-
-	/*** Construct Template Email ***/
-	private SimpleMailMessage constructEmail(String subject, String message, User user) 
-	{
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setSubject(subject);
-		email.setMessage(message);
-		email.setTo(user.getEmail());
-		return email;
-	}
-
-	/*** Construct Specific Emails ***/
-	private SimpleMailMessage constructVerificationTokenEmail(String contextPath, VerificationToken newToken, User user) 
-	{
-		String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken.getToken();
-		String message = messages.getMessage("message.registerSuccess", null, null);
-		return constructEmail("Resend Troy's Toys Confirmation E-mail", message + " \r\n" + confirmationUrl, user);
-	}
-
-	private SimpleMailMessage constructResetTokenEmail(String contextPath, PasswordResetToken newToken, User user) 
-	{
-		String confirmationUrl = contextPath + "/change-password?id=" + user.getUserId() + 
-								 "&token=" + newToken.getToken();
-		String message = messages.getMessage("message.resetPassword", null, null);
-		return constructEmail("Reset Password For Troy's Toys", message + " \r\n" + confirmationUrl, user);
-	}
+    /*** View Users ***/
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String adminUsersPage(Model model) {
+        model.addAttribute("users", userService.findAllUsers());
+        return "admin-users";
+    }
 }
