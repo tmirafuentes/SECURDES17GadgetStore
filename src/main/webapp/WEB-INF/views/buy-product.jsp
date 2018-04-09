@@ -56,13 +56,25 @@
                             <td>${currCust.mailAddress}</td>
                         </tr>
                     </table>
-                    <div class="uk-text-right">
+                </div>
+            </div>
+            
+            <br />
+            <div class="uk-panel uk-panel-box uk-container-center uk-width-1-2">
+                <form class="uk-form uk-form-stacked">
+                    <div class="uk-form-row">
+                        <label class="uk-form-label" for="password">Enter your password to continue purchase</label>
+                        <div class="uk-form-controls">
+                            <input type="password" name="password" id="password" class="uk-width-1-1" />
+                        </div>
+                    </div>
+                    <div class="uk-form-row uk-text-right">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
                         <input type="text" value="${currCust.username}" hidden="true" name="custName">
                         <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty"><button type="submit" class="uk-button uk-button-primary">CONFIRM</button>
                     </div>
-                </div>
+                </form>
             </div>
         </form:form>
     </div>
