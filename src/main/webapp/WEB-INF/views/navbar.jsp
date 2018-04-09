@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="uk-navbar">
-        <a class="uk-navbar-brand" href="index.jsp">Troy's Toys</a>
+        <a class="uk-navbar-brand" href="/index">Troy's Toys</a>
         <ul class="uk-navbar-nav">
             <li><a href="/desktops">Desktops</a></li>
             <li><a href="/laptops">Laptops</a></li>
@@ -53,8 +53,8 @@
                 </c:when>
                 <c:otherwise>
                     <div class="uk-button-group">
-                        <a class="uk-button" href="signin.html">Sign in</a>
-                        <a class="uk-button uk-button-primary" href="signup.html">Sign up</a>
+                        <a class="uk-button" href="/signin">Sign in</a>
+                        <a class="uk-button uk-button-primary" href="/signup">Sign up</a>
                     </div>
                 </c:otherwise>
             </c:choose>

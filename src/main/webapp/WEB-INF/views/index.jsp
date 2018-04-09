@@ -7,9 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -33,14 +32,14 @@
         <form:form method="get">
             <h1>What's New?</h1>
             <c:choose>
-                <c:when items="${empty products}">
+                <c:when test="${empty allProducts}">
                     <div class="uk-text-center uk-container-center uk-width-1-1 uk-alert uk-alert-danger">
                         No products to display.
                     </div>
                 </c:when>
                 <c:otherwise>
                     <ul class="uk-grid uk-grid-small uk-grid-width-small-1-2 uk-grid-width-medium-1-4 uk-grid-width-large-1-6">
-                        <c:forEach items="${products}" var="item">
+                        <c:forEach items="${allProducts}" var="item">
                             <li><div class="uk-panel uk-panel-box uk-text-center">
                                 <img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" />
                                 <h4><c:out value="${item.productName}"/></h4>

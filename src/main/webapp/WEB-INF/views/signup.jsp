@@ -127,10 +127,11 @@
                         <!--Sign up button-->
                         <div class="uk-form-row">
                             <button type="submit" class="uk-button uk-button-primary">Sign up</button>
+                            Error Message: ${errorMessage}
                         </div>
                         <!--Have an account?-->
                          <div class="uk-form-row">
-                            Have an account? <a href="signin.jsp">Sign in here.</a>
+                            Have an account? <a href="/signin">Sign in here.</a>
                         </div>
                     </form:form>
                 </div>

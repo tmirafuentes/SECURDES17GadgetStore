@@ -18,7 +18,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 	private UserService userService;
 	@Autowired
 	private SecurityService securityService;
-
+	@Autowired
 	private MessageSource messages;
 
 	@Override

@@ -23,6 +23,8 @@ public class VerificationToken {
 		return new Date(cal.getTime().getTime());
 	}
 
+	public VerificationToken() {}
+
 	public VerificationToken(final User user, final String token) {
 		this.user = user;
 		this.token = token;

@@ -5,6 +5,7 @@ import edu.dlsu.securdeproject.repositories.PasswordTokenRepository;
 import edu.dlsu.securdeproject.repositories.VerificationTokenRepository;
 import edu.dlsu.securdeproject.security.password_recovery.PasswordResetToken;
 import edu.dlsu.securdeproject.security.registration.VerificationToken;
+import edu.dlsu.securdeproject.services.UserDetailsServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class SecurityService implements SecurityServiceInterface {
 	private PasswordTokenRepository passwordTokenRepository;
 
 	/* Mail */
+	@Autowired
 	public JavaMailSender mailSender;
 
 	/* Authentication Stuff */
@@ -54,14 +56,18 @@ public class SecurityService implements SecurityServiceInterface {
 
 	@Override
 	public void autologin(String username, String password) {
-		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken 
-			= new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-	
-		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+		try {
+			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+					= new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 
-		if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+			System.out.println(usernamePasswordAuthenticationToken);
+			Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+			if (authentication.isAuthenticated())
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

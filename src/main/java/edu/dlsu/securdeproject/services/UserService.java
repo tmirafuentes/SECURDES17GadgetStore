@@ -33,6 +33,7 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
     private MessageSource messages;
 
     /***
@@ -137,6 +138,7 @@ public class UserService {
     public SimpleMailMessage constructVerificationTokenEmail(String contextPath, String newToken, User user)
     {
         String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken;
+        System.out.println(confirmationUrl);
         String message = messages.getMessage("message.registerSuccess", null, null);
         return constructEmail("Confirm Registration at Troy's Toys", message + " \r\n" + confirmationUrl, user);
     }

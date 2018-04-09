@@ -45,6 +45,8 @@ public class UserController {
 	/*** Extra Stuff ***/
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
+
+	@Autowired
 	private MessageSource messages;
 
 	/***
@@ -64,7 +66,7 @@ public class UserController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signUpSubmit(@ModelAttribute("userForm") @Valid UserDto userForm, BindingResult bindingResult,
-							   WebRequest request, Model model)
+							   HttpServletRequest request, Model model)
 	{
 		/* Check if username already exists */
 		if (userService.findUserByUsername(userForm.getUsername()) != null)
@@ -83,15 +85,22 @@ public class UserController {
 
 		/* Publish Event and send confirmation e-mail */
 		try {
-			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), request.getContextPath()));
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent(newUser, request.getLocale(), userService.getAppUrl(request)));
 		} catch (Exception me) {
 			model.addAttribute("userForm", userForm);
-			model.addAttribute("errorMessage", messages.getMessage("message.emailSendError", null, request.getLocale()));
+			model.addAttribute("errorMessage", me);
+			me.printStackTrace();
 			return "signup";
 		}
 
 		/* Redirect to success page */
 		return "redirect:/signup-success";
+	}
+
+	@RequestMapping(value = "/signup-success", method = RequestMethod.GET)
+	public String signupSuccessPage(Model model)
+	{
+		return "signup-success";
 	}
 
 	/*** Confirm Registration ***/
@@ -145,27 +154,13 @@ public class UserController {
 	public String signInPage(Model model, String error, String logout) 
 	{
 		if (error != null)
+			//model.addAttribute("error", error);
 			model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
 
 		if (logout != null)
 			model.addAttribute("message", messages.getMessage("message.logoutSuccess", null, null));
 
 		return "signin";
-	}
-
-	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public String signInSubmit(Model model, @RequestParam("username") String username, @RequestParam("password") String password)
-	{
-		/* Log-in */
-		securityService.autologin(username, password);
-
-		/* Redirect to Admin home page if Admin */
-		User currUser = userService.findUserByUsername(securityService.findLoggedInUsername());
-		for(Role role: currUser.getRoles())
-			if (role.getName().equals("ROLE_ADMIN"))
-				return "redirect:/admin";
-
-		return "redirect:/welcome";
 	}
 
 	/*** Edit Account Details ***/

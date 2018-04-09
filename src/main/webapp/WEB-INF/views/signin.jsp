@@ -63,7 +63,7 @@
                         <!--Forgot password-->
                         <div class="uk-form-row">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                            <a href="forgot.jsp">Forgot password?</a>
+                            <a href="${contextPath}/forgot-password">Forgot password?</a>
                         </div>
                         
                         <!--Sign in button-->
@@ -73,7 +73,7 @@
                         
                         <!--Sign up link-->
                         <div class="uk-form-row">
-                            No account? <a href="signup.jsp">Sign up here.</a>
+                            No account? <a href="${contextPath}/signup">Sign up here.</a>
                         </div>
                     </form>
                 </div>

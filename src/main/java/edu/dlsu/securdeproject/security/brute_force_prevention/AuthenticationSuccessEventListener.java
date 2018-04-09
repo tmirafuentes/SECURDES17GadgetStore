@@ -7,8 +7,13 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 public class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
+	@Autowired
+	private HttpServletRequest request;
+
 	@Autowired
 	private LoginAttemptService loginAttemptService;
 

@@ -1,10 +1,12 @@
 package edu.dlsu.securdeproject.security;
 
+import edu.dlsu.securdeproject.security.brute_force_prevention.CustomAuthenticationFailureHandler;
+import edu.dlsu.securdeproject.security.brute_force_prevention.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,10 +16,22 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalAuthentication
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+
+        return daoAuthenticationProvider;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -33,7 +47,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/", 
                              "/welcome", 
                              "/index",
-                             "/signup", 
+                             "/signup",
+                             "/signup-success",
+                             "/signup-confirm",
+                             "/signup-resend-email",
                              "/signin",
                              "/desktops", 
                              "/laptops", 
@@ -60,8 +77,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/signin")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/welcome")
                 .failureUrl("/signin?error=true")
+                .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
                 .and()
             .logout()
@@ -80,8 +99,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-        //auth.authenticationProvider(authenticationProvider);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 }
