@@ -94,17 +94,17 @@ public class UserController {
 		}
 
 		/* Redirect to success page */
-		return "redirect:/signup-success";
+		return "redirect:/signup-confirm";
 	}
 
-	@RequestMapping(value = "/signup-success", method = RequestMethod.GET)
-	public String signupSuccessPage(Model model)
+	@RequestMapping(value = "/signup-confirm", method = RequestMethod.GET)
+	public String signupConfirmPage(Model model)
 	{
-		return "signup-success";
+		return "signup-confirm";
 	}
 
 	/*** Confirm Registration ***/
-	@RequestMapping(value = "/signup-confirm", method = RequestMethod.GET)
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token)
 	{
 		Locale locale = request.getLocale();
@@ -129,8 +129,14 @@ public class UserController {
 		/* Enable user account and auto login */
 		user.setEnabled(true);
 		userService.saveUser(user);
-		securityService.autologin(user.getUsername(), user.getPassword());
-		return "redirect:/";
+		//securityService.autologin(user.getUsername(), user.getPassword());
+		return "redirect:/signup-success";
+	}
+
+	@RequestMapping(value = "/signup-success", method = RequestMethod.GET)
+	public String signupSuccessPage(Model model)
+	{
+		return "signup-success";
 	}
 
 	/*** Resend Confirmation E-mail ***/
@@ -153,9 +159,9 @@ public class UserController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signInPage(Model model, String error, String logout) 
 	{
-		if (error != null)
+		//if (error != null)
 			//model.addAttribute("error", error);
-			model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
+			//model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
 
 		if (logout != null)
 			model.addAttribute("message", messages.getMessage("message.logoutSuccess", null, null));

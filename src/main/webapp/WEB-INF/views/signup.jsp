@@ -20,6 +20,7 @@
         <script src="uikit.min.js"></script>
         <script src="uikit-icons.min.js"></script>
         <script src="jquery-3.3.1.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     </head>
     <body>
         <!--Navbar-->
@@ -127,7 +128,6 @@
                         <!--Sign up button-->
                         <div class="uk-form-row">
                             <button type="submit" class="uk-button uk-button-primary">Sign up</button>
-                            Error Message: ${errorMessage}
                         </div>
                         <!--Have an account?-->
                          <div class="uk-form-row">

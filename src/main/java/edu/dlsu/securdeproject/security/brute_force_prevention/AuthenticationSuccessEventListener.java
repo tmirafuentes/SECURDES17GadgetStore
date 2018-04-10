@@ -18,8 +18,11 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
 	private LoginAttemptService loginAttemptService;
 
 	public void onApplicationEvent(AuthenticationSuccessEvent e) {
-		WebAuthenticationDetails auth = (WebAuthenticationDetails) e.getAuthentication().getDetails();
-
-		loginAttemptService.loginSucceeded(auth.getRemoteAddress());
+		final String xfHeader = request.getHeader("X-Forwarded-For");
+		if (xfHeader == null) {
+			loginAttemptService.loginSucceeded(request.getRemoteAddr());
+		} else {
+			loginAttemptService.loginSucceeded(xfHeader.split(",")[0]);
+		}
 	}
 }

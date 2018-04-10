@@ -4,6 +4,7 @@ import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.security.brute_force_prevention.LoginAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Autowired
     private HttpServletRequest request;
 
+    private MessageSource messages;
+
     /* Functions */
     @Override
     @Transactional(readOnly = true)
@@ -37,22 +40,16 @@ public class UserDetailsServiceImp implements UserDetailsService {
             throw new RuntimeException("blocked");
 
         /* Try retrieving a user */
-        try {
-            User user = userService.findUserByUsername(username);
+        User user = userService.findUserByUsername(username);
+        if (user == null)
+            throw new UsernameNotFoundException("Wrong username or password");
 
-            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-            for (Role role : user.getRoles())
-                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : user.getRoles())
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
 
-            if (user == null)
-                return new org.springframework.security.core.userdetails.User(" ", " ", 
-                                grantedAuthorities);
-
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), 
-                                                                          true, true, true, grantedAuthorities);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(),
+                                                                      true, true, true, grantedAuthorities);
     }
 
     private String getClientIP() {

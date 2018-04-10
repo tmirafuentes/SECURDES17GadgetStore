@@ -1,4 +1,4 @@
-<%--
+<%@ page import="org.springframework.security.web.WebAttributes" %><%--
   Created by IntelliJ IDEA.
   User: muonsei
   Date: 2/28/18
@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page session="true" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
@@ -36,7 +37,7 @@
                         
                         <!--Message-->
                         <div class="uk-form-row">
-                            ${message}
+                            ${message} <% request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION); %>
                         </div>
                         
                         <!--Username-->

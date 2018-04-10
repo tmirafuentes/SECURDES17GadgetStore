@@ -6,12 +6,13 @@ edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService$1.cl
 edu\dlsu\securdeproject\repositories\RoleRepository.class
 edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService.class
 edu\dlsu\securdeproject\repositories\TypeRepository.class
+edu\dlsu\securdeproject\validation\PasswordConstraintValidator.class
 edu\dlsu\securdeproject\security\brute_force_prevention\CustomAuthenticationSuccessHandler.class
 edu\dlsu\securdeproject\security\SecurityServiceInterface.class
 edu\dlsu\securdeproject\classes\Transaction.class
 edu\dlsu\securdeproject\security\brute_force_prevention\AuthenticationSuccessEventListener.class
+edu\dlsu\securdeproject\validation\ValidPassword.class
 edu\dlsu\securdeproject\classes\Role.class
-edu\dlsu\securdeprojct\validation\ValidPassword.class
 edu\dlsu\securdeproject\classes\dtos\UserDto.class
 edu\dlsu\securdeproject\security\SecurityService.class
 edu\dlsu\securdeproject\security\brute_force_prevention\CustomAuthenticationFailureHandler.class

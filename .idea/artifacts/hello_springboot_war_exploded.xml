@@ -73,6 +73,9 @@
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-mail:2.0.1.RELEASE" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.5" />
+          <element id="library" level="project" name="Maven: org.passay:passay:1.0" />
+          <element id="library" level="project" name="Maven: org.cryptacular:cryptacular:1.0" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.50" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -44,4 +44,9 @@ public class MainController {
 		model.addAttribute("allProducts", productService.findAllProducts());
 		return "admin";
 	}
+
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String errorPage(Model model) {
+		return "error";
+	}
 }

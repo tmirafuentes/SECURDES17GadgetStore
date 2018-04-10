@@ -41,30 +41,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**", 
-                             "/js/**", 
+                .antMatchers("/css/**",
+                             "/js/**",
                              "/images/**",
-                             "/", 
-                             "/welcome", 
+                             "/",
+                             "/welcome",
                              "/index",
                              "/signup",
                              "/signup-success",
                              "/signup-confirm",
                              "/signup-resend-email",
                              "/signin",
-                             "/desktops", 
-                             "/laptops", 
+                             "/desktops",
+                             "/laptops",
                              "/mobiles",
-                             "/tablets", 
+                             "/tablets",
                              "/view-product"
                             ).permitAll()
-                .antMatchers("/account", 
+                .antMatchers("/account",
                              "/editAccount",
-                             "/buy-product", 
+                             "/buy-product",
                              "/thank-you",
-                             "/purchases"           
+                             "/purchases"
                             ).hasRole("USER")
-                .antMatchers("/admin", 
+                .antMatchers("/admin",
                              "/admin/products",
                              "/admin/trans",
                              "/admin/users",
@@ -86,6 +86,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .logout()
                 .logoutSuccessUrl("/signin")
                 .permitAll()
+                .and()
+            .exceptionHandling()
+                .accessDeniedPage("/error")
                 .and()
             .sessionManagement()
                 .sessionFixation().migrateSession()
