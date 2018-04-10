@@ -137,8 +137,7 @@ public class UserService {
     /*** Construct Specific Emails ***/
     public SimpleMailMessage constructVerificationTokenEmail(String contextPath, String newToken, User user)
     {
-        String confirmationUrl = contextPath + "/signup-confirm?token=" + newToken;
-        System.out.println(confirmationUrl);
+        String confirmationUrl = contextPath + "/success?token=" + newToken;
         String message = messages.getMessage("message.registerSuccess", null, null);
         return constructEmail("Confirm Registration at Troy's Toys", message + " \r\n" + confirmationUrl, user);
     }

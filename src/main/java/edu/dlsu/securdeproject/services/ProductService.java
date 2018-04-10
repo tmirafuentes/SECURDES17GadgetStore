@@ -56,7 +56,7 @@ public class ProductService {
 
     /* Retrieve products by specific type */
     public ArrayList<Product> findProductsByType(String productType) {
-        return (ArrayList<Product>) productRepository.findAllByProductType(productType);
+        return (ArrayList<Product>) productRepository.findAllByProductType(findTypeByName(productType));
     }
 
     /* Retrieve products by search */

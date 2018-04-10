@@ -28,11 +28,6 @@ public class MainController {
 	/* Default Homepage */
 	@RequestMapping(value = {"/", "/welcome", "/index"}, method=RequestMethod.GET)
 	public String index(Model model) {
-		if (userService.findRoleByName("ROLE_USER") == null)
-			userService.saveRole(new Role("ROLE_USER"));
-		if (userService.findRoleByName("ROLE_ADMIN") == null)
-			userService.saveRole(new Role("ROLE_ADMIN"));
-
 		model.addAttribute("allProducts", productService.findAllProducts());
 		return "index";
 	}

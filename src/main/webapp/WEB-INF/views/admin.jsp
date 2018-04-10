@@ -10,7 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}/admin"/>
 <html>
 <head>
     <c:url value="/css/uikit.css" var="jstlCss" />
@@ -28,7 +28,7 @@
     <!--Body-->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <h1>Products</h1>
-        <a href="${contextPath}/addProduct" class="uk-button uk-button-success uk-button-large">+ ADD NEW PRODUCT</a>
+        <a href="${contextPath}/add-product" class="uk-button uk-button-success uk-button-large">+ ADD NEW PRODUCT</a>
         <form:form method="GET">
             <table class="uk-table">
                 <tr>
@@ -51,8 +51,8 @@
                         <!--<td><c:out value="${item.productBrand}"/></td>--><!--TODO: Fix brand-->
                         <td><c:out value="${item.productDescription}"/></td>
                         <td><c:out value="${item.productType}"/></td>
-                        <td><a href="/deleteProduct?prodId=${item.productId}" class="uk-button uk-button-danger">Delete</a></td>
-                        <td><input type="text" value="${item.productId}" hidden="true" name="prodId"><a href="/editProduct?prodId=${item.productId}" class="uk-button">Edit</a></td>
+                        <td><a href="/delete-product?prodId=${item.productId}" class="uk-button uk-button-danger">Delete</a></td>
+                        <td><input type="text" value="${item.productId}" hidden="true" name="prodId"><a href="/edit-product?prodId=${item.productId}" class="uk-button">Edit</a></td>
                     </tr>
                 </c:forEach>
             </table>

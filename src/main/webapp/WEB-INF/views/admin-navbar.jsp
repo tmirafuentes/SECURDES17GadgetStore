@@ -18,9 +18,9 @@
     <nav class="uk-navbar">
         <a class="uk-navbar-brand" href="${contextPath}/admin">Troy's Toys</a>
         <ul class="uk-navbar-nav"> <!--TODO: Separate admin home and products -->
-            <li><a href="${contextPath}/admin">Products</a></li>
-            <li><a href="${contextPath}/admin-accounts">Accounts</a></li>
-            <li><a href="${contextPath}/admin-trans">Transactions</a></li>
+            <li><a href="${contextPath}/admin/products">Products</a></li>
+            <li><a href="${contextPath}/admin/users">Accounts</a></li>
+            <li><a href="${contextPath}/admin/trans">Transactions</a></li>
         </ul>
 
         <div class="uk-navbar-content uk-hidden-small">

@@ -61,7 +61,6 @@ public class SecurityService implements SecurityServiceInterface {
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
 					= new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 
-			System.out.println(usernamePasswordAuthenticationToken);
 			Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
 			if (authentication.isAuthenticated())

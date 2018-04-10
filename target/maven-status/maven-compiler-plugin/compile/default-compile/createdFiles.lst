@@ -14,6 +14,7 @@ edu\dlsu\securdeproject\security\brute_force_prevention\AuthenticationSuccessEve
 edu\dlsu\securdeproject\validation\ValidPassword.class
 edu\dlsu\securdeproject\classes\Role.class
 edu\dlsu\securdeproject\classes\dtos\UserDto.class
+edu\dlsu\securdeproject\services\DataService.class
 edu\dlsu\securdeproject\security\SecurityService.class
 edu\dlsu\securdeproject\security\brute_force_prevention\CustomAuthenticationFailureHandler.class
 edu\dlsu\securdeproject\WebApplication.class

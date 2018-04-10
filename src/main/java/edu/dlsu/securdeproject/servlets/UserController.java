@@ -72,6 +72,10 @@ public class UserController {
 		if (userService.findUserByUsername(userForm.getUsername()) != null)
 			bindingResult.rejectValue("username", "message.usernameDuplicate");
 
+		/* Check if passwords match */
+		if (!userForm.getPassword().equals(userForm.getPasswordConfirm()))
+			bindingResult.rejectValue("passwordConfirm", "message.passwordConfirmNotMatch");
+
 		/* Retry Registration if there are any errors */
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userForm", userForm);
@@ -196,9 +200,15 @@ public class UserController {
 	}
 
 	/*** Forgot Password ***/
+	@RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
+	public String forgotPasswordPage(Model model) {
+		return "forgot-password";
+	}
+
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
 	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email, Model model)
 	{
+		System.out.println(request.get);
 		/* Check if e-mail exists */
 		User user = userService.findUserByEmail(email);
 		if (user == null) {
@@ -214,7 +224,7 @@ public class UserController {
 		SimpleMailMessage passwordResetEmail = userService.constructResetTokenEmail(userService.getAppUrl(request), token, user);
 		securityService.sendEmail(passwordResetEmail);
 
-		return "redirect:/forgot-password-confirm";
+		return "redirect:/signup-confirm";
 	}
 
 	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
@@ -227,7 +237,7 @@ public class UserController {
 			return "redirect:/login";
 		}
 
-		return "/change-password";
+		return "change-password";
 	}
 
 	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
@@ -235,13 +245,13 @@ public class UserController {
 	{
 		/* Validate the passwords */
 		if (!validationService.validatePassword(password, passwordConfirm))
-			return "/change-password";
+			return "change-password";
 
 		/* Save New Password */
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		userService.saveNewPassword(user, password);
 
-		return "redirect:/change-password-success";
+		return "redirect:/signup-success";
 	}
 
 	/*** Create New Admin (Pwedeng Waley) ***/
