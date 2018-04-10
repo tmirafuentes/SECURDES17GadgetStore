@@ -19,7 +19,7 @@
 </head>
 <body>
     <!--Navbar-->
-    <%@ include file="navbar.jsp" %>
+    <%@ include file="user/navbar.jsp" %>
         
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <div class="uk-alert uk-alert-large">
@@ -29,6 +29,6 @@
     </div>
 
     <!--Footer-->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="user/footer.jsp" %>
 </body>
 </html>

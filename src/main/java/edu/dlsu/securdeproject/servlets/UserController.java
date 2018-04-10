@@ -2,6 +2,8 @@ package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.User;
+import edu.dlsu.securdeproject.classes.dtos.EmailDto;
+import edu.dlsu.securdeproject.classes.dtos.PasswordDto;
 import edu.dlsu.securdeproject.security.SecurityService;
 import edu.dlsu.securdeproject.security.registration.OnRegistrationCompleteEvent;
 import edu.dlsu.securdeproject.classes.dtos.UserDto;
@@ -61,7 +63,7 @@ public class UserController {
 	{
 		/* Initialize user registration form */
 		model.addAttribute("userForm", new UserDto());
-		return "signup";
+		return "user/signup";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -79,7 +81,7 @@ public class UserController {
 		/* Retry Registration if there are any errors */
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userForm", userForm);
-			return "signup";
+			return "user/signup";
 		}
 
 		/* Register new user */
@@ -94,7 +96,7 @@ public class UserController {
 			model.addAttribute("userForm", userForm);
 			model.addAttribute("errorMessage", me);
 			me.printStackTrace();
-			return "signup";
+			return "user/signup";
 		}
 
 		/* Redirect to success page */
@@ -104,7 +106,7 @@ public class UserController {
 	@RequestMapping(value = "/signup-confirm", method = RequestMethod.GET)
 	public String signupConfirmPage(Model model)
 	{
-		return "signup-confirm";
+		return "user/signup-confirm";
 	}
 
 	/*** Confirm Registration ***/
@@ -140,7 +142,7 @@ public class UserController {
 	@RequestMapping(value = "/signup-success", method = RequestMethod.GET)
 	public String signupSuccessPage(Model model)
 	{
-		return "signup-success";
+		return "user/signup-success";
 	}
 
 	/*** Resend Confirmation E-mail ***/
@@ -170,7 +172,7 @@ public class UserController {
 		if (logout != null)
 			model.addAttribute("message", messages.getMessage("message.logoutSuccess", null, null));
 
-		return "signin";
+		return "user/signin";
 	}
 
 	/*** Edit Account Details ***/
@@ -181,7 +183,7 @@ public class UserController {
 		User currUser = userService.retrieveUser();
 
 		model.addAttribute("userForm", currUser);
-		return "account";
+		return "user/account";
 	}
 
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
@@ -191,7 +193,7 @@ public class UserController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("error", messages.getMessage("message.accountUpdate", null, null));
 			model.addAttribute("userForm", userForm);
-			return "account";
+			return "user/account";
 		}
 
 		/* Save changes */
@@ -202,18 +204,19 @@ public class UserController {
 	/*** Forgot Password ***/
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
 	public String forgotPasswordPage(Model model) {
-		return "forgot-password";
+		model.addAttribute("email", new EmailDto());
+		return "user/forgot-password";
 	}
 
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
-	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email, Model model)
+	public String forgotPasswordEmail(HttpServletRequest request, @ModelAttribute("email") @Valid EmailDto email,
+									  BindingResult bindingResult, Model model)
 	{
-		System.out.println(request.get);
 		/* Check if e-mail exists */
-		User user = userService.findUserByEmail(email);
+		User user = userService.findUserByEmail(email.getEmail());
 		if (user == null) {
 			model.addAttribute("error", messages.getMessage("message.emailNotExist", null, null));
-			return "forgot-password";
+			return "user/forgot-password";
 		}
 
 		/* Create new Password Token */
@@ -224,10 +227,15 @@ public class UserController {
 		SimpleMailMessage passwordResetEmail = userService.constructResetTokenEmail(userService.getAppUrl(request), token, user);
 		securityService.sendEmail(passwordResetEmail);
 
-		return "redirect:/signup-confirm";
+		return "redirect:/forgot-password-confirm";
 	}
 
-	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
+	@RequestMapping(value = "/forgot-password-confirm", method = RequestMethod.GET)
+	public String forgotPasswordConfirmPage(Model model) {
+		return "user/forgot-password-confirm";
+	}
+
+	@RequestMapping(value = "/reset-password", method = RequestMethod.GET)
 	public String changePasswordPage(Model model, @RequestParam("id") Long id, @RequestParam("token") String token) 
 	{
 		/* Validate Password Reset Token */
@@ -237,21 +245,31 @@ public class UserController {
 			return "redirect:/login";
 		}
 
-		return "change-password";
+		model.addAttribute("passwords", new PasswordDto());
+		return "user/reset-password";
 	}
 
-	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	public String changePasswordSubmit(@RequestParam("password") String password, @RequestParam("passwordConfirm") String passwordConfirm) 
+	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+	public String changePasswordSubmit(Model model, @ModelAttribute("passwords") @Valid PasswordDto passwords, BindingResult bindingResult)
 	{
-		/* Validate the passwords */
-		if (!validationService.validatePassword(password, passwordConfirm))
-			return "change-password";
+		if(!passwords.getPassword().equals(passwords.getPasswordConfirm()))
+			bindingResult.rejectValue("passwordConfirm", messages.getMessage("message.passwordConfirmNotMatch", null, null));
+
+		/* Check if any errors */
+		if(bindingResult.hasErrors()) {
+			return "user/reset-password";
+		}
 
 		/* Save New Password */
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		userService.saveNewPassword(user, password);
+		userService.saveNewPassword(user, passwords.getPassword());
 
-		return "redirect:/signup-success";
+		return "redirect:/reset-password-success";
+	}
+
+	@RequestMapping(value = "/reset-password-success", method = RequestMethod.GET)
+	public String resetPasswordSuccessPage(Model model) {
+		return "user/reset-password-success";
 	}
 
 	/*** Create New Admin (Pwedeng Waley) ***/
@@ -259,7 +277,7 @@ public class UserController {
     public String adminSignupPage(Model model)
     {
 	    model.addAttribute("adminForm", new UserDto());
-	    return "admin-signup";
+	    return "admin/admin-signup";
     }
 
     @RequestMapping(value = "/admin/signup", method = RequestMethod.POST)
@@ -267,7 +285,7 @@ public class UserController {
     {
         if (bindingResult.hasErrors()) {
             model.addAttribute("adminForm", adminForm);
-            return "admin-signup";
+            return "admin/admin-signup";
         }
 
         /* Save new Admin to the database */
@@ -283,13 +301,13 @@ public class UserController {
     @RequestMapping(value = "/admin/trans", method = RequestMethod.GET)
     public String adminTransactionsPage(Model model) {
         model.addAttribute("transactions", transactionService.findAllTransactions());
-        return "admin-trans";
+        return "admin/admin-trans";
     }
 
     /*** View Users ***/
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String adminUsersPage(Model model) {
         model.addAttribute("users", userService.findAllUsers());
-        return "admin-users";
+        return "admin/admin-users";
     }
 }

@@ -17,9 +17,9 @@
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
     <title>Troy's Toys</title>
-    <script src="uikit.min.js"></script>
-    <script src="uikit-icons.min.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src="../uikit.min.js"></script>
+    <script src="../uikit-icons.min.js"></script>
+    <script src="../jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <!--Navbar-->
@@ -28,9 +28,6 @@
     <!-- Product Details -->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <h1 class="uk-text-center">Confirm Purchasing Details</h1>
-        <div class="uk-text-center uk-container-center uk-width-1-2 uk-alert uk-alert-success">
-            Purchase successful. Thank you for your purchase! Please click "Continue Shopping" to continue.
-        </div>
         <form:form method="POST" action="${contextPath}/buyProduct">
             <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-left uk-container-center uk-width-1-2">
@@ -60,7 +57,10 @@
                         </tr>
                     </table>
                     <div class="uk-text-right">
-                        <a href="index" class="uk-button uk-button-primary">CONTINUE SHOPPING</a>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
+                        <input type="text" value="${currCust.username}" hidden="true" name="custName">
+                        <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty"><button type="submit" class="uk-button uk-button-primary">CONFIRM</button>
                     </div>
                 </div>
             </div>
@@ -71,4 +71,3 @@
     <%@ include file="footer.jsp" %>
 </body>
 </html>
-

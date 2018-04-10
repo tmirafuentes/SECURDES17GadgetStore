@@ -17,9 +17,9 @@
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
     <title>Sign In</title>
-    <script src="uikit.min.js"></script>
-    <script src="uikit-icons.min.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src="../uikit.min.js"></script>
+    <script src="../uikit-icons.min.js"></script>
+    <script src="../jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <!--Navbar-->
@@ -35,17 +35,20 @@
         <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
             <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
-                    <form method="POST" class="uk-form uk-form-stacked">
+                    <form:form method="POST" action="${contextPath}/forgot-password" modelAttribute="email" class="uk-form uk-form-stacked">
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="form-h-it">Email</label>
+                            <label class="uk-form-label">Email</label>
                             <div class="uk-form-controls">
-                                <input type="email" class="uk-width-1-1"> <!--TODO: Add functionality-->
+                                <spring:bind path="email">
+                                    <form:input type="email" path="email" class="uk-width-1-1"/><!--TODO: Add functionality-->
+                                    <form:errors path="email"></form:errors>
+                                </spring:bind>
                             </div>
                         </div>
                         <div class="uk-form-row">
-                            <a href="#" class="uk-button uk-button-primary">SEND EMAIL</a> <!--TODO: Add functionality-->
+                            <button type="submit" class="uk-button uk-button-primary">SEND EMAIL</button> <!--TODO: Add functionality-->
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

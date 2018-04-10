@@ -65,7 +65,7 @@ public class TransactionController {
         model.addAttribute("product", p);
         model.addAttribute("quantity", prodQty);
         model.addAttribute("user", u);
-        return "buy-product";
+        return "user/buy-product";
     }
 
     /*** Confirm Purchase of Product ***/
@@ -76,7 +76,7 @@ public class TransactionController {
         /* Re-authenticate */
         if (!securityService.authenticateAccount(user.getUsername(), securityService.encryptPassword(password))) {
             model.addAttribute("message", messages.getMessage("message.badCredentials",null, null));
-            return "buy-product";
+            return "user/buy-product";
         }
 
         /* Update Product Quantity */

@@ -12,9 +12,9 @@
         <link rel="stylesheet" type="text/css" href="${jstlCss}">
         <meta charset="UTF-8">
         <title>Sign In</title>
-        <script src="uikit.min.js"></script>
-        <script src="uikit-icons.min.js"></script>
-        <script src="jquery-3.3.1.min.js"></script>
+        <script src="../uikit.min.js"></script>
+        <script src="../uikit-icons.min.js"></script>
+        <script src="../jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <!--Navbar-->

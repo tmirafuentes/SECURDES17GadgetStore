@@ -17,13 +17,13 @@
         <link rel="stylesheet" type="text/css" href="${jstlCss}">
         <meta charset="UTF-8">
         <title>Admin | Troy's Toys</title>
-        <script src="uikit.min.js"></script>
-        <script src="uikit-icons.min.js"></script>
-        <script src="jquery-3.3.1.min.js"></script>
+        <script src="../uikit.min.js"></script>
+        <script src="../uikit-icons.min.js"></script>
+        <script src="../jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <!--Navbar-->
-        <%@ include file="navbar.jsp" %>
+        <%@ include file="../user/navbar.jsp" %>
         
         <!--Body-->
         <div class="uk-panel uk-panel-box uk-panel-space">
@@ -111,7 +111,7 @@
         </div>
         
         <!--Navbar-->
-        <%@ include file="footer.jsp" %>
+        <%@ include file="../user/footer.jsp" %>
             
     </body>
 </html>

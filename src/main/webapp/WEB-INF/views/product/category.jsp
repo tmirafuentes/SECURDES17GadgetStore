@@ -16,13 +16,13 @@
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
     <title>Troy's Toys</title>
-    <script src="uikit.min.js"></script>
-    <script src="uikit-icons.min.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src="../uikit.min.js"></script>
+    <script src="../uikit-icons.min.js"></script>
+    <script src="../jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <!--Navbar-->
-    <%@ include file="navbar.jsp" %>
+    <%@ include file="../user/navbar.jsp" %>
         
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <div class="uk-grid uk-grid-small">
@@ -91,6 +91,6 @@
     </div>
                     
     <!--Footer-->
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../user/footer.jsp" %>
 </body>
 </html>

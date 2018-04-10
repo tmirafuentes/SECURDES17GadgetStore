@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <jsp:include page="navbar.jsp" />
+    <jsp:include page="../user/navbar.jsp" />
     <div class="heading">
         <h1>Admin Sign Up</h1>
     </div>
@@ -86,6 +86,6 @@
             </form:form>
         </div>
     </div>
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="../user/footer.jsp" />
 </body>
 </html>

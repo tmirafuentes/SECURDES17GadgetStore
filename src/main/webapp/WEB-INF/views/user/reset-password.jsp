@@ -17,9 +17,9 @@
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
     <meta charset="UTF-8">
     <title>Password Reset</title>
-    <script src="uikit.min.js"></script>
-    <script src="uikit-icons.min.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src="../uikit.min.js"></script>
+    <script src="../uikit-icons.min.js"></script>
+    <script src="../jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <!--Navbar-->
@@ -32,23 +32,29 @@
     <h1 class="uk-text-center">Password Reset</h1>
     <div class="uk-grid uk-grid-small">
         <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
-            <form class="uk-form uk-form-stacked">
+            <form:form modelAttribute="passwords" method="POST" action="${contextPath}/reset-password" class="uk-form uk-form-stacked">
                 <div class="uk-form-row">
-                    <label class="uk-form-label" for="form-h-it">New Password</label>
+                    <form:label class="uk-form-label" path="password" for="form-h-it">New Password</form:label>
                     <div class="uk-form-controls">
-                        <input type="password" class="uk-width-1-1">
+                        <spring:bind path="password">
+                            <form:input type="password" path="password" class="uk-width-1-1"></form:input>
+                            <form:errors path="password"></form:errors>
+                        </spring:bind>
                     </div>
                 </div>
                 <div class="uk-form-row">
-                    <label class="uk-form-label" for="form-h-it">Confirm New Password</label>
+                    <form:label class="uk-form-label" path="passwordConfirm" for="form-h-it">Confirm New Password</form:label>
                     <div class="uk-form-controls">
-                        <input type="password" class="uk-width-1-1">
+                        <spring:bind path="passwordConfirm">
+                            <form:input type="password" path="passwordConfirm" class="uk-width-1-1"></form:input>
+                            <form:errors path="passwordConfirm"></form:errors>
+                        </spring:bind>
                     </div>
                 </div>
                 <div class="uk-form-row">
-                    <a href="#" class="uk-button uk-button-primary">CHANGE PASSWORD</a> <!--TODO: Add functionality-->
+                    <button type="submit" class="uk-button uk-button-primary">CHANGE PASSWORD</button> <!--TODO: Add functionality-->
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
 </div>

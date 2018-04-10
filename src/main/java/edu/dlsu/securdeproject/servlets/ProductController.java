@@ -51,7 +51,7 @@ public class ProductController {
         model.addAttribute("prodTypes", generateProductTypes());
         model.addAttribute("prodBrands", generateProductBrands());
 
-        return "add-product";
+        return "product/add-product";
     }
 
     @RequestMapping(value = "/admin/add-product", method = RequestMethod.POST)
@@ -59,7 +59,7 @@ public class ProductController {
     {
         /* Errors */
         if (bindingResult.hasErrors())
-            return "add-product";
+            return "product/add-product";
 
         /* Else, save new product to the database */
         productService.saveProduct(prodForm);
@@ -81,14 +81,14 @@ public class ProductController {
         model.addAttribute("prodTypes", generateProductTypes());
         model.addAttribute("prodBrands", generateProductBrands());
 
-        return "edit-product";
+        return "product/edit-product";
     }
 
     @RequestMapping(value = "/admin/edit-product", method = RequestMethod.POST)
     public String editProductSubmit(@ModelAttribute("prodForm") @Valid ProductDto prodForm, BindingResult bindingResult, Model model)
     {
         if (bindingResult.hasErrors())
-            return "edit-product";
+            return "product/edit-product";
 
         model.addAttribute("message", messages.getMessage("message.editProductSuccess", null, null));
         return "redirect:/admin";
@@ -99,28 +99,28 @@ public class ProductController {
     public String getDesktops(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Desktop"));
-        return "index";
+        return "user/index";
     }
 
     @RequestMapping(value = "/laptops", method = RequestMethod.GET)
     public String getLaptops(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Laptop"));
-        return "index";
+        return "user/index";
     }
 
     @RequestMapping(value = "/tablets", method = RequestMethod.GET)
     public String getTablets(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Tablet"));
-        return "index";
+        return "user/index";
     }
 
     @RequestMapping(value = "/mobiles", method = RequestMethod.GET)
     public String getMobiles(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Mobile"));
-        return "index";
+        return "user/index";
     }
 
     /*** View a Product ***/
@@ -130,7 +130,7 @@ public class ProductController {
         Product p = productService.findProductByProductId(prodId);
 
         model.addAttribute("product", p);
-        return "view-product";
+        return "product/view-product";
     }
 
     /*** Delete a Product ***/

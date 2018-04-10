@@ -26,7 +26,9 @@ edu\dlsu\securdeproject\repositories\BrandRepository.class
 edu\dlsu\securdeproject\validation\PasswordMatches.class
 edu\dlsu\securdeproject\security\registration\OnRegistrationCompleteEvent.class
 edu\dlsu\securdeproject\repositories\ProductRepository.class
+edu\dlsu\securdeproject\classes\dtos\PasswordDto.class
 edu\dlsu\securdeproject\classes\Product.class
+edu\dlsu\securdeproject\classes\dtos\EmailDto.class
 edu\dlsu\securdeproject\services\UserDetailsServiceImp.class
 edu\dlsu\securdeproject\security\brute_force_prevention\AuthenticationFailureListener.class
 edu\dlsu\securdeproject\classes\dtos\ProductDto.class

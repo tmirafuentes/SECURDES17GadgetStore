@@ -144,7 +144,7 @@ public class UserService {
 
     public SimpleMailMessage constructResetTokenEmail(String contextPath, String newToken, User user)
     {
-        String confirmationUrl = contextPath + "/change-password?id=" + user.getUserId() +
+        String confirmationUrl = contextPath + "/reset-password?id=" + user.getUserId() +
                 "&token=" + newToken;
         String message = messages.getMessage("message.resetPassword", null, null);
         return constructEmail("Reset Password For Troy's Toys", message + " \r\n" + confirmationUrl, user);
