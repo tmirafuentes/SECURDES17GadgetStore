@@ -31,7 +31,7 @@
 <div class="uk-panel uk-panel-box-secondary uk-panel-space">
     <h1 class="uk-text-center">Password Reset</h1>
     <div class="uk-text-center uk-container-center uk-width-1-2 uk-alert uk-alert-success">
-        Your password has been reset. <a href="/signin">Click here to sign in.</a>
+        Your password has been reset. <a href="/index">Click here to go to the homepage.</a>
     </div>
 </div>
 
