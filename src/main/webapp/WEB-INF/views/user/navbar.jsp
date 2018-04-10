@@ -36,7 +36,7 @@
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name != null}">
                     <div class="uk-button-group">
-                        <a class="uk-button" href="/accountSettings">${pageContext.request.userPrincipal.name}</a> <!--leads to account settings-->
+                        <a class="uk-button" href="/account">${pageContext.request.userPrincipal.name}</a> <!--leads to account settings-->
                         <form id="logoutForm" method="POST" action="${contextPath}/logout">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
