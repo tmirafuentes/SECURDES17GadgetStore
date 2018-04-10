@@ -35,21 +35,12 @@
         <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name != null}">
-                    <!-- This is the container enabling the JavaScript -->
-                    <div class="uk-button-dropdown" data-uk-dropdown>
-                        <!-- This is the button toggling the dropdown -->
-                        <button class="uk-button">${pageContext.request.userPrincipal.name}</button>
-                        <!-- This is the dropdown -->
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><a href="/purchases">Purchase History</a></li>
-                                <li><a href="/accountSettings">Account Settings</a></li>
-                                <li><form id="logoutForm" method="POST" action="${contextPath}/logout">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
-                                    <a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
-                            </ul>
-                        </div>
+                    <div class="uk-button-group">
+                        <a class="uk-button" href="/accountSettings">${pageContext.request.userPrincipal.name}</a> <!--leads to account settings-->
+                        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                        <a class="uk-button uk-button-danger" onclick="document.forms['logoutForm'].submit()">Logout</a>
                     </div>
                 </c:when>
                 <c:otherwise>

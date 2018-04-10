@@ -24,28 +24,48 @@
 <body>
     <!--Navbar-->
     <%@ include file="navbar.jsp" %>
+        
+    <!--Divider-->
+    <div class="uk-panel uk-panel-divider"></div>
     
     <!--Transactions-->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
-            <h1>Purchase History</h1>
-            <table class="uk-table">
-                <tr>
-                    <th>Timestamp</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Total Amount</th>
-                    <th>Status</th>
-                </tr>
-                <c:forEach items="${transactions}" var="transaction">
-                    <tr>
-                    <td><c:out value="${transaction.timestamp}"/></td>
-                    <td><c:out value="${transaction.product.productName}"/></td>
-                    <td><c:out value="${transaction.quantity}"/></td>
-                    <td><c:out value="${transaction.totalAmount}"/></td>
-                    <td><c:out value="${transaction.status}" /></td>
-                </tr>
-                </c:forEach>
-        </table>
+        <div class="uk-grid uk-grid-small">
+            <!--Sidebar-->
+            <div class="uk-width-1-5">
+                <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                    <ul class="uk-nav uk-nav-side">
+                        <li><a href="/account">Account Settings</a></li>
+                        <li class="uk-active"><a href="/purchases">Purchase History</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="uk-panel uk-width-4-5">
+                <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                    <h1>Purchase History</h1>
+                    <table class="uk-table">
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                        </tr>
+                        <c:forEach items="${transactions}" var="transaction">
+                            <tr>
+                            <td><c:out value="${transaction.timestamp}"/></td>
+                            <td><c:out value="${transaction.product.productName}"/></td>
+                            <td><c:out value="${transaction.quantity}"/></td>
+                            <td><c:out value="${transaction.totalAmount}"/></td>
+                            <td><c:out value="${transaction.status}" /></td>
+                        </tr>
+                        </c:forEach>
+                </table>
+                
+                </div>
+            </div>
+        </div>
     </div>
         
     <!--Footer-->
