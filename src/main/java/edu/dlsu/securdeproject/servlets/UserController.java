@@ -208,7 +208,7 @@ public class UserController {
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
 	public String forgotPasswordEmail(HttpServletRequest request, @RequestParam("email") String email, Model model)
 	{
-		System.out.println(request.get);
+		//System.out.println(request.get());
 		/* Check if e-mail exists */
 		User user = userService.findUserByEmail(email);
 		if (user == null) {
