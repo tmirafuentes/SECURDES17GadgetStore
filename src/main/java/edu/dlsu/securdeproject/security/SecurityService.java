@@ -59,7 +59,6 @@ public class SecurityService implements SecurityServiceInterface {
 	public void autologin(String username, String password) {
 		try {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			System.out.println("User Deets: " + userDetails.getPassword());
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
 					= new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 
@@ -74,7 +73,6 @@ public class SecurityService implements SecurityServiceInterface {
 
 	public boolean authenticateAccount(String username, String password) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		System.out.println("First: " + userDetails.getPassword());
 
 		if(bCryptPasswordEncoder.matches(password, userDetails.getPassword()))
 			return true;

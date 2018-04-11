@@ -24,15 +24,16 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 	public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response,
 										final AuthenticationException exception) throws IOException, ServletException
 	{
-		setDefaultFailureUrl("/signin?error=true");
-
+		if (exception.getMessage().equalsIgnoreCase("blocked"))
+			setDefaultFailureUrl("/index");
+		else
+			setDefaultFailureUrl("/signin?error=true");
 		super.onAuthenticationFailure(request, response, exception);
 
 		String errorMessage = messages.getMessage("message.badCredentials", null, null);
 		if (exception.getMessage().equalsIgnoreCase("blocked"))
 			errorMessage = messages.getMessage("message.bruteForceBlock", null, null);
 
-		System.out.println("ErrorM: " + errorMessage);
 		request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
 	}
 }

@@ -3,6 +3,7 @@ package edu.dlsu.securdeproject.services;
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.security.brute_force_prevention.LoginAttemptService;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextListener;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -52,7 +54,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
                                                                       true, true, true, grantedAuthorities);
     }
 
-    private String getClientIP() {
+    protected String getClientIP() {
         String xfHeader = request.getHeader("X-Forwarded-For");
         if (xfHeader == null)
             return request.getRemoteAddr();

@@ -5,6 +5,7 @@ import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.classes.dtos.EmailDto;
 import edu.dlsu.securdeproject.classes.dtos.PasswordDto;
 import edu.dlsu.securdeproject.security.SecurityService;
+import edu.dlsu.securdeproject.security.brute_force_prevention.LoginAttemptService;
 import edu.dlsu.securdeproject.security.registration.OnRegistrationCompleteEvent;
 import edu.dlsu.securdeproject.classes.dtos.UserDto;
 import edu.dlsu.securdeproject.security.registration.VerificationToken;
@@ -16,6 +17,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,10 +45,16 @@ public class UserController {
 	private ValidationService validationService;
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
+	private LoginAttemptService loginAttemptService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	/*** Extra Stuff ***/
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
+	@Autowired
+	private HttpServletRequest request;
 
 	@Autowired
 	private MessageSource messages;
@@ -122,7 +130,6 @@ public class UserController {
 			return "redirect:/error";
 		}
 
-
 		/* Check if token has expired */
 		User user = verificationToken.getUser();
 		Calendar cal = Calendar.getInstance();
@@ -166,9 +173,12 @@ public class UserController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signInPage(Model model, String error, String logout) 
 	{
-		//if (error != null)
-			//model.addAttribute("error", error);
-			//model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
+		/* Check if IP blocked */
+		if(loginAttemptService.isBlocked(getClientIP()))
+			return "redirect:/index";	// For error page
+
+		if (error != null)
+			model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));
 
 		if (logout != null)
 			model.addAttribute("message", messages.getMessage("message.logoutSuccess", null, null));
@@ -311,4 +321,12 @@ public class UserController {
         model.addAttribute("users", userService.findAllUsers());
         return "admin/admin-users";
     }
+
+	protected String getClientIP() {
+		String xfHeader = request.getHeader("X-Forwarded-For");
+		if (xfHeader == null)
+			return request.getRemoteAddr();
+
+		return xfHeader.split(",")[0];
+	}
 }
