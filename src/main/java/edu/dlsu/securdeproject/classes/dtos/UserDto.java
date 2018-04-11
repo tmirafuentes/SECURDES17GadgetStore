@@ -1,6 +1,7 @@
 package edu.dlsu.securdeproject.classes.dtos;
 
 import edu.dlsu.securdeproject.validation.PasswordMatches;
+import edu.dlsu.securdeproject.security.escapeInput.InputEscaper;
 import edu.dlsu.securdeproject.validation.ValidEmail;
 import edu.dlsu.securdeproject.validation.ValidPassword;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -46,14 +47,17 @@ public class UserDto {
 	@NotEmpty
 	private String mobileNumber;
 
-	public UserDto() {}
+	private InputEscaper Iescape;
+	public UserDto() {
+		Iescape = new InputEscaper();
+	}
 
 	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = Iescape.inputToBeEscaped(username);
 	}
 
 	public String getPassword() {
@@ -61,20 +65,21 @@ public class UserDto {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = Iescape.inputToBeEscaped(password);
 	}
 
 	@Transient
 	public String getPasswordConfirm() { return passwordConfirm; }
 
-	public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
+	public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = Iescape.inputToBeEscaped(passwordConfirm); }
 
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+
+		this.email = Iescape.inputToBeEscaped(email);
 	}
 
 	public String getFirstName() {
@@ -82,7 +87,7 @@ public class UserDto {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = Iescape.inputToBeEscaped(firstName);
 	}
 
 	public String getLastName() {
@@ -90,7 +95,7 @@ public class UserDto {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = Iescape.inputToBeEscaped(lastName);
 	}
 
 	public String getMailAddress() {
@@ -98,7 +103,7 @@ public class UserDto {
 	}
 
 	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
+		this.mailAddress = Iescape.inputToBeEscaped(mailAddress);
 	}
 
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
@@ -115,6 +120,6 @@ public class UserDto {
 	}
 
 	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
+		this.mobileNumber = Iescape.inputToBeEscaped(mobileNumber);
 	}	
 }
