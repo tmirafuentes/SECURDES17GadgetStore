@@ -1,8 +1,12 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 import javax.persistence.*;
 
 @Entity
+@Audited
 public class Product {
 	private Long productId;
 	private String productName;
@@ -58,6 +62,7 @@ public class Product {
 
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
+	@NotAudited
 	public Brand getProductBrand() {
 		return productBrand;
 	}
@@ -68,6 +73,7 @@ public class Product {
 
 	@ManyToOne
 	@JoinColumn(name = "type_id")
+	@NotAudited
 	public Type getProductType() {
 		return productType;
 	}

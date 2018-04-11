@@ -1,5 +1,7 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Audited
 public class User {
 	private Long userId;
 	private String username;
@@ -117,6 +120,7 @@ public class User {
 
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @NotAudited
 	public Set<Role> getRoles() {
 		return roles;
 	}

@@ -1,5 +1,7 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.hibernate.envers.NotAudited;
+
 import javax.persistence.*;
 import java.util.Set;
 

@@ -1,10 +1,13 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
 @Entity
+@Audited
 public class Transaction { 
     private Long transactionId;
     private User user;
