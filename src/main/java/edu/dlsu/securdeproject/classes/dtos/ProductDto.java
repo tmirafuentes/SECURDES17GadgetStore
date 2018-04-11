@@ -1,5 +1,5 @@
 package edu.dlsu.securdeproject.classes.dtos;
-
+import edu.dlsu.securdeproject.security.escapeInput.InputEscaper;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.jmx.export.annotation.ManagedNotification;
 
@@ -30,14 +30,18 @@ public class ProductDto {
     @NotEmpty
     private String productType;
 
-    public ProductDto() {}
+    private InputEscaper Iescape;
+
+    public ProductDto() {
+        Iescape = new InputEscaper();
+    }
 
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        this.productName =  Iescape.inputToBeEscaped(productName);
     }
 
     public double getProductPrice() {
@@ -61,7 +65,7 @@ public class ProductDto {
     }
 
     public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+        this.productDescription = Iescape.inputToBeEscaped(productDescription);
     }
 
     public String getProductBrand() {
@@ -69,7 +73,7 @@ public class ProductDto {
     }
 
     public void setProductBrand(String productBrand) {
-        this.productBrand = productBrand;
+        this.productBrand = Iescape.inputToBeEscaped(productBrand);
     }
 
     public String getProductType() {

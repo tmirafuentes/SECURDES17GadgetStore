@@ -57,8 +57,7 @@ public class UserDto {
 	}
 
 	public void setUsername(String username) {
-		String escapedUsername = Iescape.inputToBeEscaped(username);
-		this.username = escapedUsername;
+		this.username = Iescape.inputToBeEscaped(username);
 	}
 
 	public String getPassword() {
@@ -66,15 +65,13 @@ public class UserDto {
 	}
 
 	public void setPassword(String password) {
-
-		String escapedPassword = Iescape.inputToBeEscaped(password);
-		this.password = escapedPassword;
+		this.password = Iescape.inputToBeEscaped(password);
 	}
 
 	@Transient
 	public String getPasswordConfirm() { return passwordConfirm; }
 
-	public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
+	public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = Iescape.inputToBeEscaped(passwordConfirm); }
 
 	public String getEmail() {
 		return email;
@@ -82,8 +79,7 @@ public class UserDto {
 
 	public void setEmail(String email) {
 
-		String escapedEmail = Iescape.inputToBeEscaped(email);
-		this.email = escapedEmail;
+		this.email = Iescape.inputToBeEscaped(email);
 	}
 
 	public String getFirstName() {
@@ -91,9 +87,7 @@ public class UserDto {
 	}
 
 	public void setFirstName(String firstName) {
-
-		String escapedFName = Iescape.inputToBeEscaped(firstName);
-		this.firstName = escapedFName;
+		this.firstName = Iescape.inputToBeEscaped(firstName);
 	}
 
 	public String getLastName() {
@@ -101,8 +95,7 @@ public class UserDto {
 	}
 
 	public void setLastName(String lastName) {
-		String escapedLName = Iescape.inputToBeEscaped(lastName);
-		this.lastName = escapedLName;
+		this.lastName = Iescape.inputToBeEscaped(lastName);
 	}
 
 	public String getMailAddress() {
@@ -110,8 +103,7 @@ public class UserDto {
 	}
 
 	public void setMailAddress(String mailAddress) {
-		String escapedMaddress = Iescape.inputToBeEscaped(mailAddress);
-		this.mailAddress = escapedMaddress;
+		this.mailAddress = Iescape.inputToBeEscaped(mailAddress);
 	}
 
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
@@ -128,7 +120,6 @@ public class UserDto {
 	}
 
 	public void setMobileNumber(String mobileNumber) {
-		String escapedMNumber = Iescape.inputToBeEscaped(mobileNumber);
-		this.mobileNumber = escapedMNumber;
+		this.mobileNumber = Iescape.inputToBeEscaped(mobileNumber);
 	}	
 }
