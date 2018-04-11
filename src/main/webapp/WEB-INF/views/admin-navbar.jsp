@@ -30,13 +30,13 @@
             </form>
         </div>
 
-        <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
-            <!--Log out-->
-            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+            <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+                <!--Log out-->
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="uk-button">Logout</button>
-            </form>
-        </div>
+                <button class="uk-button" onclick="document.forms['logoutForm'].submit()">Logout</button>
+            </div>
+        </form>
     </nav>
 </body>
 </html>
