@@ -34,7 +34,7 @@ public class Transaction {
         this.user = user;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     public Product getProduct() {
         return product;

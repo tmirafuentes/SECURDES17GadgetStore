@@ -45,7 +45,7 @@
                 <div class="uk-panel uk-width-4-5">
                     <div class="uk-panel uk-panel-box uk-panel-box-secondary">
                         <h1>Account Settings</h1>
-                        <form:form method="POST" modelAttribute="custForm" class="uk-form uk-form-stacked">
+                        <form:form method="POST" modelAttribute="userForm" class="uk-form uk-form-stacked">
                             <!--First Name-->
                             <div class="uk-form-row">
                                 <spring:bind path="firstName">

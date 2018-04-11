@@ -28,7 +28,7 @@
     <!-- Product Details -->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <h1 class="uk-text-center">Confirm Purchasing Details</h1>
-        <form:form method="POST" action="${contextPath}/buyProduct">
+        <form:form method="POST" action="${contextPath}/buy-product">
             <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-left uk-container-center uk-width-1-2">
                     <div class="uk-text-center">
@@ -37,30 +37,29 @@
                     <table class="uk-table">
                         <tr>
                             <td>Product Name</td>
-                            <td>${indiProd.productName}</td>
+                            <td>${product.productName}</td>
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td>PHP ${indiProd.productPrice}</td>
+                            <td>PHP ${product.productPrice}</td>
                         </tr>
                         <tr>
                             <td>Specifications</td>
-                            <td>${indiProd.productDescription}</td>
+                            <td>${product.productDescription}</td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
-                            <td>${prodQty}</td>
+                            <td>${quantity}</td>
                         </tr>
                         <tr>
                             <td>Current Mailing Address</td>
-                            <td>${currCust.mailAddress}</td>
+                            <td>${user.mailAddress}</td>
                         </tr>
                     </table>
                     <div class="uk-text-right">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="text" value="${indiProd.productId}" hidden="true" name="prodId">
-                        <input type="text" value="${currCust.username}" hidden="true" name="custName">
-                        <input type="number" id="scrollQuantity" hidden value="${prodQty}" name="prodQty"><button type="submit" class="uk-button uk-button-primary">CONFIRM</button>
+                        Password: <input type="password" name="password">
+                        <button type="submit" class="uk-button uk-button-primary">CONFIRM</button>
                     </div>
                 </div>
             </div>

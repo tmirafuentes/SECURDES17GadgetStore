@@ -122,6 +122,7 @@ public class UserController {
 			return "redirect:/error";
 		}
 
+
 		/* Check if token has expired */
 		User user = verificationToken.getUser();
 		Calendar cal = Calendar.getInstance();
@@ -135,7 +136,7 @@ public class UserController {
 		/* Enable user account and auto login */
 		user.setEnabled(true);
 		userService.saveUser(user);
-		//securityService.autologin(user.getUsername(), user.getPassword());
+		securityService.autologin(user.getUsername(), user.getPassword());
 		return "redirect:/signup-success";
 	}
 

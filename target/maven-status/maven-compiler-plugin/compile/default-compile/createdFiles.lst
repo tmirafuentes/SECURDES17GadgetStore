@@ -3,6 +3,7 @@ edu\dlsu\securdeproject\classes\User.class
 edu\dlsu\securdeproject\servlets\UserController.class
 edu\dlsu\securdeproject\services\ValidationService.class
 edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService$1.class
+edu\dlsu\securdeproject\validation\InputEscaper.class
 edu\dlsu\securdeproject\repositories\RoleRepository.class
 edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService.class
 edu\dlsu\securdeproject\repositories\TypeRepository.class

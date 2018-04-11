@@ -55,6 +55,7 @@ public class UserService {
         user.setMobileNumber(u.getMobileNumber());
         user.setUsername(u.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(u.getPassword()));
+        user.setPasswordConfirm(u.getPasswordConfirm());
         user.setRoles(new HashSet<>(roles));
 
         saveUser(user);

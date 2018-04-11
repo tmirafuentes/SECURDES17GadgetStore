@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,10 +48,10 @@ public class SecurityService implements SecurityServiceInterface {
 
 	@Override
 	public String findLoggedInUsername() {
-		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-		if (userDetails instanceof UserDetails)
-			return ((UserDetails)userDetails).getUsername();
-
+		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (userDetails instanceof UserDetails) {
+			return ((UserDetails) userDetails).getUsername();
+		}
 		return null;
 	}
 
@@ -58,6 +59,7 @@ public class SecurityService implements SecurityServiceInterface {
 	public void autologin(String username, String password) {
 		try {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			System.out.println("User Deets: " + userDetails.getPassword());
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
 					= new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 
@@ -71,10 +73,10 @@ public class SecurityService implements SecurityServiceInterface {
 	}
 
 	public boolean authenticateAccount(String username, String password) {
-		UsernamePasswordAuthenticationToken uapt = new UsernamePasswordAuthenticationToken(username, password);
-		authenticationManager.authenticate(uapt);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		System.out.println("First: " + userDetails.getPassword());
 
-		if (uapt.isAuthenticated() && findLoggedInUsername().equals(username))
+		if(bCryptPasswordEncoder.matches(password, userDetails.getPassword()))
 			return true;
 
 		return false;

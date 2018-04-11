@@ -52,13 +52,13 @@
                             <th>Total Amount</th>
                             <th>Status</th>
                         </tr>
-                        <c:forEach items="${transactions}" var="transaction">
+                        <c:forEach items="${purchases}" var="transaction">
                             <tr>
-                            <td><c:out value="${transaction.timestamp}"/></td>
-                            <td><c:out value="${transaction.product.productName}"/></td>
-                            <td><c:out value="${transaction.quantity}"/></td>
-                            <td><c:out value="${transaction.totalAmount}"/></td>
-                            <td><c:out value="${transaction.status}" /></td>
+                            <td><c:out value="${purchases.timestamp}"/></td>
+                            <td><c:out value="${purchases.product.productName}"/></td>
+                            <td><c:out value="${purchases.quantity}"/></td>
+                            <td><c:out value="${purchases.totalAmount}"/></td>
+                            <td><c:out value="${purchases.status}" /></td>
                         </tr>
                         </c:forEach>
                 </table>

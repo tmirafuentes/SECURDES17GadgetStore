@@ -33,7 +33,7 @@ public class Type {
         this.typeName = typeName;
     }
 
-    @OneToMany(mappedBy = "productId")
+    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
     public Set<Product> getProducts() {
         return products;
     }

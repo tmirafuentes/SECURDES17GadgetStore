@@ -10,7 +10,9 @@ import edu.dlsu.securdeproject.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @Service
 public class ProductService {
@@ -50,13 +52,15 @@ public class ProductService {
     }
 
     /* Retrieve all products */
-    public ArrayList<Product> findAllProducts() {
-        return (ArrayList<Product>) productRepository.findAll();
+    public Iterator findAllProducts() {
+        ArrayList<Product> allProducts = (ArrayList<Product>) productRepository.findAll();
+        return allProducts.iterator();
     }
 
     /* Retrieve products by specific type */
-    public ArrayList<Product> findProductsByType(String productType) {
-        return (ArrayList<Product>) productRepository.findAllByProductType(findTypeByName(productType));
+    public Iterator findProductsByType(String productType) {
+        ArrayList<Product> allProducts = (ArrayList<Product>) productRepository.findAllByProductType(findTypeByName(productType));
+        return allProducts.iterator();
     }
 
     /* Retrieve products by search */

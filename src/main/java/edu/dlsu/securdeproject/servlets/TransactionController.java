@@ -9,16 +9,16 @@ import edu.dlsu.securdeproject.services.TransactionService;
 import edu.dlsu.securdeproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
 @Controller
+@SessionAttributes({"product", "quantity", "user"})
 public class TransactionController {
     /* Services */
     @Autowired
@@ -29,6 +29,8 @@ public class TransactionController {
     private TransactionService transactionService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /* Extra Stuff */
     private MessageSource messages;
@@ -50,32 +52,52 @@ public class TransactionController {
         ArrayList<Transaction> allTransactions = transactionService.findTransactionsByUser(currUser);
         model.addAttribute("purchases", allTransactions);
 
-        return "transactions";
+        return "user/purchases";
     }
 
     /*** Add Transaction/Buy Product ***/
     /*** URL Maps to here from View Product page ***/
-    @RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public String buyProductSubmit(Model model, @RequestParam("prodId") long prodId, @RequestParam("prodQty") int prodQty)
+    @RequestMapping(value = "/view-product", method = RequestMethod.POST)
+    public String buyProductSubmit(Model model, @ModelAttribute("product") Product product,
+                                   @RequestParam("prodQty") int prodQty, final RedirectAttributes redirectAttributes)
     {
         /* Retrieve Product and User Details */
-        Product p = productService.findProductByProductId(prodId);
+        //System.out.println("Username: " + securityService.findLoggedInUsername());
         User u = userService.findUserByUsername(securityService.findLoggedInUsername());
 
-        model.addAttribute("product", p);
-        model.addAttribute("quantity", prodQty);
-        model.addAttribute("user", u);
+        redirectAttributes.addFlashAttribute("quantity", prodQty);
+        redirectAttributes.addFlashAttribute("user", u);
+        redirectAttributes.addFlashAttribute("product", product);
+        redirectAttributes.addFlashAttribute("total", product.getProductPrice() * prodQty);
+
+        return "redirect:/buy-product";
+    }
+
+    @RequestMapping(value = "/buy-product", method = RequestMethod.GET)
+    public String buyProductPage(Model model, @ModelAttribute("product") final Product product,
+                                 @ModelAttribute("user") User user, @ModelAttribute("quantity") int quantity,
+                                 @ModelAttribute("total") double total)
+    {
+        model.addAttribute("quantity", quantity);
+        model.addAttribute("user", user);
+        model.addAttribute("product", product);
+        model.addAttribute("total", total);
+
         return "user/buy-product";
     }
 
     /*** Confirm Purchase of Product ***/
-    @RequestMapping(value = "/confirm-purchase", method = RequestMethod.POST)
+    @RequestMapping(value = "/buy-product", method = RequestMethod.POST)
     public String confirmPurchaseSubmit(Model model, @ModelAttribute("product") Product product, @ModelAttribute("quantity") int quantity,
-                                        @ModelAttribute("user") User user, @RequestParam("password") String password)
+                                        @RequestParam("password") String password)
     {
+        User user = retrieveUser();
+        //userDetailsService.loadUserByUsername(user.getUsername());
+
         /* Re-authenticate */
-        if (!securityService.authenticateAccount(user.getUsername(), securityService.encryptPassword(password))) {
-            model.addAttribute("message", messages.getMessage("message.badCredentials",null, null));
+        if (!securityService.authenticateAccount(user.getUsername(), password)) {
+            //model.addAttribute("message", messages.getMessage("message.badCredentials",null, null));
+            System.out.println("Oh no");
             return "user/buy-product";
         }
 
@@ -86,6 +108,11 @@ public class TransactionController {
         transactionService.saveTransaction(user, product, quantity);
 
         return "redirect:/thank-you";
+    }
+
+    @RequestMapping(value = "/thank-you", method = RequestMethod.GET)
+    public String thankYouPage(Model model) {
+        return "product/thank-you";
     }
 
     /***

@@ -28,14 +28,14 @@
     <div class="content">
         <div class="product-description">
             <table class="product-details">
-                <form:form method="POST" action="${contextPath}/confirmation">
+                <form:form method="POST" action="${contextPath}/view-product">
                     <tr>
                         <td><img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" width="400px"/></td>
                         <td>
-                            <h2>${indiProd.productName}</h2>
-                            <h3>${indiProd.productPrice}</h3>
-                            <p>${indiProd.productDescription}</p>
-                            <input type="number" value="${indiProd.productId}" hidden="true" name="prodId">
+                            <h2>${product.productName}</h2>
+                            <h3>PHP ${product.productPrice}</h3>
+                            <h3>In stock: ${product.productQuantity}</h3>
+                            <p>${product.productDescription}</p>
                             <p>Quantity: <input type="number" id="scrollQuantity" value=1 name="prodQty"></p>
                             <button type='submit' class="uk-button uk-button-primary uk-button-large">BUY NOW</button>
                         </td>    

@@ -46,7 +46,7 @@
                                 <h5><c:out value="${item.productPrice}"/></h5>
                                 <form id="formPrice">
                                     <input type="text" value="${item.productId}" hidden="true" name="prodId">
-                                    <a href="/viewProduct?prodId=${item.productId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
+                                    <a href="/view-product?prodId=${item.productId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
                                 </form>
                             </div></li>
                         </c:forEach>

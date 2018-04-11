@@ -76,6 +76,8 @@
           <element id="library" level="project" name="Maven: org.passay:passay:1.0" />
           <element id="library" level="project" name="Maven: org.cryptacular:cryptacular:1.0" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.50" />
+          <element id="library" level="project" name="Maven: org.springframework.session:spring-session-core:2.0.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.4.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

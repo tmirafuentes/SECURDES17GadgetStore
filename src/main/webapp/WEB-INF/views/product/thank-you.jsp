@@ -31,7 +31,6 @@
         <div class="uk-text-center uk-container-center uk-width-1-2 uk-alert uk-alert-success">
             Purchase successful. Thank you for your purchase! Please click "Continue Shopping" to continue.
         </div>
-        <form:form method="POST" action="${contextPath}/buyProduct">
             <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-left uk-container-center uk-width-1-2">
                     <div class="uk-text-center">
@@ -40,23 +39,27 @@
                     <table class="uk-table">
                         <tr>
                             <td>Product Name</td>
-                            <td>${indiProd.productName}</td>
-                        </tr>
-                        <tr>
-                            <td>Price</td>
-                            <td>PHP ${indiProd.productPrice}</td>
+                            <td>${product.productName}</td>
                         </tr>
                         <tr>
                             <td>Specifications</td>
-                            <td>${indiProd.productDescription}</td>
+                            <td>${product.productDescription}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>PHP ${product.productPrice}</td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
-                            <td>${prodQty}</td>
+                            <td>${quantity}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>${total}</td>
                         </tr>
                         <tr>
                             <td>Current Mailing Address</td>
-                            <td>${currCust.mailAddress}</td>
+                            <td>${user.mailAddress}</td>
                         </tr>
                     </table>
                     <div class="uk-text-right">
@@ -64,7 +67,6 @@
                     </div>
                 </div>
             </div>
-        </form:form>
     </div>
 
     <!--Footer-->
