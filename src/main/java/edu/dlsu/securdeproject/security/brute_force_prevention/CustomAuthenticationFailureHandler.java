@@ -1,5 +1,6 @@
 package edu.dlsu.securdeproject.security.brute_force_prevention;
 
+import edu.dlsu.securdeproject.security.audit_trail.AuthLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -19,11 +20,15 @@ import java.util.Locale;
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Autowired
 	private MessageSource messages;
+	@Autowired
+	private AuthLogService authLogService;
 
 	@Override
 	public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response,
 										final AuthenticationException exception) throws IOException, ServletException
 	{
+		authLogService.createNewLog((String)request.getSession().getAttribute("username"), (String)request.getSession().getAttribute("password"), false, request.getRemoteAddr());
+
 		if (exception.getMessage().equalsIgnoreCase("blocked"))
 			setDefaultFailureUrl("/index");
 		else

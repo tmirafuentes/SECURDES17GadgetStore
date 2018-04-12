@@ -1,7 +1,10 @@
 package edu.dlsu.securdeproject.security.brute_force_prevention;
 
+import edu.dlsu.securdeproject.security.audit_trail.AuthLogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -19,9 +22,13 @@ import java.util.Set;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    @Autowired
+    private AuthLogService authLogService;
+
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException
     {
+        authLogService.createNewLog(((UserDetails)authentication.getPrincipal()).getUsername(), true, request.getRemoteAddr());
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }

@@ -49,6 +49,8 @@ public class UserController {
 	private LoginAttemptService loginAttemptService;
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private AuthorLogService authorLogService;
 
 	/*** Extra Stuff ***/
 	@Autowired
