@@ -124,9 +124,11 @@ public class ProductController {
 
     /*** View a Product ***/
     @RequestMapping(value = "/view-product", method = RequestMethod.GET)
-    public String viewProductPage(Model model, @RequestParam("prodId") long prodId)
+    public String viewProductPage(Model model, @RequestParam("v") String viewId)
     {
-        Product p = productService.findProductByProductId(prodId);
+        Product p = productService.findProductByLink(viewId);
+        if (p == null)
+            return "redirect:/error";
 
         model.addAttribute("product", p);
         return "product/view-product";

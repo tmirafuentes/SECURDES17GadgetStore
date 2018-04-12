@@ -51,6 +51,10 @@ public class ProductService {
         return (Product) productRepository.findByProductId(productId);
     }
 
+    public Product findProductByLink(String linkId) {
+        return (Product) productRepository.findByLinkId(linkId);
+    }
+
     /* Retrieve all products */
     public Iterator findAllProducts() {
         ArrayList<Product> allProducts = (ArrayList<Product>) productRepository.findAll();

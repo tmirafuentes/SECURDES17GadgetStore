@@ -44,10 +44,7 @@
                                 <img src="https://s7d2.scene7.com/is/image/SamsungUS/Pdpkeyfeature-sm-t350nzaaxar-600x600-C1-062016?$product-details-jpg$" />
                                 <h4><c:out value="${item.productName}"/></h4>
                                 <h5><c:out value="${item.productPrice}"/></h5>
-                                <form id="formPrice">
-                                    <input type="text" value="${item.productId}" hidden="true" name="prodId">
-                                    <a href="/view-product?prodId=${item.productId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
-                                </form>
+                                <a href="/view-product?v=${item.linkId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
                             </div></li>
                         </c:forEach>
                     </ul>

@@ -4,6 +4,7 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Audited
@@ -15,8 +16,11 @@ public class Product {
 	private String productDescription;
 	private Brand productBrand;
 	private Type productType;
+	private String linkId;
 
-	public Product() {}
+	public Product() {
+		this.linkId = UUID.randomUUID().toString();
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -80,5 +84,13 @@ public class Product {
 
 	public void setProductType(Type productType) {
 		this.productType = productType;
+	}
+
+	public String getLinkId() {
+		return linkId;
+	}
+
+	public void setLinkId(String linkId) {
+		this.linkId = linkId;
 	}
 }

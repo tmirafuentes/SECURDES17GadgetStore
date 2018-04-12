@@ -9,6 +9,7 @@ edu\dlsu\securdeproject\security\brute_force_prevention\LoginAttemptService.clas
 edu\dlsu\securdeproject\repositories\TypeRepository.class
 edu\dlsu\securdeproject\validation\PasswordConstraintValidator.class
 edu\dlsu\securdeproject\security\brute_force_prevention\CustomAuthenticationSuccessHandler.class
+edu\dlsu\securdeproject\security\escapeInput\InputEscaper.class
 edu\dlsu\securdeproject\security\SecurityServiceInterface.class
 edu\dlsu\securdeproject\classes\Transaction.class
 edu\dlsu\securdeproject\security\brute_force_prevention\AuthenticationSuccessEventListener.class
