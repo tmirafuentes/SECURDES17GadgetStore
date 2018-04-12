@@ -182,6 +182,14 @@ public class ProductController {
         return "redirect:/admin";
     }
 
+    /*** Search for a Product ***/
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String viewProductResults(Model model, @RequestParam("searchString") String searchString) {
+
+        model.addAttribute("allProducts", productService.findProductsBySearch(searchString));
+        return "product/category";
+    }
+
     /***
      ***
         OTHER FUNCTIONS
