@@ -24,7 +24,7 @@
 <body>
 
     <!--Navbar-->
-    <%@ include file="../user/navbar.jsp" %>
+    <%@ include file="../admin/admin-navbar.jsp" %>
     
     <!--Body-->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
