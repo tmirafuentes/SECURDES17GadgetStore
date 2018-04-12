@@ -72,6 +72,25 @@ public class ProductService {
         ArrayList<Product> searchProds = (ArrayList<Product>) productRepository.findAllByProductNameContains(productName);
         return searchProds.iterator();
     }
+    /* Retrieve products by search */
+    public ArrayList<Product> findProductsBySearchArrayList(String productName) {
+        ArrayList<Product> searchProds = (ArrayList<Product>) productRepository.findAllByProductNameContains(productName);
+        return searchProds;
+    }
+    /* Retrieve products by min max price*/
+    public Iterator findProductsByPrice(double min, double max, String searched){
+        ArrayList<Product> filterProds = (ArrayList<Product>) productRepository.findAllByProductPriceGreaterThanEqualAndProductPriceLessThanEqual(min, max);
+        ArrayList<Product> searchedKeyProds = (ArrayList<Product>)findProductsBySearchArrayList(searched);
+
+        ArrayList<Product> toSendProds = new ArrayList<Product>();
+        for (Product t : searchedKeyProds) {
+            if(filterProds.contains(t)) {
+                toSendProds.add(t);
+            }
+        }
+
+        return toSendProds.iterator();
+    }
 
     /* Delete a product */
     public void deleteProduct(Product p) {

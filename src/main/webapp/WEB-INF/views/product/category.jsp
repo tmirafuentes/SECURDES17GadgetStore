@@ -30,12 +30,12 @@
             <div class="uk-width-1-5">
                 <div class="uk-panel uk-panel-box uk-panel-box-primary">
                     <h3>Filters</h3>
-                    <form id="formPrice" class="uk-form uk-form-stacked"> <!--TODO: Need to add action-->
+                    <form id="formPrice" class="uk-form uk-form-stacked"  action="${contextPath}/filter"> <!--TODO: Need to add action-->
                         <div class="uk-form-row">
                             <label for="scrollMin" class="uk-form-label" id="priceLabel">Budget</label>
                             <div class="uk-form-controls">
-                                <input type="number" id="scrollMin" min = "0" placeholder="min">
-                                <input type="number" id="scrollMax" min = "1" placeholder="max">
+                                <input type="number" id="scrollMin" name="scrollMin" min = "0" placeholder="min">
+                                <input type="number" id="scrollMax" name= "scrollMax"min = "1" placeholder="max">
                             </div>
                         </div>
                         <div class="uk-form-row">

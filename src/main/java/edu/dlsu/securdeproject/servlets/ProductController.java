@@ -2,6 +2,7 @@ package edu.dlsu.securdeproject.servlets;
 
 import edu.dlsu.securdeproject.classes.Brand;
 import edu.dlsu.securdeproject.classes.Product;
+import edu.dlsu.securdeproject.security.escapeInput.InputEscaper;
 import edu.dlsu.securdeproject.classes.Type;
 import edu.dlsu.securdeproject.classes.dtos.ProductDto;
 import edu.dlsu.securdeproject.security.SecurityService;
@@ -36,7 +37,8 @@ public class ProductController {
     /*** Extra Stuff ***/
     private MessageSource messages;
     private HttpServletRequest httpServletRequest;
-
+    private InputEscaper Iescape = new InputEscaper();
+    private String searched = "";
     /***
      ***
         URL MAPPING
@@ -179,10 +181,21 @@ public class ProductController {
     /*** Search for a Product ***/
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String viewProductResults(Model model, @RequestParam("searchString") String searchString) {
-
+        searchString = Iescape.inputToBeEscaped(searchString);
+        searched = searchString;
+        System.out.println(searchString);
         model.addAttribute("allProducts", productService.findProductsBySearch(searchString));
         return "product/category";
     }
+
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    public String viewProductFilter(Model model, @RequestParam("scrollMin") String scrollMin,  @RequestParam("scrollMax") String scrollMax) {
+        double MinPrice = Double.parseDouble(scrollMin);
+        double MaxPrice = Double.parseDouble(scrollMax);
+        model.addAttribute("allProducts", productService.findProductsByPrice(MinPrice, MaxPrice, searched));
+        return "product/category";
+    }
+
 
     /***
      ***
