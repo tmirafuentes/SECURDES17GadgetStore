@@ -29,7 +29,7 @@ public class MainController {
 		return "admin/admin";
 	}
 
-	@RequestMapping(value = "error", method = RequestMethod.GET)
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String errorPage(Model model) {
 		return "error";
 	}
