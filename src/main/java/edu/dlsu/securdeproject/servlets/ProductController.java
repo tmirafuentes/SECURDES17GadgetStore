@@ -98,28 +98,28 @@ public class ProductController {
     public String getDesktops(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Desktop"));
-        return "user/index";
+        return "product/category";
     }
 
     @RequestMapping(value = "/laptops", method = RequestMethod.GET)
     public String getLaptops(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Laptop"));
-        return "user/index";
+        return "product/category";
     }
 
     @RequestMapping(value = "/tablets", method = RequestMethod.GET)
     public String getTablets(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Tablet"));
-        return "user/index";
+        return "product/category";
     }
 
     @RequestMapping(value = "/mobiles", method = RequestMethod.GET)
     public String getMobiles(Model model)
     {
         model.addAttribute("allProducts", productService.findProductsByType("Mobile"));
-        return "user/index";
+        return "product/category";
     }
 
     /*** View a Product ***/
@@ -143,6 +143,14 @@ public class ProductController {
 
         model.addAttribute("message", messages.getMessage("message.deleteProduct", null, null));
         return "redirect:/admin";
+    }
+
+    /*** Search for a Product ***/
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String viewProductResults(Model model, @RequestParam("searchString") String searchString) {
+
+        model.addAttribute("allProducts", productService.findProductsBySearch(searchString));
+        return "product/category";
     }
 
     /***
