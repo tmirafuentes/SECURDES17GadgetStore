@@ -26,9 +26,9 @@
         </ul>
 
         <div class="uk-navbar-content uk-hidden-small">
-            <form class="uk-form uk-margin-remove uk-display-inline-block">
-                <input type="text" placeholder="Search products...">
-                <button class="uk-button uk-button-primary">Submit</button>
+            <form method="GET" action="${contextPath}/search" class="uk-form uk-margin-remove uk-display-inline-block">
+                <input id="search" name="searchString" type="text" placeholder="Search products...">
+                <button type="submit" class="uk-button uk-button-primary">Submit</button>
             </form>
         </div>
 
