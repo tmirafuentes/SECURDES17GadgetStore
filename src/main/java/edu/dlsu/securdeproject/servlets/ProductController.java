@@ -165,12 +165,6 @@ public class ProductController {
         return "product/view-product";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String viewProductResults(Model model, @RequestParam("searchString") String searchString) {
-        model.addAttribute("allProducts", productService.findProductsBySearch(searchString));
-        return "product/category";
-    }
-
     /*** Delete a Product ***/
     @RequestMapping(value = "/admin/delete-product", method = RequestMethod.GET)
     public String deleteProduct(Model model, @RequestParam("v") String viewId)
