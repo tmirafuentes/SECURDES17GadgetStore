@@ -67,8 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/laptops",
                              "/mobiles",
                              "/tablets",
-                             "/view-product",
-                             "/search"
+                             "/view-product"
                             ).permitAll()
                 .antMatchers("/account",
                              "/editAccount",

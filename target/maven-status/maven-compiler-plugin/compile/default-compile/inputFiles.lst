@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\classes\Product.java
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\validation\PasswordMatchesValidator.java
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\security\escapeInput\InputEscaper.java
@@ -48,54 +47,3 @@ C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17Gad
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\servlets\UserController.java
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\validation\InputEscaper.java
 C:\Users\Troy Mirafuentes\Documents\COLLEGE\[ACADS] TERM 8\SECURDE\SECURDES17GadgetStore\src\main\java\edu\dlsu\securdeproject\services\TransactionService.java
-=======
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/UserDetailsServiceImp.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/dtos/EmailDto.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/Role.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/TransactionRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/ValidPassword.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/PasswordTokenRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/UserService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/dtos/PasswordDto.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/Transaction.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/SecurityService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/servlets/MainController.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/BrandRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/InputEscaper.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/registration/OnRegistrationCompleteEvent.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/DataService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/dtos/ProductDto.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/brute_force_prevention/CustomAuthenticationFailureHandler.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/EmailValidator.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/UserRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/brute_force_prevention/AuthenticationSuccessEventListener.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/WebApplication.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/servlets/ProductController.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/escapeInput/InputEscaper.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/brute_force_prevention/CustomAuthenticationSuccessHandler.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/TransactionService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/RoleRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/PasswordMatches.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/dtos/UserDto.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/registration/RegistrationListener.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/servlets/TransactionController.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/Type.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/ValidEmail.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/Product.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/TypeRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/User.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/ProductService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/classes/Brand.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/servlets/UserController.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/password_recovery/PasswordResetToken.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/services/ValidationService.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/PasswordMatchesValidator.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/SecurityConfiguration.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/ProductRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/SecurityServiceInterface.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/validation/PasswordConstraintValidator.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/registration/VerificationToken.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/brute_force_prevention/AuthenticationFailureListener.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/repositories/VerificationTokenRepository.java
-/home/muonsei/Documents/GitHub/SECURDES17GadgetStore/src/main/java/edu/dlsu/securdeproject/security/brute_force_prevention/LoginAttemptService.java
->>>>>>> Stashed changes

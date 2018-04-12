@@ -68,9 +68,8 @@ public class ProductService {
     }
 
     /* Retrieve products by search */
-    public Iterator findProductsBySearch(String productName) {
-        ArrayList<Product> allProducts = (ArrayList<Product>) productRepository.findAllByProductNameContains(productName);
-        return allProducts.iterator();
+    public ArrayList<Product> findProductsBySearch(String productName) {
+        return (ArrayList<Product>) productRepository.findAllByProductNameContains(productName);
     }
 
     /* Delete a product */
