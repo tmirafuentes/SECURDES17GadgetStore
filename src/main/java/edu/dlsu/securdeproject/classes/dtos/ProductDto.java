@@ -11,11 +11,9 @@ public class ProductDto {
     private String productName;
 
     @NotNull
-    @NotEmpty
     private double productPrice;
 
     @NotNull
-    @NotEmpty
     private int productQuantity;
 
     @NotNull
@@ -29,6 +27,8 @@ public class ProductDto {
     @NotNull
     @NotEmpty
     private String productType;
+
+    private String linkId;
 
     private InputEscaper Iescape;
 
@@ -82,5 +82,13 @@ public class ProductDto {
 
     public void setProductType(String productType) {
         this.productType = productType;
+    }
+
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 }

@@ -27,7 +27,7 @@
         
         <!--Body-->
         <div class="uk-panel uk-panel-box uk-panel-space">
-            <h1 class="uk-text-center">Add New Product</h1>
+            <h1 class="uk-text-center">Edit Product</h1>
             <div class="uk-grid uk-grid-small">
                 <div class="uk-panel uk-panel-box uk-text-center uk-container-center uk-width-1-3">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -46,9 +46,10 @@
                                 <div class="uk-form-controls">
                                     <form:select path="productBrand" id="pBrand" name="brand" class="uk-form-width-large">
                                         <c:forEach var="item" items="${prodBrands}">
-                                            <form:option value="${item}">${item}</form:option>
+                                            <form:option value="${item}"><c:out value="${item}"/></form:option>
                                         </c:forEach>
                                     </form:select>
+                                    <form:errors path="productBrand"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
@@ -59,9 +60,10 @@
                                 <div class="uk-form-controls">
                                     <form:select path="productType" id="pType" name="productType" class="uk-form-width-large">
                                         <c:forEach var="item" items="${prodTypes}">
-                                            <form:option value="${item}">${item}</form:option>
+                                            <form:option value="${item}"><c:out value="${item}"/></form:option>
                                         </c:forEach>
                                     </form:select>
+                                    <form:errors path="productType"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
@@ -71,6 +73,7 @@
                                 <form:label path="productName" class="uk-form-label" for="productName">Product Name <span class="uk-text-danger">*</span></form:label>
                                 <div class="uk-form-controls">
                                     <form:input type="text" path="productName" id="pName" name="productName" class="uk-width-1-1"></form:input>
+                                    <form:errors path="productName"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
@@ -80,6 +83,7 @@
                                 <form:label path="productPrice" class="uk-form-label" for="productPrice">Product Price <span class="uk-text-danger">*</span></form:label>
                                 <div class="uk-form-controls">
                                     <form:input type="text" path="productPrice" id="pPrice" name="productPrice" class="uk-width-1-1"></form:input>
+                                    <form:errors path="productPrice"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
@@ -89,6 +93,7 @@
                                 <form:label path="productQuantity" class="uk-form-label" for="productQuantity">Product Quantity <span class="uk-text-danger">*</span></form:label>
                                 <div class="uk-form-controls">
                                     <form:input type="number" class="uk-width-1-1" path="productQuantity" id="pQuantity" name="productQuantity"></form:input>
+                                    <form:errors path="productQuantity"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
@@ -98,11 +103,13 @@
                                 <form:label path="productDescription" class="uk-form-label" for="productDescription">Product Description <span class="uk-text-danger">*</span></form:label>
                                 <div class="uk-form-controls">
                                     <form:textarea path="productDescription" id="pDesc" class="uk-width-1-1" name="productDescription"></form:textarea>
+                                    <form:errors path="productDescription"></form:errors>
                                 </div>
                             </div>
                         </spring:bind>
                         <!-------------Buttons--------------->
                         <div class="uk-form-row">
+                            ${message}
                             <input type="submit" value="Save" class="uk-button uk-button-primary">
                         </div>
                     </form:form>

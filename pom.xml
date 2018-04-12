@@ -94,7 +94,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
         </dependency>
-</dependencies>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

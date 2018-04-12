@@ -39,7 +39,7 @@ public class ProductService {
         newProd.setProductDescription(p.getProductDescription());
         newProd.setProductBrand(findBrandByName(p.getProductBrand()));
         newProd.setProductType(findTypeByName(p.getProductType()));
-        productRepository.save(newProd);
+        saveProduct(newProd);
     }
 
     public void saveProduct(Product p) {

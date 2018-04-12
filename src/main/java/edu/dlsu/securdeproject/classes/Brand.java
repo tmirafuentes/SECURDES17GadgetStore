@@ -7,7 +7,6 @@ import java.util.Set;
 public class Brand {
     private Long brandId;
     private String brandName;
-    private Set<Product> products;
 
     public Brand() {}
 
@@ -31,14 +30,5 @@ public class Brand {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
 }

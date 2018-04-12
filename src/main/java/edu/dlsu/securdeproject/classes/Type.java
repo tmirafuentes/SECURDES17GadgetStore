@@ -7,7 +7,6 @@ import java.util.Set;
 public class Type {
     private Long typeId;
     private String typeName;
-    private Set<Product> products;
 
     public Type() {}
 
@@ -31,14 +30,5 @@ public class Type {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
-    }
-
-    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
 }

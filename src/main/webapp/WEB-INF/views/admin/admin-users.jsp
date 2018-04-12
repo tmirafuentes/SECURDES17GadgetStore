@@ -43,7 +43,7 @@
                     <td><a href="#" class="uk-button uk-button-danger">Delete</a></td>
                     <td>
                         <c:choose>
-                            <c:when value="${not user.enabled}">
+                            <c:when test="${not user.enabled}">
                                 <a href="#" class="uk-button uk-button-success">Enable</a>
                             </c:when>
                             <c:otherwise>

@@ -51,7 +51,7 @@
                         <td><c:out value="${transaction.totalAmount}"/></td>
                         <td><c:out value="${transaction.status}"/></td>
                         <c:choose>
-                            <c:when value="${transaction.status}">
+                            <c:when test="${transaction.status}">
                                 <button type="submit" class="uk-button uk-button-danger">CANCEL</button>
                             </c:when>
                             <c:otherwise> <!--Disabled when canceled already-->

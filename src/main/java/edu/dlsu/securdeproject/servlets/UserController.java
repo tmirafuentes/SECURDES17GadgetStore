@@ -171,11 +171,14 @@ public class UserController {
 
 	/*** Sign in ***/
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String signInPage(Model model, String error, String logout) 
+	public String signInPage(Model model, String expired, String error, String logout)
 	{
 		/* Check if IP blocked */
 		if(loginAttemptService.isBlocked(getClientIP()))
 			return "redirect:/index";	// For error page
+
+		if(expired != null)
+			model.addAttribute("error", messages.getMessage("message.sessionExpired", null, null));
 
 		if (error != null)
 			model.addAttribute("error", messages.getMessage("message.badCredentials", null, null));

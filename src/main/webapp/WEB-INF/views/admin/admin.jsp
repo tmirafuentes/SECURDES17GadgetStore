@@ -28,31 +28,29 @@
     <!--Body-->
     <div class="uk-panel uk-panel-box-secondary uk-panel-space">
         <h1>Products</h1>
-        <a href="${contextPath}/add-product" class="uk-button uk-button-success uk-button-large">+ ADD NEW PRODUCT</a>
+        <a href="${contextPath}/admin/add-product" class="uk-button uk-button-success uk-button-large">+ ADD NEW PRODUCT</a>
         <form:form method="GET">
             <table class="uk-table">
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Qty</th>
-                    <!--<th>Brand</th>--><!--TODO: Fix brand-->
+                    <th>Brand</th>
                     <th>Description</th>
                     <th>Type</th>
                     <th></th>
                     <th></th>
                 </tr>
-                <c:forEach items="${products}" var="item">
+                <c:forEach items="${allProducts}" var="item">
                     <tr>
-                        <td><c:out value="${item.productId}"/></td>
                         <td><c:out value="${item.productName}"/></td>
                         <td><c:out value="${item.productPrice}"/></td>
                         <td><c:out value="${item.productQuantity}"/></td>
-                        <!--<td><c:out value="${item.productBrand}"/></td>--><!--TODO: Fix brand-->
+                        <td><c:out value="${item.productBrand.brandName}"/></td>
                         <td><c:out value="${item.productDescription}"/></td>
-                        <td><c:out value="${item.productType}"/></td>
-                        <td><a href="/delete-product?prodId=${item.productId}" class="uk-button uk-button-danger">Delete</a></td>
-                        <td><input type="text" value="${item.productId}" hidden="true" name="prodId"><a href="/edit-product?prodId=${item.productId}" class="uk-button">Edit</a></td>
+                        <td><c:out value="${item.productType.typeName}"/></td>
+                        <td><a href="/admin/edit-product?v=${item.linkId}" class="uk-button">Edit</a></td>
+                        <td><a href="/admin/delete-product?v=${item.linkId}" class="uk-button uk-button-danger">Delete</a></td>
                     </tr>
                 </c:forEach>
             </table>

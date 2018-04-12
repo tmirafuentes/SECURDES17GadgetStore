@@ -98,13 +98,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/signin")
                 .permitAll()
                 .and()
-            .exceptionHandling()
-                .accessDeniedPage("/error")
-                .and()
             .sessionManagement()
                 .sessionFixation().migrateSession()
-                .maximumSessions(2)
-                .expiredUrl("/session-expired");
+                .maximumSessions(1)
+                .expiredUrl("/signin?expired");
+        http.headers()
+                .xssProtection()
+                .and()
+                .cacheControl();
     }
 
     @Bean
