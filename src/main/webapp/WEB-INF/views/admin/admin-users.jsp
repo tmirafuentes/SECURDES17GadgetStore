@@ -9,6 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
@@ -35,11 +36,24 @@
                 <th></th>
                 <th></th>
             </tr>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${users}" var="user" varStatus="index">
                 <tr> <!--TODO: Add functionality-->
                     <td><c:out value="${user.username}"/></td>
-                    <td><c:out value="${user.lastSignIn}"/></td>
-                    <td><c:out value="${user.status}"/></td>
+                    <td><c:choose><c:when test="${not empty logins.get(index.index)} ">
+                        Hasn't logged in
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:formatDate value="${logins.get(index.index).time}" pattern="yyyy-MM-dd HH-mm-ss" />
+                        </c:otherwise>
+                    </c:choose></td>
+                    <td><c:choose>
+                        <c:when test="${user.enabled}">
+                            Active
+                        </c:when>
+                        <c:otherwise>
+                            Deactivated
+                        </c:otherwise>
+                    </c:choose></td>
                     <td><a href="#" class="uk-button uk-button-danger">Delete</a></td>
                     <td>
                         <c:choose>

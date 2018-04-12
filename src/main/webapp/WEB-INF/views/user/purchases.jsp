@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -54,11 +55,11 @@
                         </tr>
                         <c:forEach items="${purchases}" var="transaction">
                             <tr>
-                            <td><c:out value="${purchases.timestamp}"/></td>
-                            <td><c:out value="${purchases.product.productName}"/></td>
-                            <td><c:out value="${purchases.quantity}"/></td>
-                            <td><c:out value="${purchases.totalAmount}"/></td>
-                            <td><c:out value="${purchases.status}" /></td>
+                            <td><fmt:formatDate value="${transaction.timestamp.time}" pattern="yyyy-MM-dd HH-mm-ss" /></td>
+                            <td><c:out value="${transaction.product.productName}"/></td>
+                            <td><c:out value="${transaction.quantity}"/></td>
+                            <td><c:out value="${transaction.totalAmount}"/></td>
+                            <td><c:out value="${transaction.status}" /></td>
                         </tr>
                         </c:forEach>
                 </table>

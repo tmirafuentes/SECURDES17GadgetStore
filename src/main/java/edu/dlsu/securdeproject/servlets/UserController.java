@@ -49,8 +49,6 @@ public class UserController {
 	private LoginAttemptService loginAttemptService;
 	@Autowired
 	private UserDetailsService userDetailsService;
-	@Autowired
-	private AuthorLogService authorLogService;
 
 	/*** Extra Stuff ***/
 	@Autowired
@@ -324,6 +322,8 @@ public class UserController {
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String adminUsersPage(Model model) {
         model.addAttribute("users", userService.findAllUsers());
+        model.addAttribute("logins", userService.findAllLogins());
+
         return "admin/admin-users";
     }
 

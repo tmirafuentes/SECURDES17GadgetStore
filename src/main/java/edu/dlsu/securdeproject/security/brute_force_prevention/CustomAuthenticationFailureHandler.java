@@ -27,7 +27,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 	public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response,
 										final AuthenticationException exception) throws IOException, ServletException
 	{
-		authLogService.createNewLog((String)request.getSession().getAttribute("username"), (String)request.getSession().getAttribute("password"), false, request.getRemoteAddr());
+		authLogService.createNewLog((String)request.getSession().getAttribute("username"), false, request.getRemoteAddr());
 
 		if (exception.getMessage().equalsIgnoreCase("blocked"))
 			setDefaultFailureUrl("/index");

@@ -3,9 +3,11 @@ package edu.dlsu.securdeproject.services;
 import edu.dlsu.securdeproject.classes.Role;
 import edu.dlsu.securdeproject.classes.User;
 import edu.dlsu.securdeproject.classes.dtos.UserDto;
+import edu.dlsu.securdeproject.repositories.AuthLogRepository;
 import edu.dlsu.securdeproject.repositories.RoleRepository;
 import edu.dlsu.securdeproject.repositories.UserRepository;
 import edu.dlsu.securdeproject.security.SecurityService;
+import edu.dlsu.securdeproject.security.audit_trail.AuthLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -24,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private AuthLogRepository authLogRepository;
 
     /* Services */
     @Autowired
@@ -104,6 +109,22 @@ public class UserService {
     public Role findRoleByName(String name)
     {
         return roleRepository.findByName(name);
+    }
+
+    /*** Retrieve Last Log-ins ***/
+    public ArrayList<Calendar> findAllLogins() {
+        ArrayList<User> users = (ArrayList<User>) userRepository.findAll();
+        ArrayList<Calendar> timestamps = new ArrayList<Calendar>();
+
+        for(User user : users) {
+            ArrayList<AuthLog> log = authLogRepository.findByUsernameOrderByTimestampDesc(user.getUsername());
+            if (log.size() != 0)
+                timestamps.add(log.get(0).getTimestamp());
+            else
+                timestamps.add(null);
+        }
+
+        return timestamps;
     }
 
     /***
