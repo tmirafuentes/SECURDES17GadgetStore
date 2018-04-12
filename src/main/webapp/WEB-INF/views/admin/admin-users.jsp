@@ -33,13 +33,12 @@
                 <th>Username</th>
                 <th>Last Sign in</th>
                 <th>Status</th>
-                <th></th>
-                <th></th>
+                <th>Enable/Disable Account</th>
             </tr>
             <c:forEach items="${users}" var="user" varStatus="index">
                 <tr> <!--TODO: Add functionality-->
                     <td><c:out value="${user.username}"/></td>
-                    <td><c:choose><c:when test="${not empty logins.get(index.index)} ">
+                    <td><c:choose><c:when test="${empty logins.get(index.index)} ">
                         Hasn't logged in
                         </c:when>
                         <c:otherwise>
@@ -54,14 +53,13 @@
                             Deactivated
                         </c:otherwise>
                     </c:choose></td>
-                    <td><a href="#" class="uk-button uk-button-danger">Delete</a></td>
                     <td>
                         <c:choose>
                             <c:when test="${not user.enabled}">
-                                <a href="#" class="uk-button uk-button-success">Enable</a>
+                                <a href="${contextPath}/admin/accountEnable?a=${user.linkId}" class="uk-button uk-button-success">Enable</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="#" class="uk-button uk-button-danger">Disable</a>
+                                <a href="${contextPath}/admin/accountDisable?a=${user.linkId}" class="uk-button uk-button-danger">Disable</a>
                             </c:otherwise>
                         </c:choose>
                     </td>

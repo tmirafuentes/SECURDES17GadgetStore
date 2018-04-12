@@ -33,10 +33,9 @@
         <form method="POST" action="${contextPath}/cancelTransaction">
             <table class="uk-table">
                 <tr>
-                    <th>Trans ID</th>
                     <th>Timestamp</th>
-                    <th>Prod ID</th>
-                    <th>Cust ID</th>
+                    <th>Product</th>
+                    <th>Customer</th>
                     <th>Qty</th>
                     <th>Total Amt</th>
                     <th>Status</th>
@@ -44,16 +43,23 @@
                 </tr>
                 <c:forEach items="${transactions}" var="transaction">
                     <tr>
-                        <td><c:out value="${transaction.transactionId}"/></td>
                         <td><fmt:formatDate value="${transaction.timestamp.time}" pattern="yyyy-MM-dd HH-mm-ss" /></td>
                         <td><c:out value="${transaction.product.productName}"/></td>
                         <td><c:out value="${transaction.user.username}"></c:out></td>
                         <td><c:out value="${transaction.quantity}"/></td>
                         <td><c:out value="${transaction.totalAmount}"/></td>
-                        <td><c:out value="${transaction.status}"/></td>
+                        <td><c:choose>
+                                <c:when test="${transaction.status}">
+                                    In Transit/Shipped
+                                </c:when>
+                                <c:otherwise>
+                                    Cancelled
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <c:choose>
                             <c:when test="${transaction.status}">
-                                <button type="submit" class="uk-button uk-button-danger">CANCEL</button>
+                                <a href="${contextPath}/admin/override?p=${transaction.linkId}" class="uk-button uk-button-danger">CANCEL</a>
                             </c:when>
                             <c:otherwise> <!--Disabled when canceled already-->
                                 <button type="submit" class="uk-button uk-button-danger" disabled>CANCEL</button>

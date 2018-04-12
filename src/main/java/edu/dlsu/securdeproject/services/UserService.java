@@ -85,6 +85,8 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User findUserByLink(String link) { return userRepository.findByLinkId(link);}
+
     /*** Retrieve all Users ***/
     public Iterator findAllUsers()
     {
@@ -96,6 +98,20 @@ public class UserService {
     public void saveNewPassword(User user, String password)
     {
         user.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(user);
+    }
+
+    /*** Enable User ***/
+    public void enableUser(User user)
+    {
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    /*** Disable User ***/
+    public void disableUser(User user)
+    {
+        user.setEnabled(false);
         userRepository.save(user);
     }
 

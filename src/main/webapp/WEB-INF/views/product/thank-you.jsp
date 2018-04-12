@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td>${total}</td>
+                            <td>PHP ${total}</td>
                         </tr>
                         <tr>
                             <td>Current Mailing Address</td>

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes({"product", "quantity", "user"})
+@SessionAttributes({"product", "quantity", "user", "total"})
 public class TransactionController {
     /* Services */
     @Autowired
@@ -113,6 +113,14 @@ public class TransactionController {
     @RequestMapping(value = "/thank-you", method = RequestMethod.GET)
     public String thankYouPage(Model model) {
         return "product/thank-you";
+    }
+
+    @RequestMapping(value = "/admin/override", method = RequestMethod.GET)
+    public String overridePurchase(Model model, @RequestParam("p") String link) {
+        Transaction t = transactionService.findTransactionByLink(link);
+        transactionService.overridePurchase(t);
+
+        return "redirect:/admin/trans";
     }
 
     /***

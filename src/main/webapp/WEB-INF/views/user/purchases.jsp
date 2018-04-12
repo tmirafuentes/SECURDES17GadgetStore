@@ -5,10 +5,11 @@
   Time: 2:18 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -55,11 +56,18 @@
                         </tr>
                         <c:forEach items="${purchases}" var="transaction">
                             <tr>
-                            <td><fmt:formatDate value="${transaction.timestamp.time}" pattern="yyyy-MM-dd HH-mm-ss" /></td>
+                            <td><fmt:formatDate value="${transaction.timestamp.time}" pattern="yyyy-MM-dd HH-mm-ss" ></fmt:formatDate></td>
                             <td><c:out value="${transaction.product.productName}"/></td>
                             <td><c:out value="${transaction.quantity}"/></td>
                             <td><c:out value="${transaction.totalAmount}"/></td>
-                            <td><c:out value="${transaction.status}" /></td>
+                            <td><c:choose>
+                                <c:when test="${transaction.status}">
+                                    In Transit/Shipped
+                                </c:when>
+                                <c:otherwise>
+                                    Cancelled
+                                </c:otherwise>
+                            </c:choose></td>
                         </tr>
                         </c:forEach>
                 </table>

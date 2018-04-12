@@ -41,6 +41,10 @@ public class TransactionService {
         return (Transaction) transactionRepository.findByTransactionId(transId);
     }
 
+    public Transaction findTransactionByLink(String link) {
+        return (Transaction) transactionRepository.findByLinkId(link);
+    }
+
     /* Retrieve specific transaction by User */
     public ArrayList<Transaction> findTransactionsByUser(User u) {
         return (ArrayList<Transaction>) transactionRepository.findAllByUser(u);
@@ -49,6 +53,11 @@ public class TransactionService {
     /* Retrieve all transactions */
     public ArrayList<Transaction> findAllTransactions() {
         return (ArrayList<Transaction>) transactionRepository.findAll();
+    }
+
+    public void overridePurchase(Transaction t) {
+        t.setStatus(false);
+        transactionRepository.save(t);
     }
 
     /* Delete a transaction */

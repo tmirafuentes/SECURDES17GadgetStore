@@ -5,6 +5,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Audited
@@ -16,6 +17,11 @@ public class Transaction {
     private double totalAmount;
     private Calendar timestamp;
     private boolean status;
+    private String linkId;
+
+    public Transaction(){
+        this.linkId = UUID.randomUUID().toString();
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -79,6 +85,14 @@ public class Transaction {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 }
  

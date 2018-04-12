@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Audited
@@ -23,12 +24,14 @@ public class User {
 	private Date birthdate;
 	private String mobileNumber;
 	private boolean enabled;
+	private String linkId;
 	private Set<Transaction> transactions;
 	private Set<Role> roles;
 
 	public User() {
 		super();
 		this.enabled = false;
+		this.linkId = UUID.randomUUID().toString();
 	}
 
 	@Id
@@ -135,5 +138,13 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getLinkId() {
+		return linkId;
+	}
+
+	public void setLinkId(String linkId) {
+		this.linkId = linkId;
 	}
 }

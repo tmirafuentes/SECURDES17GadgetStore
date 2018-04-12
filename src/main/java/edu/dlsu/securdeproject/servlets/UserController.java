@@ -327,6 +327,24 @@ public class UserController {
         return "admin/admin-users";
     }
 
+    /*** Enable User ***/
+    @RequestMapping(value = "/admin/accountEnable", method = RequestMethod.GET)
+	public String adminEnableUser(Model model, @RequestParam("a") String link) {
+    	User user = userService.findUserByLink(link);
+    	userService.enableUser(user);
+
+    	return "redirect:/admin/users";
+	}
+
+	/*** Disable User ***/
+	@RequestMapping(value = "/admin/accountDisable", method = RequestMethod.GET)
+	public String adminDisableUser(Model model, @RequestParam("a") String link) {
+		User user = userService.findUserByLink(link);
+		userService.disableUser(user);
+
+		return "redirect:/admin/users";
+	}
+
 	protected String getClientIP() {
 		String xfHeader = request.getHeader("X-Forwarded-For");
 		if (xfHeader == null)
