@@ -35,7 +35,7 @@
 
                         <!--Current Password-->
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="newpassword" >Current Password</label>
+                            <label class="uk-form-label" for="currpassword" >Current Password</label>
                             <div class="uk-form-controls">
                                 <input type="password" name="currPass" id="currpassword" autofocus="true" class="uk-width-1-1"/>
                             </div>
@@ -43,7 +43,11 @@
 
                         <!--New Password-->
                         <div class="uk-form-row">
+<<<<<<< HEAD
                             <form:label class="uk-form-label" path="password" for="form-h-it">New Password</form:label>
+=======
+                            <label class="uk-form-label" for="newpassword">New Password</label>
+>>>>>>> 631bb9747b2f3618f408a11475a879793398ba70
                             <div class="uk-form-controls">
                                 <spring:bind path="password">
                                     <form:input type="password" path="password" class="uk-width-1-1"></form:input>

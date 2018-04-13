@@ -23,13 +23,6 @@
             <li><a href="${contextPath}/admin/trans">Transactions</a></li>
         </ul>
 
-        <div class="uk-navbar-content uk-hidden-small">
-            <form class="uk-form uk-margin-remove uk-display-inline-block">
-                <input type="text" placeholder="Search products...">
-                <button class="uk-button uk-button-primary">Submit</button>
-            </form>
-        </div>
-
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
                 <!--Log out-->

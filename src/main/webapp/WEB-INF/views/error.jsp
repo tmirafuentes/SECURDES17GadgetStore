@@ -18,17 +18,17 @@
     <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-    <!--Navbar-->
-    <%@ include file="user/navbar.jsp" %>
-        
-    <div class="uk-panel uk-panel-box-secondary uk-panel-space">
-        <div class="uk-alert uk-alert-large">
-            <h1>Uh-oh! An error came up.</h1>
-            <p>Sorry, we cannot find the page that you were looking for. Try again or <a href="index" class="uk-button uk-button-primary">GO BACK TO HOME</a></p>
-        </div>
-    </div>
+<!--Navbar-->
+<%@ include file="user/navbar.jsp" %>
 
-    <!--Footer-->
-    <%@ include file="user/footer.jsp" %>
+<div class="uk-panel uk-panel-box-secondary uk-panel-space">
+    <div class="uk-alert uk-alert-large">
+        <h1>Uh-oh! An error came up.</h1>
+        <p>Sorry, we cannot find the page that you were looking for. Try again or <a href="index" class="uk-button uk-button-primary">GO BACK TO HOME</a></p>
+    </div>
+</div>
+
+<!--Footer-->
+<%@ include file="user/footer.jsp" %>
 </body>
 </html>
