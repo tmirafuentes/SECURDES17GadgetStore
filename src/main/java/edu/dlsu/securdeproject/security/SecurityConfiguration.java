@@ -59,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/signup-resend-email",
                              "/forgot-password",
                              "/forgot-password-confirm",
+                             "/confirm-password",
                              "/reset-password",
                              "/reset-password-success",
                              "/signin",

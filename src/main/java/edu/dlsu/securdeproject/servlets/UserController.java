@@ -201,14 +201,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String editAccountSubmit(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) 
+	public String editAccountSubmit(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model)
 	{
 		/* If error, redirect */
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("error", messages.getMessage("message.accountUpdate", null, null));
+			//model.addAttribute("error", messages.getMessage("message.accountUpdate", null, null));
 			model.addAttribute("userForm", userForm);
 			return "user/account";
 		}
+
+		userForm.setUserId(userService.retrieveUser().getUserId());
 
 		/* Save changes */
 		userService.saveUser(userForm);
