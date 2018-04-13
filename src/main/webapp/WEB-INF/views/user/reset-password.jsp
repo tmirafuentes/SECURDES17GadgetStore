@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="uk-form-row">
-                    <button type="submit" class="uk-button uk-button-primary">CHANGE PASSWORD</button> <!--TODO: Add functionality-->
+                    <button type="submit" class="uk-button uk-button-primary">RESET PASSWORD</button> <!--TODO: Add functionality-->
                 </div>
             </form:form>
         </div>

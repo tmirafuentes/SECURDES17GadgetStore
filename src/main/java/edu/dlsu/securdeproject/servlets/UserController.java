@@ -250,7 +250,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/reset-password", method = RequestMethod.GET)
-	public String changePasswordPage(Model model, @RequestParam("id") Long id, @RequestParam("token") String token) 
+	public String resetPasswordPage(Model model, @RequestParam("id") Long id, @RequestParam("token") String token)
 	{
 		/* Validate Password Reset Token */
 		String result = securityService.validatePasswordResetToken(id, token);
@@ -264,7 +264,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
-	public String changePasswordSubmit(Model model, @ModelAttribute("passwords") @Valid PasswordDto passwords, BindingResult bindingResult)
+	public String resetPasswordSubmit(Model model, @ModelAttribute("passwords") @Valid PasswordDto passwords, BindingResult bindingResult)
 	{
 		if(!passwords.getPassword().equals(passwords.getPasswordConfirm()))
 			bindingResult.rejectValue("passwordConfirm", messages.getMessage("message.passwordConfirmNotMatch", null, null));
@@ -284,6 +284,41 @@ public class UserController {
 	@RequestMapping(value = "/reset-password-success", method = RequestMethod.GET)
 	public String resetPasswordSuccessPage(Model model) {
 		return "user/reset-password-success";
+	}
+
+	/*** Change Password ***/
+	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
+	public String changePasswordPage(Model model) {
+		model.addAttribute("passwords", new PasswordDto());
+
+		return "/user/change-password";
+	}
+
+	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
+	public String changePasswordSubmit(Model model, @RequestParam("currPass") String currentPassword,
+									   @ModelAttribute("passwords") @Valid PasswordDto passwords, BindingResult bindingResult)
+	{
+		/* Retrieve User */
+		User user = userService.findUserByUsername(securityService.findLoggedInUsername());
+
+		/* Re-authenticate */
+		if (!securityService.authenticateAccount(user.getUsername(), currentPassword)) {
+			//model.addAttribute("message", messages.getMessage("message.badCredentials",null, null));
+			return "user/change-password";
+		}
+
+		if(!passwords.getPassword().equals(passwords.getPasswordConfirm()))
+			bindingResult.rejectValue("passwordConfirm", messages.getMessage("message.passwordConfirmNotMatch", null, null));
+
+		/* Check if any errors */
+		if(bindingResult.hasErrors()) {
+			return "user/reset-password";
+		}
+
+		/* Save New Password */
+		//User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userService.saveNewPassword(user, passwords.getPassword());
+		return "redirect:/account";
 	}
 
 	/*** Create New Admin (Pwedeng Waley) ***/

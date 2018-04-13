@@ -61,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/forgot-password-confirm",
                              "/reset-password",
                              "/reset-password-success",
+                             "/change-password",
                              "/confirm-password",
                              "/signin",
                              "/desktops",

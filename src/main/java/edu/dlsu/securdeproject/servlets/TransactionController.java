@@ -97,7 +97,6 @@ public class TransactionController {
         /* Re-authenticate */
         if (!securityService.authenticateAccount(user.getUsername(), password)) {
             //model.addAttribute("message", messages.getMessage("message.badCredentials",null, null));
-            System.out.println("Oh no");
             return "user/buy-product";
         }
 

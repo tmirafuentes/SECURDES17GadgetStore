@@ -161,7 +161,7 @@ public class ProductController {
     {
         Product p = productService.findProductByLink(viewId);
         if (p == null)
-            return "redirect:/error";
+            return "product/view-product";
 
         model.addAttribute("product", p);
         return "product/view-product";
@@ -183,7 +183,6 @@ public class ProductController {
     public String viewProductResults(Model model, @RequestParam("searchString") String searchString) {
         searchString = Iescape.inputToBeEscaped(searchString);
         searched = searchString;
-        System.out.println(searchString);
         model.addAttribute("allProducts", productService.findProductsBySearch(searchString));
         return "product/category";
     }

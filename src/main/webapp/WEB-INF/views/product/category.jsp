@@ -76,7 +76,7 @@
                                 <h3><c:out value="${item.productPrice}"/></h3>
                                 <form id="formUser"> <!--TODO: Need to add action-->
                                     <input type="text" value="${pageContext.request.userPrincipal.name}" hidden="true" name="customerName">
-                                    <a href="/viewProduct?prodId=${item.productId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
+                                    <a href="/view-product?v=${item.linkId}" class="uk-button uk-button-primary" >VIEW DETAILS</a>
                                 </form>
                             </div></li>
                         </c:forEach>
