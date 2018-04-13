@@ -57,14 +57,16 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <c:choose>
-                            <c:when test="${transaction.status}">
-                                <a href="${contextPath}/admin/override?p=${transaction.linkId}" class="uk-button uk-button-danger">CANCEL</a>
-                            </c:when>
-                            <c:otherwise> <!--Disabled when canceled already-->
-                                <button type="submit" class="uk-button uk-button-danger" disabled>CANCEL</button>
-                            </c:otherwise>
-                        </c:choose>
+                        <td>
+                            <c:choose>
+                                <c:when test="${transaction.status}">
+                                    <a href="${contextPath}/admin/override?p=${transaction.linkId}" class="uk-button uk-button-danger">CANCEL</a>
+                                </c:when>
+                                <c:otherwise> <!--Disabled when canceled already-->
+                                    <button type="submit" class="uk-button uk-button-danger" disabled>CANCEL</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>

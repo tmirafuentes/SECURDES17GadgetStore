@@ -32,7 +32,7 @@
 
                         <!--Current Password-->
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="newpassword" >Current Password</label>
+                            <label class="uk-form-label" for="currpassword" >Current Password</label>
                             <div class="uk-form-controls">
                                 <input type="password" name="currpassword" id="currpassword" autofocus="true" class="uk-width-1-1"/>
                             </div>
@@ -40,7 +40,7 @@
 
                         <!--New Password-->
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="password">New Password</label>
+                            <label class="uk-form-label" for="newpassword">New Password</label>
                             <div class="uk-form-controls">
                                 <input type="password" name="password" id="newpassword" class="uk-width-1-1"/>
                             </div>
