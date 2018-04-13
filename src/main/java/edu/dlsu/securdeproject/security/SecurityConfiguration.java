@@ -61,8 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/forgot-password-confirm",
                              "/reset-password",
                              "/reset-password-success",
-                             "/change-password",
-                             "/confirm-password",
                              "/signin",
                              "/desktops",
                              "/laptops",
@@ -76,7 +74,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                              "/editAccount",
                              "/buy-product",
                              "/thank-you",
-                             "/purchases"
+                             "/purchases",
+                             "/change-password"
                             ).hasRole("USER")
                 .antMatchers("/admin",
                              "/admin/products",

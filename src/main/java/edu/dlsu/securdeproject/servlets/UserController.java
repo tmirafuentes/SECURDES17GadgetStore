@@ -308,11 +308,11 @@ public class UserController {
 		}
 
 		if(!passwords.getPassword().equals(passwords.getPasswordConfirm()))
-			bindingResult.rejectValue("passwordConfirm", messages.getMessage("message.passwordConfirmNotMatch", null, null));
+			bindingResult.rejectValue("passwordConfirm", "Password does not match");
 
 		/* Check if any errors */
 		if(bindingResult.hasErrors()) {
-			return "user/reset-password";
+			return "user/change-password";
 		}
 
 		/* Save New Password */
