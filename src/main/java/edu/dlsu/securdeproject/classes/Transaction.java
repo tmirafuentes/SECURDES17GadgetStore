@@ -1,40 +1,49 @@
 package edu.dlsu.securdeproject.classes;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
+@Audited
 public class Transaction { 
-    private long transactionId;
-    private Customer customer;
+    private Long transactionId;
+    private User user;
     private Product product;
     private int quantity;
     private double totalAmount;
     private Calendar timestamp;
     private boolean status;
+    private String linkId;
+
+    public Transaction(){
+        this.linkId = UUID.randomUUID().toString();
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public long getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(long transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    public Customer getCustomer() {
-        return customer;
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     public Product getProduct() {
         return product;
@@ -76,6 +85,14 @@ public class Transaction {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 }
  

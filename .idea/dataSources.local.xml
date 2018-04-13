@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="jdbc:hsqldb:file:C:/Users/Troy Mirafuentes/Documents/COLLEGE/[ACADS] TERM 8/SECURDE/SECURDES17GadgetStore/src/main/resources/static/sql\data.sql/" uuid="c95da0cd-7984-46d4-935a-c385bb9d17a9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+    </data-source>
+  </component>
+</project>

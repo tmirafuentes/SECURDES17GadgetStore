@@ -1,32 +1,34 @@
 package edu.dlsu.securdeproject.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Brand {
-	private long brandId;
-	private String brandName;
+    private Long brandId;
+    private String brandName;
 
-	public Brand() {}
+    public Brand() {}
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public long getBrandId() {
-		return brandId;
-	}
+    public Brand(String brandName) {
+        this.brandName = brandName;
+    }
 
-	public void setBrandId(long productId) {
-		this.brandId = brandId;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getBrandId() {
+        return brandId;
+    }
 
-	public String getBrandName() {
-		return brandName;
-	}
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
+    }
 
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
-	}
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
 }

@@ -9,21 +9,26 @@
 <%@ page isErrorPage="true" %>
 <html>
 <head>
-    <title>Troy's Toys</title>
-    <c:url value="/resources/static/css/index.css" var="jstlCss" />
+    <c:url value="/css/uikit.css" var="jstlCss" />
     <link rel="stylesheet" type="text/css" href="${jstlCss}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <meta charset="UTF-8">
+    <title>Troy's Toys</title>
+    <script src="uikit.min.js"></script>
+    <script src="uikit-icons.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<%@ include file="navbar.jsp" %>
-<div class="heading">
-    <h1>Uh-oh! An error came up.</h1>
+<!--Navbar-->
+<%@ include file="user/navbar.jsp" %>
+
+<div class="uk-panel uk-panel-box-secondary uk-panel-space">
+    <div class="uk-alert uk-alert-large">
+        <h1>Uh-oh! An error came up.</h1>
+        <p>Sorry, we cannot find the page that you were looking for. Try again or <a href="index" class="uk-button uk-button-primary">GO BACK TO HOME</a></p>
+    </div>
 </div>
-<div style="margin-left:20px; margin-right:20px; margin-bottom:20px;">
-    <p>Sorry, we cannot find the page that you were looking for.
-        Try again or <a href="/index" class="bluebtn-allcaps">GO BACK TO HOME</a></p>
-</div>
-<%@ include file="footer.jsp" %>
+
+<!--Footer-->
+<%@ include file="user/footer.jsp" %>
 </body>
 </html>
